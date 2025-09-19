@@ -1,0 +1,81 @@
+"use client";
+
+import { useState } from "react";
+
+export default function ClientForm() {
+  const [form, setForm] = useState({ name: "", surname: "", email: "", company: "" });
+  const [openForm, setOpenForm] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/api/clients", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    if (res.ok) {
+      setForm({ name: "", surname: "", email: "", company: "" });
+      fetchClients();
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 rounded shadow-md">
+        <div className="flex items-center mb-4 gap-4">
+            <h3 className="text-xl font-bold text-gray-800">Ajouter un client</h3>
+            <button
+                type="button"
+                onClick={() => {
+                    if (openForm) {
+                        setForm({ name: "", surname: "", email: "", company: "" });
+                    }
+                    setOpenForm(!openForm)
+                }}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+            {openForm ? "Fermer" : "Nouveau"}
+            </button>
+        </div>
+        {openForm &&
+            <>
+                <input
+                  type="text"
+                  placeholder="Nom"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="w-full p-2 border rounded text-gray-800"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Prénom"
+                  value={form.surname}
+                  onChange={(e) => setForm({ ...form, surname: e.target.value })}
+                  className="w-full p-2 border rounded text-gray-800"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full p-2 border rounded text-gray-800"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Entreprise"
+                  value={form.company}
+                  onChange={(e) => setForm({ ...form, company: e.target.value })}
+                  className="w-full p-2 border rounded text-gray-800"
+                />
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                  Créer
+                </button>
+            </>
+        }
+      </form>
+    </div>
+  );
+}
