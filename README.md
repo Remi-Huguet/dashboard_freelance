@@ -1,5 +1,5 @@
 # My-Routines-App  
-A web app to manage and track personal routines & goals, in Next.js.
+A web app to manage and track personal routines & goals, in Next.Js using TypeScript and Prisma.
 
 # Description  
 This project is a platform where users can:  

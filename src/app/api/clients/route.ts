@@ -1,30 +1,39 @@
 import prisma from "@/lib/prisma";
 
-export async function POST(req) {
+interface ClientBody {
+  name: string;
+  surname: string;
+  email: string;
+  company?: string | null;
+}
+
+export async function POST(req: Request): Promise<Response> {
   try {
-    const body = await req.json();
+    const body: ClientBody = await req.json();
+
     const client = await prisma.client.create({
       data: {
         name: body.name,
         surname: body.surname,
         email: body.email,
-        company: body.company || null,
+        company: body.company ?? null,
       },
     });
 
     return new Response(JSON.stringify(client), { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }
 
-export async function GET() {
+export async function GET(): Promise<Response> {
   try {
     const clients = await prisma.client.findMany({
       orderBy: { createdAt: "desc" },
     });
+
     return new Response(JSON.stringify(clients), { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }
