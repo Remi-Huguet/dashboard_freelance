@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, JSX } from "react";
+import ClientCard from "./ClientCard";
 
 interface Client {
   id: string;
@@ -32,9 +33,7 @@ export default function ClientsList(): JSX.Element {
         ) : (
           <ul className="space-y-1">
             {clients.map((c) => (
-              <li key={c.id} className="border-b py-1 text-gray-800">
-                {c.name} {c.surname} - {c.email} {c.company && `(${c.company})`}
-              </li>
+              <ClientCard client={c} key={c.id} />
             ))}
           </ul>
         )}

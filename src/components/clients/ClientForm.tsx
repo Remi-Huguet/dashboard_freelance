@@ -29,7 +29,7 @@ export default function ClientForm(): JSX.Element {
     });
 
     if (res.ok) {
-      setForm({ name: "", surname: "", email: "", company: "" });
+      window.location.reload();
     }
   };
 
@@ -39,7 +39,7 @@ export default function ClientForm(): JSX.Element {
         onSubmit={handleSubmit}
         className="space-y-4 bg-white p-4 rounded shadow-md"
       >
-        <div className="flex items-center mb-4 gap-4">
+        <div className="flex items-center gap-4">
           <h3 className="text-xl font-bold text-gray-800">Ajouter un client</h3>
           <button
             type="button"
@@ -49,9 +49,9 @@ export default function ClientForm(): JSX.Element {
               }
               setOpenForm(!openForm);
             }}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
           >
-            {openForm ? "Fermer" : "Nouveau"}
+            {openForm ? "Fermer" : "Nouveau Client"}
           </button>
         </div>
 

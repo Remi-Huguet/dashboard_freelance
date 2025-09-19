@@ -22,8 +22,8 @@ export async function GET(req: Request, { params }: { params: Params }): Promise
     }
 
     return new Response(JSON.stringify(client), { status: 200 });
-  } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  } catch (error: unknown) {
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
   }
 }
 
@@ -42,8 +42,8 @@ export async function PUT(req: Request, { params }: { params: Params }): Promise
     });
 
     return new Response(JSON.stringify(client), { status: 200 });
-  } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  } catch (error: unknown) {
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
   }
 }
 
@@ -54,7 +54,7 @@ export async function DELETE(req: Request, { params }: { params: Params }): Prom
     });
 
     return new Response(JSON.stringify({ message: "Client deleted" }), { status: 200 });
-  } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  } catch (error: unknown) {
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
   }
 }
