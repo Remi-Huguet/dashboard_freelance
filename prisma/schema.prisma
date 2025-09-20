@@ -16,3 +16,11 @@ model Client {
   company   String?
   createdAt DateTime @default(now())
 }
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  status      String   @default("Not Started")
+  clientId    String
+  createdAt   DateTime @default(now())
+}

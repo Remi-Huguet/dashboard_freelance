@@ -59,7 +59,7 @@ export default function ClientForm(): JSX.Element {
           <>
             <input
               type="text"
-              placeholder="Nom"
+              placeholder="Nom *"
               value={form.name}
               onChange={(e) =>
                 setForm({ ...form, name: e.target.value })
@@ -69,7 +69,7 @@ export default function ClientForm(): JSX.Element {
             />
             <input
               type="text"
-              placeholder="Prénom"
+              placeholder="Prénom *"
               value={form.surname}
               onChange={(e) =>
                 setForm({ ...form, surname: e.target.value })
@@ -79,7 +79,7 @@ export default function ClientForm(): JSX.Element {
             />
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Email *"
               value={form.email}
               onChange={(e) =>
                 setForm({ ...form, email: e.target.value })
@@ -98,7 +98,7 @@ export default function ClientForm(): JSX.Element {
             />
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             >
               Créer
             </button>
