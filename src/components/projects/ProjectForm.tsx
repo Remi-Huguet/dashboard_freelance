@@ -1,11 +1,20 @@
 "use client";
 
 import { useState, FormEvent, JSX, useEffect } from "react";
+import { useApi } from "@/hooks/useApi";
 
 interface ProjectFormData {
   name: string;
   status: string;
   clientId: string;
+}
+
+interface ClientData {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  company?: string;
 }
 
 export default function ProjectForm(): JSX.Element {
@@ -16,17 +25,12 @@ export default function ProjectForm(): JSX.Element {
     });
     
     const [openForm, setOpenForm] = useState(false);
-    const [clients, setClients] = useState([]);
-
-    useEffect(() => {
-        const fetchClients = async () => {
-            const res = await fetch("/api/clients");
-            const data = await res.json();
-            setClients(data);
-        };
-
-        fetchClients();
-    }, []);
+    const { data, loading, isSuccess, isError, request } = useApi<ClientData[]>();
+    
+      useEffect(() => {
+        request("/api/clients", "GET");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -84,11 +88,11 @@ export default function ProjectForm(): JSX.Element {
                             required
                         >
                             <option value="" disabled>
-                                Sélectionner le statut *
+                                Sélectionner un statut *
                             </option>
-                            <option value="Not Started">Non commencé</option>
-                            <option value="In Progress">En cours</option>
-                            <option value="Completed">Terminé</option>
+                            <option value="Non commencé">Non commencé</option>
+                            <option value="En cours">En cours</option>
+                            <option value="Terminé">Terminé</option>
                         </select>
                         <select
                             value={formData.clientId}
@@ -101,11 +105,20 @@ export default function ProjectForm(): JSX.Element {
                             <option value="" disabled>
                                 Sélectionner un client *
                             </option>
-                            {clients.map((client: { id: string; name: string; surname: string }) => (
-                                <option key={client.id} value={client.id}>
-                                    {client.name} {client.surname}
-                                </option>
-                            ))}
+                            {loading && <option>Loading...</option>}
+                            {!loading && isError && <option>Error loading clients</option>}
+                            {!loading && isSuccess && data && data.length === 0 && (
+                                <option>No clients available</option>
+                            )}
+                            {!loading && isSuccess && data && data.length > 0 && (
+                                <>
+                                    {data.map((client: ClientData) => (
+                                        <option key={client.id} value={client.id}>
+                                            {client.name} {client.surname}
+                                        </option>
+                                    ))}
+                                </>
+                            )}
                         </select>
                         <button
                           type="submit"

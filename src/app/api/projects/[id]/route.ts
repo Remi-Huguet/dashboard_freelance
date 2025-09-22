@@ -17,12 +17,12 @@ export async function GET(req: Request, { params }: { params: Params }): Promise
     });
 
     if (!project) {
-      return new Response(JSON.stringify({ error: "Project not found" }), { status: 404 });
+      return new Response(JSON.stringify({ error: "Pas de projet trouvé" }), { status: 404 });
     }
 
     return new Response(JSON.stringify(project), { status: 200 });
   } catch (error: unknown) {
-    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
 }
 
@@ -41,7 +41,7 @@ export async function PUT(req: Request, { params }: { params: Params }): Promise
 
     return new Response(JSON.stringify(project), { status: 200 });
   } catch (error: unknown) {
-    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
 }
 
@@ -51,8 +51,8 @@ export async function DELETE(req: Request, { params }: { params: Params }): Prom
       where: { id: params.id },
     });
 
-    return new Response(JSON.stringify({ message: "Project deleted" }), { status: 200 });
+    return new Response(JSON.stringify({ message: "Projet supprimé" }), { status: 200 });
   } catch (error: unknown) {
-    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
 }

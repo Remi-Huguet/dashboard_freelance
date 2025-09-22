@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent, JSX } from "react";
+import { useApi } from "@/hooks/useApi";
 
 interface ClientFormData {
   name: string;
@@ -18,19 +19,12 @@ export default function ClientForm(): JSX.Element {
   });
 
   const [openForm, setOpenForm] = useState(false);
+  const { request } = useApi<undefined>();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await fetch("/api/clients", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-
-    if (res.ok) {
-      window.location.reload();
-    }
+    request("/api/clients", "POST", form, () => window.location.reload(), "Client créé avec succès");
   };
 
   return (

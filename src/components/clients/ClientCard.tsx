@@ -1,4 +1,8 @@
+"use client";
+
 import { useState, FormEvent, JSX } from "react";
+import DeleteClient from "./DeleteClient";
+import { useApi } from "@/hooks/useApi";
 
 interface ClientData {
     id: string;
@@ -21,32 +25,16 @@ export default function ClientCard({ client }: ClientCardProps): JSX.Element {
         company: client.company,
     });
     const [editMode, setEditMode] = useState(false);
-
-    const deleteClient = async () => {
-        const res = await fetch(`/api/clients/${client.id}`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-        });
-        if (res.ok) {
-            window.location.reload();
-        }
-    }
+    const { request } = useApi<undefined>();
 
     return (
         <div>
             <li className="border-b py-1 text-gray-800">
                 {editMode ? (
                     <form
-                        onSubmit={async (e: FormEvent<HTMLFormElement>) => {
+                        onSubmit={(e: FormEvent<HTMLFormElement>) => {
                             e.preventDefault();
-                             const res = await fetch(`/api/clients/${client.id}`, {
-                                method: "PUT",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify(form),
-                            });
-                            if (res.ok) {
-                                window.location.reload();
-                            }
+                            request(`/api/clients/${client.id}`, "PUT", form, () => window.location.reload(), "Client modifié avec succès");
                         }}
                         className="space-y-2"
                     >
@@ -106,12 +94,7 @@ export default function ClientCard({ client }: ClientCardProps): JSX.Element {
                         >
                             Éditer
                         </button>
-                        <button
-                            onClick={deleteClient}
-                            className="ml-2 bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                        >
-                            Supprimer
-                        </button>
+                        <DeleteClient clientId={client.id} />
                     </>
                 )}
             </li>

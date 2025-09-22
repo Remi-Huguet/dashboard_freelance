@@ -1,4 +1,3 @@
-// app/clients/page.tsx
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import ClientForm from "@/components/clients/ClientForm";

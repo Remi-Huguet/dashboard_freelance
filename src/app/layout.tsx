@@ -1,7 +1,7 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { NotificationProvider } from "@/hooks/useNotification";
 import ClientLayout from "./clientLayout";
 import { JSX, ReactNode } from "react";
 
@@ -28,7 +28,9 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ClientLayout>{children}</ClientLayout>
+        <NotificationProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </NotificationProvider>
       </body>
     </html>
   );

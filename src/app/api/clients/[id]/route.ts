@@ -18,12 +18,12 @@ export async function GET(req: Request, { params }: { params: Params }): Promise
     });
 
     if (!client) {
-      return new Response(JSON.stringify({ error: "Client not found" }), { status: 404 });
+      return new Response(JSON.stringify({ error: "Aucun client trouvé" }), { status: 404 });
     }
 
     return new Response(JSON.stringify(client), { status: 200 });
   } catch (error: unknown) {
-    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
 }
 
@@ -43,18 +43,25 @@ export async function PUT(req: Request, { params }: { params: Params }): Promise
 
     return new Response(JSON.stringify(client), { status: 200 });
   } catch (error: unknown) {
-    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
 }
 
 export async function DELETE(req: Request, { params }: { params: Params }): Promise<Response> {
   try {
+    const projects = await prisma.project.findMany({
+      where: { clientId: params.id },
+    });
+
+    if (projects.length > 0) {
+      return new Response(JSON.stringify({ error: "Impossible de supprimer le client avec des projets associés" }), { status: 400 });
+    }
     await prisma.client.delete({
       where: { id: params.id },
     });
 
-    return new Response(JSON.stringify({ message: "Client deleted" }), { status: 200 });
+    return new Response(JSON.stringify({ message: "Client supprimé" }), { status: 200 });
   } catch (error: unknown) {
-    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
 }

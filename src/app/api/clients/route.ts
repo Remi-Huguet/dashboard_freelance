@@ -22,7 +22,7 @@ export async function POST(req: Request): Promise<Response> {
 
     return new Response(JSON.stringify(client), { status: 201 });
   } catch (error: unknown) {
-    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
 }
 
@@ -34,6 +34,6 @@ export async function GET(): Promise<Response> {
     clients.sort((a, b) => a.name.localeCompare(b.name));
     return new Response(JSON.stringify(clients), { status: 200 });
   } catch (error: unknown) {
-    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Something went wrong" }), { status: 500 });
+    return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
 }

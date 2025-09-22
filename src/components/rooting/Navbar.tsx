@@ -1,4 +1,4 @@
-import LogoutButton from "@/components/LogoutButton";
+import LogoutButton from "@/components/auth/LogoutButton";
 import { JSX } from "react";
 
 export default function Navbar(): JSX.Element {
@@ -9,7 +9,7 @@ export default function Navbar(): JSX.Element {
       </a>
       <div className="flex-row gap-4 hidden md:flex">
         <a href="/dashboard" className="mr-4 text-blue-500 hover:underline">
-          Home
+          Dashboard
         </a>
         <a href="/projects" className="mr-4 text-blue-500 hover:underline">
           Projets

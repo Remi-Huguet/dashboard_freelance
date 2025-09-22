@@ -13,7 +13,7 @@ export default async function Dashboard(): Promise<JSX.Element> {
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="mt-8 p-6">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">
-          Welcome to your Dashboard, {session.user?.name ?? "User"}!
+          Bienvenue sur votre Dashboard, {session.user?.name ?? "User"}!
         </h2>
       </div>
     </div>

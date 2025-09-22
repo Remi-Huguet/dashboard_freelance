@@ -3,7 +3,7 @@
 import { JSX, ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/rooting/Navbar";
 
 interface ClientLayoutProps {
   children: ReactNode;

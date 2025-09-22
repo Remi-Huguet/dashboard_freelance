@@ -9,7 +9,7 @@ export default function LogoutButton(): JSX.Element {
       onClick={() => signOut({ callbackUrl: "/auth" })}
       className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
     >
-      Logout
+      Déconnexion
     </button>
   );
 }
