@@ -1,9 +1,5 @@
 import prisma from "@/lib/prisma";
 
-interface Params {
-  id: string;
-}
-
 interface ClientBody {
   name: string;
   surname: string;
@@ -11,10 +7,11 @@ interface ClientBody {
   company?: string | null;
 }
 
-export async function GET(req: Request, { params }: { params: Params }): Promise<Response> {
+export async function GET(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
+    const { id } = await context.params;
     const client = await prisma.client.findUnique({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     if (!client) {
@@ -27,12 +24,13 @@ export async function GET(req: Request, { params }: { params: Params }): Promise
   }
 }
 
-export async function PUT(req: Request, { params }: { params: Params }): Promise<Response> {
+export async function PUT(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
+    const { id } = await context.params;
     const body: ClientBody = await req.json();
 
     const client = await prisma.client.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         name: body.name,
         surname: body.surname,
@@ -47,17 +45,20 @@ export async function PUT(req: Request, { params }: { params: Params }): Promise
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: Params }): Promise<Response> {
+export async function DELETE(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
+    const { id } = await context.params;
+
     const projects = await prisma.project.findMany({
-      where: { clientId: params.id },
+      where: { clientId: id },
     });
 
     if (projects.length > 0) {
       return new Response(JSON.stringify({ error: "Impossible de supprimer le client avec des projets associés" }), { status: 400 });
     }
+
     await prisma.client.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return new Response(JSON.stringify({ message: "Client supprimé" }), { status: 200 });

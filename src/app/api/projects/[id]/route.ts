@@ -1,19 +1,16 @@
 import prisma from "@/lib/prisma";
 
-interface Params {
-  id: string;
-}
-
 interface ProjectBody {
   name: string;
   status: string;
   clientId: string;
 }
 
-export async function GET(req: Request, { params }: { params: Params }): Promise<Response> {
+export async function GET(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
+    const { id } = await context.params;
     const project = await prisma.project.findUnique({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     if (!project) {
@@ -26,12 +23,13 @@ export async function GET(req: Request, { params }: { params: Params }): Promise
   }
 }
 
-export async function PUT(req: Request, { params }: { params: Params }): Promise<Response> {
+export async function PUT(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
+    const { id } = await context.params;
     const body: ProjectBody = await req.json();
 
     const project = await prisma.project.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         name: body.name,
         status: body.status,
@@ -45,10 +43,11 @@ export async function PUT(req: Request, { params }: { params: Params }): Promise
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: Params }): Promise<Response> {
+export async function DELETE(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
+    const { id } = await context.params;
     await prisma.project.delete({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     return new Response(JSON.stringify({ message: "Projet supprimé" }), { status: 200 });
