@@ -1,14 +1,6 @@
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth/next";
 import { JSX } from "react";
 
-export default async function Project({ params }: { params: { id: string } }): Promise<JSX.Element> {
-  const session = await getServerSession();
-
-  if (!session) {
-    redirect("/auth");
-  }
-
+export default function Project({ params }: { params: { id: string } }): JSX.Element {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="mt-8 p-6 flex flex-col gap-6">

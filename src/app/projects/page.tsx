@@ -1,16 +1,8 @@
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth/next";
 import { JSX } from "react";
 import ProjectForm from "@/components/projects/ProjectForm";
 import ProjectsList from "@/components/projects/ProjectsList";
 
-export default async function Projects(): Promise<JSX.Element> {
-  const session = await getServerSession();
-
-  if (!session) {
-    redirect("/auth");
-  }
-
+export default function Projects(): JSX.Element {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="mt-8 p-6 flex flex-col gap-6">

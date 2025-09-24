@@ -2,14 +2,18 @@
 
 import { JSX } from "react";
 import { signOut } from "next-auth/react";
+import ConfirmationModal from "../global/ConfirmationModal";
 
 export default function LogoutButton(): JSX.Element {
   return (
-    <button
-      onClick={() => signOut({ callbackUrl: "/auth" })}
-      className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
-    >
-      Déconnexion
-    </button>
+    <ConfirmationModal
+      name="Déconnexion"
+      color="red"
+      title="Souhaitez-vous vraiment vous déconnecter ?"
+      confirmText="Déconnexion"
+      cancelText="Annuler"
+      onConfirm={() => signOut({ callbackUrl: "/auth" })}
+      onCancel={() => {}}
+    />
   );
 }
