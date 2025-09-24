@@ -24,11 +24,11 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps): JSX.Element {
-    const { data, loading, isSuccess, isError, request } = useApi<ClientData>();
+    const { data, loading, isSuccess, isError, request: getClient } = useApi<ClientData>();
     const circularLoader = useCircularLoader();
 
     useEffect(() => {
-        request(`/api/clients/${project.clientId}`, "GET");
+        getClient(`/api/clients/${project.clientId}`, "GET");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [project.clientId]);
 

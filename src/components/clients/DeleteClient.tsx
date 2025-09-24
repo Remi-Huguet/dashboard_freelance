@@ -9,10 +9,10 @@ interface DeleteClientProps {
 }
 
 export default function DeleteClient({ clientId }: DeleteClientProps): JSX.Element {
-    const { request } = useApi<undefined>();
+    const { request: deleteClient } = useApi<undefined>();
 
-    const deleteClient = async () => {
-        request(`/api/clients/${clientId}`, "DELETE", "Client supprimé avec succès", () => window.location.reload());
+    const handleDeleteClient = async () => {
+        deleteClient(`/api/clients/${clientId}`, "DELETE", "Client supprimé avec succès", () => window.location.reload());
     }
 
     return (
@@ -22,7 +22,7 @@ export default function DeleteClient({ clientId }: DeleteClientProps): JSX.Eleme
             title="Confirmer la suppression du client"
             confirmText="Supprimer"
             cancelText="Annuler"
-            onConfirm={deleteClient}
+            onConfirm={handleDeleteClient}
             onCancel={() => {}}
         />
     )

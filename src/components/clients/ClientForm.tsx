@@ -19,12 +19,12 @@ export default function ClientForm(): JSX.Element {
   });
 
   const [openForm, setOpenForm] = useState(false);
-  const { request } = useApi<undefined>();
+  const { request: postClient } = useApi<undefined>();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    request("/api/clients", "POST", form, () => window.location.reload(), "Client créé avec succès");
+    postClient("/api/clients", "POST", form, () => window.location.reload(), "Client créé avec succès");
   };
 
   return (

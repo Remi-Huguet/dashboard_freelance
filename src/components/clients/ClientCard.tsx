@@ -25,7 +25,7 @@ export default function ClientCard({ client }: ClientCardProps): JSX.Element {
         company: client.company,
     });
     const [editMode, setEditMode] = useState(false);
-    const { request } = useApi<undefined>();
+    const { request: putClient } = useApi<undefined>();
 
     return (
         <div>
@@ -34,7 +34,7 @@ export default function ClientCard({ client }: ClientCardProps): JSX.Element {
                     <form
                         onSubmit={(e: FormEvent<HTMLFormElement>) => {
                             e.preventDefault();
-                            request(`/api/clients/${client.id}`, "PUT", form, () => window.location.reload(), "Client modifié avec succès");
+                            putClient(`/api/clients/${client.id}`, "PUT", form, () => window.location.reload(), "Client modifié avec succès");
                         }}
                         className="space-y-2"
                     >

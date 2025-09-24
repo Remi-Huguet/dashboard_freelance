@@ -14,11 +14,11 @@ interface ClientData {
 }
 
 export default function ClientsList(): JSX.Element {
-  const { data, loading, isSuccess, isError, request } = useApi<ClientData[]>();
+  const { data, loading, isSuccess, isError, request: getClients } = useApi<ClientData[]>();
   const skeletonLoader = useSkeletonLoader("50px", "60%");
 
   useEffect(() => {
-    request("/api/clients", "GET");
+    getClients("/api/clients", "GET");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -13,11 +13,11 @@ interface ProjectData {
 }
 
 export default function ProjectsList(): JSX.Element {
-  const { data, loading, isSuccess, isError, request } = useApi<ProjectData[]>();
+  const { data, loading, isSuccess, isError, request: getProjects } = useApi<ProjectData[]>();
   const skeletonLoader = useSkeletonLoader("50px", "60%");
 
   useEffect(() => {
-    request("/api/projects", "GET");
+    getProjects("/api/projects", "GET");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -25,25 +25,18 @@ export default function ProjectForm(): JSX.Element {
     });
     
     const [openForm, setOpenForm] = useState(false);
-    const { data, loading, isSuccess, isError, request } = useApi<ClientData[]>();
+    const { data, loading, isSuccess, isError, request: getClients } = useApi<ClientData[]>();
+    const { request: postProject } = useApi();
     
       useEffect(() => {
-        request("/api/clients", "GET");
+        getClients("/api/clients", "GET");
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const res = await fetch("/api/projects", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        });
-
-        if (res.ok) {
-            window.location.reload();
-        }
+        postProject("/api/projects", "POST", formData, () => window.location.reload(), "Projet créé avec succès");
     };
 
     return (
