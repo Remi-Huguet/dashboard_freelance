@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, JSX } from "react";
-import ProjectCard from "./ProjectCard";
+import ProjectItem from "./ProjectItem";
 import { useApi } from "@/hooks/useApi";
 import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
 
@@ -33,7 +33,7 @@ export default function ProjectsList(): JSX.Element {
         {!loading && isSuccess && data && data.length > 0 && (
           <ul className="space-y-1">
             {data.map((p) => (
-              <ProjectCard project={p} key={p.id} />
+              <ProjectItem project={p} key={p.id} />
             ))}
           </ul>
         )}

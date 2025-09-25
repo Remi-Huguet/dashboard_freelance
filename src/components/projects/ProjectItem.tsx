@@ -19,11 +19,11 @@ interface ClientData {
     company?: string;
 }
 
-interface ProjectCardProps {
+interface ProjectItemProps {
   project: ProjectData;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps): JSX.Element {
+export default function ProjectItem({ project }: ProjectItemProps): JSX.Element {
     const { data, loading, isSuccess, isError, request: getClient } = useApi<ClientData>();
     const circularLoader = useCircularLoader();
 
