@@ -21,7 +21,6 @@ export default function ProjectLinks({ idProject }: ProjectLinksProps): JSX.Elem
     const skeletonLoader = useSkeletonLoader("100px", "70%");
 
     useEffect(() => {
-        console.log("idproject:", idProject);
         getLinks(`/api/projects/${idProject}/links`, "GET");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idProject]);

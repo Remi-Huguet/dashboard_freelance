@@ -31,3 +31,10 @@ model Link {
   url       String
   projectId String
 }
+
+model Appointment {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  projectId String
+}

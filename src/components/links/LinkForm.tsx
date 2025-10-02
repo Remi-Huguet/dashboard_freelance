@@ -16,9 +16,9 @@ interface LinkFormProps {
 
 export default function LinkForm({ idProject }: LinkFormProps): JSX.Element {
     const [formData, setFormData] = useState<LinkFormData>({
-            name: "",
-            url: "",
-            projectId: idProject,
+      name: "",
+      url: "",
+      projectId: idProject,
     });
 
     const [openForm, setOpenForm] = useState(false);
