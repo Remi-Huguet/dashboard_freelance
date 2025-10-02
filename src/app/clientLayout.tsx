@@ -15,8 +15,10 @@ export default function ClientLayout({ children }: ClientLayoutProps): JSX.Eleme
 
   return (
     <SessionProvider>
-      {!hideNavbar && <Navbar />}
-      {children}
+      <div className="flex flex-col h-screen">
+        {!hideNavbar && <Navbar />}
+        <main className="flex-1">{children}</main>
+      </div>
     </SessionProvider>
   );
 }

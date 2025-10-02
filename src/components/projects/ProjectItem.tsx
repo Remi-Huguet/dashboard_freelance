@@ -3,6 +3,7 @@
 import { useEffect, JSX } from "react";
 import { useApi } from "@/hooks/useApi";
 import { useCircularLoader } from "@/hooks/useCircularLoader";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 interface ProjectData {
     id: string;
@@ -45,9 +46,9 @@ export default function ProjectItem({ project }: ProjectItemProps): JSX.Element 
                 )}
                 <button
                     onClick={() => window.location.href = `/projects/${project.id}`}
-                    className="ml-2 bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                    className="ml-2 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
                 >
-                    Voir
+                    <NavigateNextIcon />
                 </button>
             </li>
         </div>

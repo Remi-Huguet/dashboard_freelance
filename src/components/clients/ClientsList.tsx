@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, JSX } from "react";
-import ClientItem from "./ClientItem";
+import ClientItemEditable from "./ClientItemEditable";
 import { useApi } from "@/hooks/useApi";
 import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
 
@@ -35,7 +35,7 @@ export default function ClientsList(): JSX.Element {
             ) : (
               <ul className="space-y-1">
                 {data.map((c) => (
-                  <ClientItem client={c} key={c.id} />
+                  <ClientItemEditable client={c} key={c.id} />
                 ))}
               </ul>
             )}

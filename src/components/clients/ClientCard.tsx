@@ -26,7 +26,7 @@ export default function ClientCard({ clientId }: ClientItemProps): JSX.Element {
     }, [clientId]);
 
     return (
-        <div className="p-4 border rounded bg-white shadow flex flex-col gap-2 w-1/4">
+        <div className="p-4 border rounded bg-white shadow flex flex-col gap-2 w-full mt-4">
             {loading && skeletonLoader()}
             {!loading && isError && <p className="text-gray-800">Erreur lors du chargement du client</p>}
             {!loading && isSuccess && data && (

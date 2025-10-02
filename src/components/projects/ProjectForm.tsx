@@ -2,6 +2,7 @@
 
 import { useState, FormEvent, JSX, useEffect } from "react";
 import { useApi } from "@/hooks/useApi";
+import AddIcon from '@mui/icons-material/Add';
 
 interface ProjectFormData {
   name: string;
@@ -47,18 +48,15 @@ export default function ProjectForm(): JSX.Element {
             >
                 <div className="flex items-center gap-4">
                     <h3 className="text-xl font-bold text-gray-800">Ajouter un Projet</h3>
-                    <button
-                        type="button"
-                        onClick={() => {
-                            if (openForm) {
-                              setFormData({ name: "", status: "", clientId: "" });
-                            }
-                            setOpenForm(!openForm);
-                        }}
-                        className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                    >
-                        {openForm ? "Fermer" : "Nouveau Projet"}
-                    </button>
+                    {!openForm &&
+                        <button
+                            type="button"
+                            onClick={() => setOpenForm(true)}
+                            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                        >
+                            <AddIcon />
+                        </button>
+                    }
                 </div>
                 {openForm && (
                     <>
@@ -113,12 +111,24 @@ export default function ProjectForm(): JSX.Element {
                                 </>
                             )}
                         </select>
-                        <button
-                          type="submit"
-                          className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-                        >
-                          Créer
-                        </button>
+                        <div className="flex gap-2">
+                            <button
+                              type="submit"
+                              className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                            >
+                              Créer
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setFormData({ name: "", status: "", clientId: "" });
+                                setOpenForm(false);
+                              }}
+                              className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
+                            >
+                              Annuler
+                            </button>
+                        </div>
                     </>
                 )}
             </form>

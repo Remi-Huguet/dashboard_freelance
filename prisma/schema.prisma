@@ -24,3 +24,10 @@ model Project {
   clientId    String
   createdAt   DateTime @default(now())
 }
+
+model Link {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  projectId String
+}

@@ -3,6 +3,7 @@
 import { useState, FormEvent, JSX } from "react";
 import DeleteClient from "./DeleteClient";
 import { useApi } from "@/hooks/useApi";
+import EditIcon from '@mui/icons-material/Edit';
 
 interface ClientData {
     id: string;
@@ -12,11 +13,11 @@ interface ClientData {
     company?: string;
 }
 
-interface ClientItemProps {
+interface ClientItemEditableProps {
   client: ClientData;
 }
 
-export default function ClientItem({ client }: ClientItemProps): JSX.Element {
+export default function ClientItemEditable({ client }: ClientItemEditableProps): JSX.Element {
     const [form, setForm] = useState<ClientData>({
         id: client.id,
         name: client.name,
@@ -29,7 +30,7 @@ export default function ClientItem({ client }: ClientItemProps): JSX.Element {
 
     return (
         <div>
-            <li className="border-b py-1 text-gray-800">
+            <li className="border-b py-1 text-gray-800 flex flex-row gap-2 items-center">
                 {editMode ? (
                     <form
                         onSubmit={(e: FormEvent<HTMLFormElement>) => {
@@ -72,9 +73,9 @@ export default function ClientItem({ client }: ClientItemProps): JSX.Element {
                         <div className="flex gap-2">
                             <button
                                 type="submit"
-                                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                                className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                             >
-                                Sauvegarder
+                                Modifier
                             </button>
                             <button
                                 type="button"
@@ -92,7 +93,7 @@ export default function ClientItem({ client }: ClientItemProps): JSX.Element {
                             onClick={() => setEditMode(true)}
                             className="ml-4 bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >
-                            Éditer
+                            <EditIcon />
                         </button>
                         <DeleteClient clientId={client.id} />
                     </>

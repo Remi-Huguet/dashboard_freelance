@@ -1,6 +1,8 @@
 "use client";
 
 import { JSX, useState } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 interface ConfirmationModalProps {
     name: string;
@@ -23,13 +25,24 @@ export default function ConfirmationModal({
 }: ConfirmationModalProps): JSX.Element {
     const [isOpen, setIsOpen] = useState(false);
 
+    const getConfirmationIndicator = () => {
+        switch (name) {
+            case "Supprimer":
+                return <DeleteIcon />;
+            case "Déconnexion":
+                return <LogoutIcon />;
+            default:
+                return <>{name}</>;
+        }
+    }
+
     return (
         <>
             <button
                 onClick={() => setIsOpen(true)}
-                className={`ml-2 bg-${color}-500 text-white px-2 py-1 rounded hover:bg-${color}-600`}
+                className={`bg-${color}-500 text-white px-2 py-1 rounded hover:bg-${color}-600`}
             >
-                {name}
+                {getConfirmationIndicator()}
             </button>
             {isOpen &&
                 <div className="fixed inset-0 flex items-center justify-center z-50 bg-white/50">
