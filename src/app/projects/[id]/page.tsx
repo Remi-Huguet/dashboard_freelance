@@ -8,7 +8,6 @@ import ClientCard from "@/components/clients/ClientCard";
 import ProjectLinks from "@/components/projects/ProjectLinks";
 import ProjectAppointments from "@/components/projects/ProjectAppointments";
 import SettingsIcon from '@mui/icons-material/Settings';
-import AddIcon from '@mui/icons-material/Add';
 
 interface ProjectData {
   id: string;
@@ -62,7 +61,7 @@ export default function Project({ params }: ProjectProps): JSX.Element {
               onClick={() => window.location.href = `/projects/${params.id}/appointments`}
               className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             >
-              <AddIcon />
+              <SettingsIcon />
           </button>
         </div>
         <ProjectAppointments idProject={params.id} />

@@ -4,6 +4,7 @@ import { useState, FormEvent, JSX } from "react";
 import DeleteAppointment from "./DeleteAppointment";
 import { useApi } from "@/hooks/useApi";
 import EditIcon from '@mui/icons-material/Edit';
+import { beautifulDateTime } from "@/utils/dateUtils";
 
 interface AppointmentData {
     id: string;
@@ -72,7 +73,7 @@ export default function AppointmentItemEditable({ appointment }: AppointmentItem
                     </form>
                 ) : (
                     <>
-                        {appointment.title} {appointment.date}
+                        {appointment.title} - {beautifulDateTime(new Date(appointment.date))}
                         <button
                             onClick={() => setEditMode(true)}
                             className="ml-4 bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"

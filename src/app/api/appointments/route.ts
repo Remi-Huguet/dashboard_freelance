@@ -24,7 +24,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 }
 
-export async function GET(): Promise<Response> {
+export async function GET(req: Request): Promise<Response> {
   try {
     const { searchParams } = new URL(req.url);
     const currentWeek = searchParams.get("currentWeek") === "true";
