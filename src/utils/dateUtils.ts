@@ -45,8 +45,10 @@ export const getWeekBoundsFromDate = (date: Date) => {
 
     const dayStartName = jours[start.getDay()];
     const dayStartNumber = String(start.getDate());
+    const monthStartName = mois[start.getMonth()];
     const dayEndName = jours[end.getDay()];
     const dayEndNumber = String(end.getDate());
+    const monthEndName = mois[end.getMonth()];
 
-    return `Du ${dayStartName} ${dayStartNumber} au ${dayEndName} ${dayEndNumber}`;
+    return `Du ${dayStartName} ${dayStartNumber} ${monthStartName === monthEndName ? '' : monthStartName} au ${dayEndName} ${dayEndNumber} ${monthEndName}`;
 }

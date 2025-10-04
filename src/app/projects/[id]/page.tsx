@@ -68,11 +68,19 @@ export default function Project({ params }: ProjectProps): JSX.Element {
               <SettingsIcon />
           </button>
         </div>
-        <h2 className="text-2xl text-gray-800 mb-4">{getWeekBoundsFromDate(new Date())}</h2>
+        <p className="text-3l text-gray-800 mb-4">{getWeekBoundsFromDate(new Date())}</p>
         <ProjectAppointments idProject={params.id} />
       </div>
       <div className="mt-8 p-6 flex flex-col gap-6 w-1/3 justify-start">
-        <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mb-4"><ListAltIcon fontSize="large" /> Tâches du projet</h1>
+        <div className="flex flex-row gap-4 items-center mb-4">
+          <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><ListAltIcon fontSize="large" /> Tâches du projet</h1>
+          <button
+              onClick={() => window.location.href = `/projects/${params.id}/tasks`}
+              className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            >
+              <SettingsIcon />
+          </button>
+        </div>
       </div>
     </div>
   );
