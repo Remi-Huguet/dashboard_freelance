@@ -10,7 +10,7 @@ import OngoingAppointmentList from "@/components/global/OngoingAppoitmentsList";
 import SettingsIcon from '@mui/icons-material/Settings';
 import { getWeekBoundsFromDate } from "@/utils/dateUtils";
 import { taskTypes } from "@/utils/utils";
-import MediationIcon from '@mui/icons-material/Mediation';
+import SourceIcon from '@mui/icons-material/Source';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -46,7 +46,7 @@ export default function Project({ params }: ProjectProps): JSX.Element {
         {!loading && isSuccess && data && (
           <>
             <div className="flex flex-row gap-4 items-center mb-4">
-              <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><MediationIcon />Projet : {data.name}</h1>
+              <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><SourceIcon fontSize="large" />Projet : {data.name}</h1>
               <button
                   onClick={() => window.location.href = `/projects/${id}/config`}
                   className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"

@@ -34,8 +34,8 @@ export default function ProjectTasksGraph({ idProject, taskType }: ProjectTasksG
     const getPieChartData = () => {
         if (data) {
             return [
-                { name: "Fait", value: data.filter((task) => task.done).length},
-                { name: "Reste", value: data.filter((task) => !task.done).length}
+                { name: "Reste", value: data.filter((task) => !task.done).length},
+                { name: "Fait", value: data.filter((task) => task.done).length}
             ]
         }
         return []
@@ -98,8 +98,8 @@ export default function ProjectTasksGraph({ idProject, taskType }: ProjectTasksG
                         paddingAngle={2}
                         dataKey="value"
                       >
-                        <Cell fill="blue" />
                         <Cell fill="red" />
+                        <Cell fill="blue" />
                       </Pie>
                     </PieChart>
                 </>

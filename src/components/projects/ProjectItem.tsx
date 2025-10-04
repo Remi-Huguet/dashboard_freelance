@@ -4,7 +4,7 @@ import { useEffect, JSX } from "react";
 import { useApi } from "@/hooks/useApi";
 import LoadingData from "../global/LoadingData";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import MediationIcon from '@mui/icons-material/Mediation';
+import SourceIcon from '@mui/icons-material/Source';
 
 interface ProjectData {
     id: string;
@@ -36,7 +36,7 @@ export default function ProjectItem({ project }: ProjectItemProps): JSX.Element 
     return (
         <div className="flex items-center justify-between bg-white shadow-sm rounded-lg p-3 border border-gray-200">
           <div className="flex items-center gap-2">
-            <MediationIcon className="text-gray-800 w-5 h-5" />
+            <SourceIcon className="text-gray-800 w-5 h-5" />
             <p className="font-medium text-gray-800">{project.name} - {project.status} -</p>
             <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
                 errorMessage="Erreur lors du chargement du client."
