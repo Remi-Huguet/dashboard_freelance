@@ -12,11 +12,11 @@ interface AppointmentData {
   projectId: string;
 }
 
-interface AppointmentsListProps {
+interface AppointmentsListEditableProps {
   idProject: string;
 }
 
-export default function AppointmentsList({ idProject }: AppointmentsListProps): JSX.Element {
+export default function AppointmentsListEditable({ idProject }: AppointmentsListEditableProps): JSX.Element {
   const { data, loading, isSuccess, isError, request: getAppointments } = useApi<AppointmentData[]>();
   const skeletonLoader = useSkeletonLoader("50px", "60%");
 

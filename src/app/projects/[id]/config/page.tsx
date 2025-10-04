@@ -4,8 +4,9 @@ import { JSX, useEffect } from "react";
 import { useApi } from "@/hooks/useApi";
 import ProjectItemEditable from "@/components/projects/ProjectItemEditable";
 import LinkForm from "@/components/links/LinkForm";
-import LinksList from "@/components/links/LinksList";
+import LinksListEditable from "@/components/links/LinksListEditable";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
 
 interface ProjectData {
   id: string;
@@ -20,6 +21,7 @@ interface ConfigProps {
 
 export default function Config({ params }: ConfigProps): JSX.Element {
     const { data, loading, isSuccess, isError, request: getProject } = useApi<ProjectData>();
+    const skeletonLoader = useSkeletonLoader("100px", "40%");
 
     useEffect(() => {
         getProject(`/api/projects/${params.id}`, "GET");
@@ -36,11 +38,11 @@ export default function Config({ params }: ConfigProps): JSX.Element {
                     <NavigateBeforeIcon /> Retour au projet
                 </button>
                 <h1 className="text-3xl font-bold text-gray-800">Configuration</h1>
-                {loading && <p>Chargement...</p>}
+                {loading && skeletonLoader()}
                 {!loading && isError && <p className="text-red-500">Erreur lors du chargement du projet.</p>}
                 {!loading && isSuccess && data && <ProjectItemEditable project={data} />}
                 <LinkForm idProject={params.id} />
-                <LinksList idProject={params.id} />
+                <LinksListEditable idProject={params.id} />
             </div>
         </div>
     );

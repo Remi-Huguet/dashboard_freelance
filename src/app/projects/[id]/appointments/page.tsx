@@ -2,7 +2,7 @@
 
 import { JSX } from "react";
 import AppointmentForm from "@/components/appointments/AppointmentForm";
-import AppointmentsList from "@/components/appointments/AppointmentsList";
+import AppointmentsListEditable from "@/components/appointments/AppointmentsListEditable";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 interface AppointmentsProps {
@@ -21,7 +21,7 @@ export default function Appointments({ params }: AppointmentsProps): JSX.Element
             </button>
             <h1 className="text-3xl font-bold text-gray-800">Rendez-vous</h1>
             <AppointmentForm idProject={params.id} />
-            <AppointmentsList idProject={params.id} />
+            <AppointmentsListEditable idProject={params.id} />
         </div>
     </div>
   );

@@ -12,11 +12,11 @@ interface LinkData {
   projectId: string;
 }
 
-interface LinksListProps {
+interface LinksListEditableProps {
   idProject: string;
 }
 
-export default function LinksList({ idProject }: LinksListProps): JSX.Element {
+export default function LinksListEditable({ idProject }: LinksListEditableProps): JSX.Element {
   const { data, loading, isSuccess, isError, request: getLinks } = useApi<LinkData[]>();
   const skeletonLoader = useSkeletonLoader("50px", "60%");
 

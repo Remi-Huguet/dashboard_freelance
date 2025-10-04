@@ -32,3 +32,21 @@ export const beautifulDateTime = (date: Date) => {
 
     return `${dayName} ${dayNumber} ${monthName} à ${hours}:${minutes}`;
 }
+
+export const getWeekBoundsFromDate = (date: Date) => {
+    const day = date.getDay();
+
+    const diffToMonday = (day === 0 ? -6 : 1) - day;
+    const start = new Date(date);
+    start.setDate(date.getDate() + diffToMonday);
+
+    const end = new Date(start);
+    end.setDate(start.getDate() + 6);
+
+    const dayStartName = jours[start.getDay()];
+    const dayStartNumber = String(start.getDate());
+    const dayEndName = jours[end.getDay()];
+    const dayEndNumber = String(end.getDate());
+
+    return `Du ${dayStartName} ${dayStartNumber} au ${dayEndName} ${dayEndNumber}`;
+}

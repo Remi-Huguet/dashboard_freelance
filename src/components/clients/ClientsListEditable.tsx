@@ -13,7 +13,7 @@ interface ClientData {
   company?: string;
 }
 
-export default function ClientsList(): JSX.Element {
+export default function ClientsListEditable(): JSX.Element {
   const { data, loading, isSuccess, isError, request: getClients } = useApi<ClientData[]>();
   const skeletonLoader = useSkeletonLoader("50px", "60%");
 

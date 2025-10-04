@@ -31,7 +31,7 @@ export default function LinkForm({ idProject }: LinkFormProps): JSX.Element {
     };
 
     return (
-        <div className="space-y-6 mb-4">
+        <div className="space-y-6">
             <form
                 onSubmit={handleSubmit}
                 className="space-y-4 bg-white p-4 rounded shadow-md"

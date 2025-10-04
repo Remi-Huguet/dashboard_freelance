@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
 import { JSX } from "react";
+import LinkIcon from "@mui/icons-material/Link"; // Icône MUI
 
 interface LinkData {
-    name: string;
-    url: string;
+  name: string;
+  url: string;
 }
 
 interface LinkItemProps {
@@ -13,11 +14,19 @@ interface LinkItemProps {
 
 export default function LinkItem({ link }: LinkItemProps): JSX.Element {
   return (
-    <div className="p-1 px-0 flex flex-row gap-2 mb-4">
-        <p className="text-gray-800 mb-2">{link.name} :</p>
-        <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline break-all">
-            {link.url}
-        </a>
+    <div className="flex items-center justify-between bg-white shadow-sm rounded-lg p-3 border border-gray-200">
+      <div className="flex items-center gap-3">
+        <LinkIcon className="text-gray-800 w-5 h-5" />
+        <p className="font-medium text-gray-800">{link.name}</p>
+      </div>
+      <a
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 font-medium hover:underline break-all"
+      >
+        {link.url}
+      </a>
     </div>
-  )
+  );
 }
