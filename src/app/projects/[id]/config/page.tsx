@@ -21,7 +21,7 @@ interface ConfigProps {
 
 export default function Config({ params }: ConfigProps): JSX.Element {
     const { data, loading, isSuccess, isError, request: getProject } = useApi<ProjectData>();
-    const skeletonLoader = useSkeletonLoader("100px", "40%");
+    const skeletonLoader = useSkeletonLoader("100px", "100%");
 
     useEffect(() => {
         getProject(`/api/projects/${params.id}`, "GET");

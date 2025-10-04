@@ -3,7 +3,7 @@
 import { useEffect, JSX } from "react";
 import TaskItemEditable from "./TaskItemEditable";
 import { useApi } from "@/hooks/useApi";
-import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
+import LoadingData from "../global/LoadingData";
 
 interface TaskData {
   id: string;
@@ -20,7 +20,6 @@ interface TasksListEditableProps {
 
 export default function TasksListEditable({ idProject }: TasksListEditableProps): JSX.Element {
   const { data, loading, isSuccess, isError, request: getTasks } = useApi<TaskData[]>();
-  const skeletonLoader = useSkeletonLoader("50px", "60%");
 
   useEffect(() => {
     getTasks(`/api/projects/${idProject}/tasks`, "GET");
@@ -31,11 +30,10 @@ export default function TasksListEditable({ idProject }: TasksListEditableProps)
     <div className="space-y-6">
       <div className="bg-white p-4 rounded shadow-md">
         <h3 className="text-xl font-bold mb-2 text-gray-800">Liste des tâches</h3>
-        {loading && skeletonLoader()}
-        {!loading && isError && <p className="text-gray-800">Erreur lors du chargement des tâches</p>}
-        {!loading && isSuccess && data && data.length === 0 && (
-          <p className="text-gray-800">Aucune tâche pour le moment.</p>
-        )}
+        <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+          errorMessage="Erreur lors du chargement des tâches."
+          noDataMessage="Pas de tâche." 
+          showSkeletonLoader={true} />
         {!loading && isSuccess && data && data.length > 0 && (
           <ul className="space-y-1">
             {data.map((t) => (

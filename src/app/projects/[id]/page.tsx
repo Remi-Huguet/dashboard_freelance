@@ -2,7 +2,7 @@
 
 import { JSX, use, useEffect } from "react";
 import { useApi } from "@/hooks/useApi";
-import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
+import LoadingData from "@/components/global/LoadingData";
 import Badge from "@/components/global/Badge";
 import ClientCard from "@/components/clients/ClientCard";
 import ProjectLinks from "@/components/projects/ProjectLinks";
@@ -30,7 +30,6 @@ interface ProjectProps {
 export default function Project({ params }: ProjectProps): JSX.Element {
   const { id } = use(params);
   const { data, loading, isSuccess, isError, request: getProject } = useApi<ProjectData>();
-  const skeletonLoader = useSkeletonLoader("300px", "80%");
 
   useEffect(() => {
     getProject(`/api/projects/${id}`, "GET");
@@ -40,12 +39,14 @@ export default function Project({ params }: ProjectProps): JSX.Element {
   return (
     <div className="h-full bg-gray-100 p-8 w-full flex flex-row justify-center">
       <div className="mt-8 p-6 flex flex-col gap-2 w-1/3 justify-start border-r border-black">
-        {loading && skeletonLoader()}
-        {!loading && isError && <p className="text-gray-800">Erreur lors du chargement du projet</p>}
+        <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+            errorMessage="Erreur lors du chargement du projet."
+            noDataMessage="Pas de projet." 
+            showSkeletonLoader={true} skeletonLoaderHeight="100%" />
         {!loading && isSuccess && data && (
           <>
             <div className="flex flex-row gap-4 items-center mb-4">
-              <h1 className="text-3xl font-bold text-gray-800 mb-4 flex items-center gap-2"><MediationIcon />Projet : {data.name}</h1>
+              <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><MediationIcon />Projet : {data.name}</h1>
               <button
                   onClick={() => window.location.href = `/projects/${id}/config`}
                   className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"

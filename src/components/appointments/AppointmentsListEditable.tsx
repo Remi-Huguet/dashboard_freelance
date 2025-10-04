@@ -3,7 +3,7 @@
 import { useEffect, JSX } from "react";
 import AppointmentItemEditable from "./AppointmentItemEditable";
 import { useApi } from "@/hooks/useApi";
-import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
+import LoadingData from "../global/LoadingData";
 
 interface AppointmentData {
   id: string;
@@ -18,7 +18,6 @@ interface AppointmentsListEditableProps {
 
 export default function AppointmentsListEditable({ idProject }: AppointmentsListEditableProps): JSX.Element {
   const { data, loading, isSuccess, isError, request: getAppointments } = useApi<AppointmentData[]>();
-  const skeletonLoader = useSkeletonLoader("50px", "60%");
 
   useEffect(() => {
     getAppointments(`/api/projects/${idProject}/appointments`, "GET");
@@ -29,20 +28,16 @@ export default function AppointmentsListEditable({ idProject }: AppointmentsList
     <div className="space-y-6">
       <div className="bg-white p-4 rounded shadow-md">
         <h3 className="text-xl font-bold mb-2 text-gray-800">Liste des rendez-vous</h3>
-        {loading && skeletonLoader()}
-        {!loading && isError && <p className="text-red-500">Erreur lors du chargement des rendez-vous.</p>}
-        {!loading && isSuccess && data &&
-          <>
-            {data.length === 0 ? (
-              <p className="text-gray-800">Aucun rendez-vous pour le moment.</p>
-            ) : (
-              <ul className="space-y-1">
-                {data.map((a) => (
-                    <AppointmentItemEditable key={a} appointment={a} />
-                ))}
-              </ul>
-            )}
-          </>
+        <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+          errorMessage="Erreur lors du chargement des rendez-vous."
+          noDataMessage="Pas de rendez-vous." 
+          showSkeletonLoader={true} />
+        {!loading && isSuccess && data && data.length > 0 &&
+          <ul className="space-y-1">
+            {data.map((a) => (
+                <AppointmentItemEditable key={a} appointment={a} />
+            ))}
+          </ul>
         }
       </div>
     </div>

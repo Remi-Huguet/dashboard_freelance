@@ -2,7 +2,7 @@
 
 import { JSX, useEffect } from "react";
 import { useApi } from "@/hooks/useApi";
-import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
+import LoadingData from "../global/LoadingData";
 
 interface ClientData {
     id: string;
@@ -18,7 +18,6 @@ interface ClientItemProps {
 
 export default function ClientCard({ clientId }: ClientItemProps): JSX.Element {
     const { data, loading, isSuccess, isError, request: getClient } = useApi<ClientData>();
-    const skeletonLoader = useSkeletonLoader("70px", "20%");
 
     useEffect(() => {
         getClient(`/api/clients/${clientId}`, "GET");
@@ -27,8 +26,10 @@ export default function ClientCard({ clientId }: ClientItemProps): JSX.Element {
 
     return (
         <div className="p-4 border rounded bg-white shadow flex flex-col gap-2 w-full mt-4">
-            {loading && skeletonLoader()}
-            {!loading && isError && <p className="text-gray-800">Erreur lors du chargement du client</p>}
+            <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+                errorMessage="Erreur lors du chargement du client."
+                noDataMessage="Pas de client." 
+                showSkeletonLoader={true} />
             {!loading && isSuccess && data && (
                 <>
                     <h2 className="text-xl font-bold text-gray-800">Client : {data.name} {data.surname}</h2>

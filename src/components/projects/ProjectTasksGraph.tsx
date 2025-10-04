@@ -7,7 +7,7 @@ import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import LanguageIcon from '@mui/icons-material/Language';
 import { PieChart, Pie, Cell } from "recharts";
 import { useApi } from "@/hooks/useApi";
-import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
+import LoadingData from "../global/LoadingData";
 
 interface TaskData {
   id: string;
@@ -24,9 +24,7 @@ interface ProjectTasksGraphProps {
 }
 
 export default function ProjectTasksGraph({ idProject, taskType }: ProjectTasksGraphProps): JSX.Element {
-
     const { data, loading, isSuccess, isError, request: getTasks } = useApi<TaskData[]>();
-    const skeletonLoader = useSkeletonLoader("100px", "100%");
 
     useEffect(() => {
         getTasks(`/api/projects/${idProject}/tasks?taskType=${taskType}`, "GET");
@@ -62,10 +60,10 @@ export default function ProjectTasksGraph({ idProject, taskType }: ProjectTasksG
 
     return (
         <div className="flex flex-col gap-2 bg-white shadow-sm rounded-lg p-3 border border-gray-200 w-53 flex-wrap whitespace-nowrap">
-            {loading && skeletonLoader()}
-            {!loading && isError && 
-                <p className="text-gray-800">Erreur lors du chargement des tâches {taskType}</p>
-            }
+            <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+                errorMessage="Erreur lors du chargement des tâches."
+                noDataMessage="" 
+                showSkeletonLoader={true} />
             {!loading && isSuccess && data && data.length === 0 &&
                 <div className="flex items-center justify-between flex-row gap-4">
                     <div className="flex items-center gap-2">

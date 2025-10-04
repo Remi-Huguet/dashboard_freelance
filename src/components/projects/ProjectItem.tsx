@@ -2,7 +2,7 @@
 
 import { useEffect, JSX } from "react";
 import { useApi } from "@/hooks/useApi";
-import { useCircularLoader } from "@/hooks/useCircularLoader";
+import LoadingData from "../global/LoadingData";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import MediationIcon from '@mui/icons-material/Mediation';
 
@@ -27,7 +27,6 @@ interface ProjectItemProps {
 
 export default function ProjectItem({ project }: ProjectItemProps): JSX.Element {
     const { data, loading, isSuccess, isError, request: getClient } = useApi<ClientData>();
-    const circularLoader = useCircularLoader();
 
     useEffect(() => {
         getClient(`/api/clients/${project.clientId}`, "GET");
@@ -39,8 +38,10 @@ export default function ProjectItem({ project }: ProjectItemProps): JSX.Element 
           <div className="flex items-center gap-2">
             <MediationIcon className="text-gray-800 w-5 h-5" />
             <p className="font-medium text-gray-800">{project.name} - {project.status} -</p>
-            {loading && circularLoader()}
-            {!loading && isError && "Error loading client"}
+            <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+                errorMessage="Erreur lors du chargement du client."
+                noDataMessage="Pas de client." 
+                showSkeletonLoader={false} />
             {!loading && isSuccess && data && (
                 <p className="font-medium text-gray-800">
                     {data.name} {data.surname} ({data.company ? data.company : "Sans entreprise"})

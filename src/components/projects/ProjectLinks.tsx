@@ -18,7 +18,7 @@ interface ProjectLinksProps {
 
 export default function ProjectLinks({ idProject }: ProjectLinksProps): JSX.Element {
     const { data, loading, isSuccess, isError, request: getLinks } = useApi<LinkData[]>();
-    const skeletonLoader = useSkeletonLoader("100px", "70%");
+    const skeletonLoader = useSkeletonLoader("100px", "100%");
 
     useEffect(() => {
         getLinks(`/api/projects/${idProject}/links`, "GET");

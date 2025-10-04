@@ -3,7 +3,7 @@
 import { useEffect, JSX } from "react";
 import LinkItemEditable from "./LinkItemEditable";
 import { useApi } from "@/hooks/useApi";
-import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
+import LoadingData from "../global/LoadingData";
 
 interface LinkData {
   id: string;
@@ -18,7 +18,6 @@ interface LinksListEditableProps {
 
 export default function LinksListEditable({ idProject }: LinksListEditableProps): JSX.Element {
   const { data, loading, isSuccess, isError, request: getLinks } = useApi<LinkData[]>();
-  const skeletonLoader = useSkeletonLoader("50px", "60%");
 
   useEffect(() => {
     getLinks(`/api/projects/${idProject}/links`, "GET");
@@ -29,11 +28,10 @@ export default function LinksListEditable({ idProject }: LinksListEditableProps)
     <div className="space-y-6">
       <div className="bg-white p-4 rounded shadow-md">
         <h3 className="text-xl font-bold mb-2 text-gray-800">Liste des liens</h3>
-        {loading && skeletonLoader()}
-        {!loading && isError && <p className="text-gray-800">Erreur lors du chargement des liens</p>}
-        {!loading && isSuccess && data && data.length === 0 && (
-          <p className="text-gray-800">Aucun lien pour le moment.</p>
-        )}
+        <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+          errorMessage="Erreur lors du chargement des liens."
+          noDataMessage="Pas de liens." 
+          showSkeletonLoader={true} />
         {!loading && isSuccess && data && data.length > 0 && (
           <ul className="space-y-1">
             {data.map((l) => (
