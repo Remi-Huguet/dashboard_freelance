@@ -12,16 +12,16 @@ interface AppointmentData {
   projectId: string;
 }
 
-interface ProjectAppointmentsProps {
+interface OngoingAppointmentListProps {
   idProject: string;
 }
 
-export default function ProjectAppointments({ idProject }: ProjectAppointmentsProps): JSX.Element {
+export default function OngoingAppointmentList({ idProject }: OngoingAppointmentListProps): JSX.Element {
     const { data, loading, isSuccess, isError, request: getAppointments } = useApi<AppointmentData[]>();
     const skeletonLoader = useSkeletonLoader("100px", "70%");
 
     useEffect(() => {
-        getAppointments(`/api/projects/${idProject}/appointments?currentWeek=true`, "GET");
+        getAppointments(`/api/${idProject ? `projects/${idProject}` : ""}/appointments?currentWeek=true`, "GET");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idProject]);
 

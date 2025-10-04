@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, JSX } from "react";
-import ProjectItem from "./ProjectItem";
+import ProjectItem from "../projects/ProjectItem";
 import { useApi } from "@/hooks/useApi";
 import { useSkeletonLoader } from "@/hooks/useSkeletonLoader";
 
@@ -12,19 +12,22 @@ interface ProjectData {
   clientId: string;
 }
 
-export default function ProjectsList(): JSX.Element {
+interface ProjectsListProps {
+  inProgress?: boolean;
+}
+
+export default function ProjectsList({ inProgress }: ProjectsListProps): JSX.Element {
   const { data, loading, isSuccess, isError, request: getProjects } = useApi<ProjectData[]>();
-  const skeletonLoader = useSkeletonLoader("50px", "60%");
+  const skeletonLoader = useSkeletonLoader("70px", "90%");
 
   useEffect(() => {
-    getProjects("/api/projects", "GET");
+    getProjects(`/api/projects${inProgress && inProgress ? "?inProgress=true" : ""}`, "GET");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="space-y-6">
-      <div className="bg-white p-4 rounded shadow-md">
-        <h3 className="text-xl font-bold mb-2 text-gray-800">Liste des projets</h3>
+      <div>
         {loading && skeletonLoader()}
         {!loading && isError && <p className="text-gray-800">Erreur lors du chargement des projets</p>}
         {!loading && isSuccess && data && data.length === 0 && (
