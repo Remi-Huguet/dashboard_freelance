@@ -1,23 +1,25 @@
 import prisma from "@/lib/prisma";
 
-interface ProjectBody {
-  name: string;
-  status: string;
-  clientId: string;
+interface TaskBody {
+  title: string,
+  desc: string,
+  type: string,
+  done: boolean,
+  projectId: string
 }
 
 export async function GET(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
     const { id } = await context.params;
-    const project = await prisma.project.findUnique({
+    const task = await prisma.task.findUnique({
       where: { id: id },
     });
 
-    if (!project) {
-      return new Response(JSON.stringify({ error: "Pas de projet trouvé" }), { status: 404 });
+    if (!task) {
+      return new Response(JSON.stringify({ error: "Pas de tâche trouvée" }), { status: 404 });
     }
 
-    return new Response(JSON.stringify(project), { status: 200 });
+    return new Response(JSON.stringify(task), { status: 200 });
   } catch (error: unknown) {
     return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
@@ -26,18 +28,20 @@ export async function GET(req: Request, context: { params: Promise<{ id: string 
 export async function PUT(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
     const { id } = await context.params;
-    const body: ProjectBody = await req.json();
+    const body: TaskBody = await req.json();
 
-    const project = await prisma.project.update({
+    const task = await prisma.task.update({
       where: { id: id },
       data: {
-        name: body.name,
-        status: body.status,
-        clientId: body.clientId
+        title: body.title,
+        desc: body.desc,
+        type: body.type,
+        done: body.done,
+        projectId: body.projectId
       },
     });
 
-    return new Response(JSON.stringify(project), { status: 200 });
+    return new Response(JSON.stringify(task), { status: 200 });
   } catch (error: unknown) {
     return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }
@@ -47,22 +51,11 @@ export async function DELETE(req: Request, context: { params: Promise<{ id: stri
   try {
     const { id } = await context.params;
 
-    await prisma.$transaction([
-      prisma.link.deleteMany({
-        where: { projectId: id },
-      }),
-      prisma.appointment.deleteMany({
-        where: { projectId: id },
-      }),
-      prisma.task.deleteMany({
-        where: { projectId: id },
-      }),
-      prisma.project.delete({
+    await prisma.task.delete({
         where: { id },
-      }),
-    ]);
+    });
 
-    return new Response(JSON.stringify({ message: "Projet supprimé" }), { status: 200 });
+    return new Response(JSON.stringify({ message: "Tâche supprimée" }), { status: 200 });
   } catch (error: unknown) {
     return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });
   }

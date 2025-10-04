@@ -5,6 +5,7 @@ import { useApi } from "@/hooks/useApi";
 import EditIcon from '@mui/icons-material/Edit';
 import { useCircularLoader } from "@/hooks/useCircularLoader";
 import DeleteProject from "./DeleteProject";
+import { projectStatus } from "@/utils/utils";
 
 interface ProjectData {
   id: string;
@@ -67,9 +68,9 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                             className="border p-2 w-full"
                             required
                         >
-                            <option value="Non commencé">Non commencé</option>
-                            <option value="En cours">En cours</option>
-                            <option value="Terminé">Terminé</option>
+                            {projectStatus.map((status) => 
+                                <option key={status} value={status}>{status}</option>)
+                            }
                         </select>
                         <select
                             value={form.clientId}

@@ -9,9 +9,11 @@ import ProjectLinks from "@/components/projects/ProjectLinks";
 import ProjectAppointments from "@/components/projects/ProjectAppointments";
 import SettingsIcon from '@mui/icons-material/Settings';
 import { getWeekBoundsFromDate } from "@/utils/dateUtils";
+import { taskTypes } from "@/utils/utils";
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import ProjectTasksGraph from "@/components/projects/ProjectTasksGraph";
 
 interface ProjectData {
   id: string;
@@ -80,6 +82,11 @@ export default function Project({ params }: ProjectProps): JSX.Element {
             >
               <SettingsIcon />
           </button>
+        </div>
+        <div className="flex flex-row flex-wrap gap-4">
+          {taskTypes.map((taskType) =>
+            <ProjectTasksGraph key={taskType} idProject={params.id} taskType={taskType} />
+          )}
         </div>
       </div>
     </div>

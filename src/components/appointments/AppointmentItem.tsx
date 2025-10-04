@@ -20,9 +20,9 @@ export default function AppointmentItem({ appointment }: AppointmentItemProps): 
         <EventIcon className="text-gray-800 w-5 h-5" />
         <span className="font-medium text-gray-800">{appointment.title}</span>
       </div>
-      <span className="text-gray-600 text-sm">
+      <p className="text-gray-600 text-sm">
         {beautifulDateTime(new Date(appointment.date))}
-      </span>
+      </p>
     </div>
   );
 }

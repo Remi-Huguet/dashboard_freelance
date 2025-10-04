@@ -3,6 +3,7 @@
 import { useState, FormEvent, JSX, useEffect } from "react";
 import { useApi } from "@/hooks/useApi";
 import AddIcon from '@mui/icons-material/Add';
+import { projectStatus } from "@/utils/utils";
 
 interface ProjectFormData {
   name: string;
@@ -81,9 +82,9 @@ export default function ProjectForm(): JSX.Element {
                             <option value="" disabled>
                                 Sélectionner un statut *
                             </option>
-                            <option value="Non commencé">Non commencé</option>
-                            <option value="En cours">En cours</option>
-                            <option value="Terminé">Terminé</option>
+                            {projectStatus.map((status) => 
+                                <option key={status} value={status}>{status}</option>)
+                            }
                         </select>
                         <select
                             value={formData.clientId}

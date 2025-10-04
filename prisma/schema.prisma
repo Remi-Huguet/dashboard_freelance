@@ -38,3 +38,12 @@ model Appointment {
   date      DateTime
   projectId String
 }
+
+model Task {
+  id        String   @id @default(cuid())
+  title     String
+  desc      String
+  type      String
+  done      Boolean
+  projectId String
+}

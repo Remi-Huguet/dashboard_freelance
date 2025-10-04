@@ -2,6 +2,8 @@
 
 import { JSX } from "react";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import TaskForm from "@/components/tasks/TaskForm";
+import TasksListEditable from "@/components/tasks/TasksListEditable";
 
 interface TasksProps {
   params: { id: string };
@@ -18,6 +20,8 @@ export default function Tasks({ params }: TasksProps): JSX.Element {
                 <NavigateBeforeIcon /> Retour au projet
             </button>
             <h1 className="text-3xl font-bold text-gray-800">Tâches du projet</h1>
+            <TaskForm idProject={params.id} />
+            <TasksListEditable idProject={params.id} />
         </div>
     </div>
   );
