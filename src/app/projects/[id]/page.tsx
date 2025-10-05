@@ -38,15 +38,15 @@ export default function Project({ params }: ProjectProps): JSX.Element {
 
   return (
     <div className="h-full bg-gray-100 p-8 w-full flex flex-row justify-center">
-      <div className="mt-8 p-6 flex flex-col gap-2 w-1/3 justify-start border-r border-black">
+      <div className="mt-8 p-6 flex flex-col gap-4 w-1/3 justify-start border-r border-black">
         <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
             errorMessage="Erreur lors du chargement du projet."
             noDataMessage="Pas de projet." 
             showSkeletonLoader={true} skeletonLoaderHeight="100%" />
         {!loading && isSuccess && data && (
           <>
-            <div className="flex flex-row gap-4 items-center mb-4">
-              <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><SourceIcon fontSize="large" />Projet : {data.name}</h1>
+            <div className="flex flex-row gap-2 items-center">
+              <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mb-2"><SourceIcon fontSize="large" />Projet : {data.name}</h1>
               <button
                   onClick={() => window.location.href = `/projects/${id}/config`}
                   className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
@@ -58,14 +58,14 @@ export default function Project({ params }: ProjectProps): JSX.Element {
               <Badge title="Statut" content={data.status} />
             </div>
             <ClientCard clientId={data.clientId} />
-            <h2 className="text-2xl font-bold text-gray-800 mt-4 mb-4 flex items-center gap-2"><AccountTreeIcon />Liens utiles</h2>
+            <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2 mt-2 mb-2"><AccountTreeIcon />Liens utiles</h2>
             <ProjectLinks idProject={id} />
           </>
         )}  
       </div>
-      <div className="mt-8 p-6 flex flex-col gap-2 w-1/3 justify-start border-r border-black">
-        <div className="flex flex-row gap-4 items-center mb-4">
-          <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><CalendarMonthIcon fontSize="large" /> Rendez-vous</h1>
+      <div className="mt-8 p-6 flex flex-col gap-4 w-1/3 justify-start border-r border-black">
+        <div className="flex flex-row gap-4 items-center">
+          <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mb-2"><CalendarMonthIcon fontSize="large" /> Rendez-vous</h1>
           <button
               onClick={() => window.location.href = `/projects/${id}/appointments`}
               className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
@@ -73,12 +73,12 @@ export default function Project({ params }: ProjectProps): JSX.Element {
               <SettingsIcon />
           </button>
         </div>
-        <p className="text-3l text-gray-800 mb-4">{getWeekBoundsFromDate(new Date())}</p>
+        <Badge title="Période" content={getWeekBoundsFromDate(new Date())} />
         <OngoingAppointmentList idProject={id} />
       </div>
-      <div className="mt-8 p-6 flex flex-col gap-2 w-1/3 justify-start">
-        <div className="flex flex-row gap-4 items-center mb-4">
-          <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><ListAltIcon fontSize="large" /> Tâches du projet</h1>
+      <div className="mt-8 p-6 flex flex-col gap-4 w-1/3 justify-start">
+        <div className="flex flex-row gap-4 items-center">
+          <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mb-2"><ListAltIcon fontSize="large" /> Tâches du projet</h1>
           <button
               onClick={() => window.location.href = `/projects/${id}/tasks`}
               className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"

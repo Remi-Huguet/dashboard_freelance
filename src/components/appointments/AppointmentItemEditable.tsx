@@ -28,62 +28,67 @@ export default function AppointmentItemEditable({ appointment }: AppointmentItem
     const { request: putAppointment } = useApi<undefined>();
 
     return (
-        <div>
-            <li className="border-b py-1 text-gray-800 flex flex-row gap-2 items-center">
-                {editMode ? (
-                    <form
-                        onSubmit={(e: FormEvent<HTMLFormElement>) => {
-                            e.preventDefault();
-                            putAppointment(`/api/appointments/${appointment.id}`, "PUT", form, () => window.location.reload(), "Rendez-vous modifié avec succès");
-                        }}
-                        className="space-y-2"
-                    >
+        <li>
+            {editMode ? (
+                <form
+                    onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                        e.preventDefault();
+                        putAppointment(`/api/appointments/${appointment.id}`, "PUT", form, () => window.location.reload(), "Rendez-vous modifié avec succès");
+                    }}
+                    className="w-full flex flex-row items-center"
+                >
+                    <div className="w-1/5">
                         <input
                             type="text"
                             value={form.title}
                             onChange={(e) => setForm({ ...form, title: e.target.value })}
-                            className="w-full p-2 border rounded text-gray-800"
+                            className="p-2 border rounded text-gray-600 w-9/10"
                             placeholder="Titre"
                             required
                         />
+                    </div>
+                    <div className="w-1/5">
                         <input
                             type="datetime-local"
                             value={form.date.toISOString().slice(0, 16)}
                             onChange={(e) =>
                               setForm({ ...form, date: new Date(e.target.value) })
                             }
-                            className="w-full p-2 border rounded text-gray-800"
+                            className="p-2 border rounded text-gray-600 w-9/10"
                             required
                         />
-                        <div className="flex gap-2">
-                            <button
-                                type="submit"
-                                className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
-                            >
-                                Modifier
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setEditMode(false)}
-                                className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
-                            >
-                                Annuler
-                            </button>
-                        </div>
-                    </form>
-                ) : (
-                    <>
-                        {appointment.title} - {beautifulDateTime(new Date(appointment.date))}
+                    </div>
+                    <div className="flex gap-2">
+                        <button
+                            type="submit"
+                            className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+                        >
+                            Modifier
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setEditMode(false)}
+                            className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
+                        >
+                            Annuler
+                        </button>
+                    </div>
+                </form>
+            ) : (
+                <div className="w-full flex flex-row items-center">
+                    <p className="text-gray-800 w-1/5">{appointment.title}</p>
+                    <p className="text-gray-800 w-1/5">{beautifulDateTime(new Date(appointment.date))}</p>
+                    <div className="flex flex-row gap-2 ml-auto">
                         <button
                             onClick={() => setEditMode(true)}
-                            className="ml-4 bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+                            className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >
                             <EditIcon />
                         </button>
                         <DeleteAppointment appointmentId={appointment.id} />
-                    </>
-                )}
-            </li>
-        </div>
+                    </div>
+                </div>
+            )}
+        </li>
     )
 }

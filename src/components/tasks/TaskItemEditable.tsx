@@ -32,37 +32,41 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
     const { request: putTask } = useApi<undefined>();
 
     return (
-        <div>
-            <li className="border-b py-1 text-gray-800 flex flex-row gap-2 items-center">
-                {editMode ? (
-                    <form
-                        onSubmit={(e: FormEvent<HTMLFormElement>) => {
-                            e.preventDefault();
-                            putTask(`/api/tasks/${task.id}`, "PUT", form, () => window.location.reload(), "Tâche modifiée avec succès");
-                        }}
-                        className="space-y-2"
-                    >
+        <li>
+            {editMode ? (
+                <form
+                    onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                        e.preventDefault();
+                        putTask(`/api/tasks/${task.id}`, "PUT", form, () => window.location.reload(), "Tâche modifiée avec succès");
+                    }}
+                    className="w-full flex flex-row items-center"
+                >
+                    <div className="w-1/5">
                         <input
                             type="text"
                             value={form.title}
                             onChange={(e) => setForm({ ...form, title: e.target.value })}
-                            className="w-full p-2 border rounded text-gray-800"
+                            className="p-2 border rounded text-gray-600 w-9/10"
                             placeholder="Titre"
                             required
                         />
+                    </div>
+                    <div className="w-1/5">
                         <input
                             type="text"
                             value={form.desc}
                             onChange={(e) => setForm({ ...form, desc: e.target.value })}
-                            className="w-full p-2 border rounded text-gray-800"
+                            className="p-2 border rounded text-gray-600 w-9/10"
                             placeholder="Description"
                         />
+                    </div>
+                    <div className="w-1/5">
                         <select
                             value={form.type}
                             onChange={(e) =>
                                 setForm({ ...form, type: e.target.value })
                             }
-                            className="w-full p-2 border rounded text-gray-800"
+                            className="p-2 border rounded text-gray-600 w-9/10"
                             required
                         >
                             <option value="" disabled>
@@ -72,7 +76,9 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                                 <option key={type} value={type}>{type}</option>)
                             }
                         </select>
-                        <label className="flex items-center gap-2">
+                    </div>
+                    <div className="w-1/5">
+                        <label className="p-2 border rounded text-gray-600 w-9/10 flex flex-row gap-2 items-center">
                             <span className="text-gray-800">Terminé</span>
                             <input
                                 type="checkbox"
@@ -81,35 +87,40 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                                 className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-2 focus:ring-blue-400"
                             />
                         </label>
-                        <div className="flex gap-2">
-                            <button
-                                type="submit"
-                                className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
-                            >
-                                Modifier
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setEditMode(false)}
-                                className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
-                            >
-                                Annuler
-                            </button>
-                        </div>
-                    </form>
-                ) : (
-                    <>
-                        {task.title} - {task.desc} - {task.type} - {task.done ? "Terminé" : "En cours"}
+                    </div>
+                    <div className="flex gap-2">
+                        <button
+                            type="submit"
+                            className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+                        >
+                            Modifier
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setEditMode(false)}
+                            className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
+                        >
+                            Annuler
+                        </button>
+                    </div>
+                </form>
+            ) : (
+                <div className="w-full flex flex-row items-center">
+                    <p className="text-gray-800 w-1/5">{task.title}</p>
+                    <p className="text-gray-800 w-1/5">{task.desc}</p>
+                    <p className="text-gray-800 w-1/5">{task.type}</p>
+                    <p className="text-gray-800 w-1/5">{task.done ? "Terminé" : "En cours"}</p>
+                    <div className="flex flex-row gap-2 ml-auto">
                         <button
                             onClick={() => setEditMode(true)}
-                            className="ml-4 bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+                            className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >
                             <EditIcon />
                         </button>
                         <DeleteTask taskId={task.id} />
-                    </>
-                )}
-            </li>
-        </div>
+                    </div>
+                </div>
+            )}
+        </li>
     )
 }

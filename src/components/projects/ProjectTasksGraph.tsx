@@ -59,7 +59,8 @@ export default function ProjectTasksGraph({ idProject, taskType }: ProjectTasksG
     }
 
     return (
-        <div className="flex flex-col gap-2 bg-white shadow-sm rounded-lg p-3 border border-gray-200 w-53 flex-wrap whitespace-nowrap">
+        <div className={`flex flex-col gap-2 flex-wrap whitespace-nowrap justify-start
+        bg-white shadow-sm rounded-lg p-3 border border-gray-200 w-53 ${(data && data.length === 0) ? "max-h-[60px]" : ""}`}>
             <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
                 errorMessage="Erreur lors du chargement des tâches."
                 noDataMessage="" 

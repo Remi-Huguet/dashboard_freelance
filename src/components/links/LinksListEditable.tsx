@@ -25,21 +25,23 @@ export default function LinksListEditable({ idProject }: LinksListEditableProps)
   }, []);
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white p-4 rounded shadow-md">
-        <h3 className="text-xl font-bold mb-2 text-gray-800">Liste des liens</h3>
-        <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
-          errorMessage="Erreur lors du chargement des liens."
-          noDataMessage="Pas de liens." 
-          showSkeletonLoader={true} />
-        {!loading && isSuccess && data && data.length > 0 && (
-          <ul className="space-y-1">
-            {data.map((l) => (
-              <LinkItemEditable link={l} key={l.id} />
-            ))}
-          </ul>
-        )}
+    <div className="bg-white p-4 rounded shadow-md flex flex-col gap-2">
+      <h3 className="text-xl font-bold text-gray-800 mb-2">Liste des liens</h3>
+      <div className="flex flex-row">
+        <p className="text-gray-800 w-1/5 font-bold">Nom</p>
+        <p className="text-gray-800 w-1/5 font-bold">Lien</p>
       </div>
+      <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+        errorMessage="Erreur lors du chargement des liens."
+        noDataMessage="Pas de liens." 
+        showSkeletonLoader={true} />
+      {!loading && isSuccess && data && data.length > 0 && (
+        <ul className="flex flex-col gap-2">
+          {data.map((l) => (
+            <LinkItemEditable link={l} key={l.id} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
