@@ -12,11 +12,11 @@ export default async function Dashboard(): Promise<JSX.Element> {
 
   return (
     <div className="h-full bg-gray-100 p-8">
-      <div className="h-full mt-8 p-6 flex flex-col gap-2">
+      <div className="h-full p-6 flex flex-col gap-2">
         <h2 className="text-3xl font-bold text-gray-800">
           Bienvenue sur votre Dashboard, {session?.user?.name ?? "User"} !
         </h2>
-        <div className="h-full p-8 w-full flex flex-row justify-center">
+        <div className="h-full w-full flex flex-row justify-center">
           <div className="mt-8 p-6 flex flex-col gap-4 w-1/2 justify-start border-r border-black">
             <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mb-2"><FolderOpenIcon fontSize="large" /> Projets</h1>
             <Badge title="Statut" content="En cours" />

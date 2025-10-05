@@ -43,8 +43,8 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
     }, []);
 
     return (
-        <div className="bg-white p-4 rounded shadow-md flex flex-col gap-2">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">Projet</h3>
+        <div className="bg-white p-4 rounded shadow-md flex flex-col gap-4">
+            <h3 className="text-xl font-bold text-gray-800">Projet</h3>
             <div className="flex flex-row">
               <p className="text-gray-800 w-1/5 font-bold">Nom</p>
               <p className="text-gray-800 w-1/5 font-bold">Statut</p>
@@ -123,7 +123,7 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                     <div className="w-full flex flex-row items-center">
                         <p className="text-gray-800 w-1/5">{project.name}</p>
                         <p className="text-gray-800 w-1/5">{project.status}</p>
-                        <p className="text-gray-800 w-1/5 flex flex-row gap-2">
+                        <div className="text-gray-800 w-1/5 flex flex-row gap-2">
                             <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
                                 errorMessage="Erreur lors du chargement du client."
                                 noDataMessage="Pas de client." 
@@ -133,7 +133,7 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                                     {data.find(client => client.id === project.clientId)?.name} {data.find(client => client.id === project.clientId)?.surname}
                                 </>
                             )}
-                        </p>
+                        </div>
                         <div className="flex flex-row gap-2 ml-auto">
                             <button
                                 onClick={() => setEditMode(true)}

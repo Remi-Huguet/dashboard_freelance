@@ -14,7 +14,7 @@ interface AppointmentData {
 }
 
 interface AppointmentItemEditableProps {
-  appointment: AppointmentData;
+    appointment: AppointmentData;
 }
 
 export default function AppointmentItemEditable({ appointment }: AppointmentItemEditableProps): JSX.Element {
