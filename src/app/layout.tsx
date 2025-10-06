@@ -11,6 +11,9 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   title: "Dashboard Freelance",
   description: "A dashboard to manage your freelance projects and clients.",
+  icons: {
+    icon: "/favicon.ico"
+  },
 };
 
 interface RootLayoutProps {
