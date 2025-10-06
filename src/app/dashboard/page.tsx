@@ -11,25 +11,23 @@ export default async function Dashboard(): Promise<JSX.Element> {
   const session = await getServerSession();
 
   return (
-    <div className="h-full bg-gray-100 p-8">
-      <div className="h-full p-6 flex flex-col gap-2">
-        <h2 className="text-3xl font-bold text-gray-800">
-          Bienvenue sur votre Dashboard, {session?.user?.name ?? "User"} !
-        </h2>
-        <div className="h-full w-full flex flex-row justify-center">
-          <div className="mt-8 p-6 flex flex-col gap-4 w-1/2 justify-start border-r border-black">
-            <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mb-2"><FolderOpenIcon fontSize="large" /> Projets</h1>
-            <Badge title="Statut" content="En cours" />
-            <div className="max-h-78 overflow-y-auto pr-2">
-              <ProjectsList inProgress={true} />
-            </div>
+    <div className="h-full bg-gray-100 p-8 flex flex-col gap-2">
+      <h2 className="text-3xl font-bold text-gray-800">
+        Bienvenue sur votre Dashboard, {session?.user?.name ?? "User"} !
+      </h2>
+      <div className="h-full w-full flex flex-row justify-center">
+        <div className="mt-8 p-6 flex flex-col gap-4 w-1/2 justify-start border-r border-black">
+          <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mb-2"><FolderOpenIcon fontSize="large" /> Projets</h1>
+          <Badge title="Statut" content="En cours" />
+          <div className="max-h-78 overflow-y-auto pr-2">
+            <ProjectsList inProgress={true} />
           </div>
-          <div className="mt-8 p-6 flex flex-col gap-4 w-1/2 justify-start">
-            <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mb-2"><CalendarMonthIcon fontSize="large" /> Rendez-vous</h1>
-            <Badge title="Période" content={getWeekBoundsFromDate(new Date())} />
-            <div className="max-h-80 overflow-y-auto pr-2">
-              <OngoingAppointmentList idProject="" />
-            </div>
+        </div>
+        <div className="mt-8 p-6 flex flex-col gap-4 w-1/2 justify-start">
+          <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mb-2"><CalendarMonthIcon fontSize="large" /> Rendez-vous</h1>
+          <Badge title="Période" content={getWeekBoundsFromDate(new Date())} />
+          <div className="max-h-80 overflow-y-auto pr-2">
+            <OngoingAppointmentList idProject="" />
           </div>
         </div>
       </div>

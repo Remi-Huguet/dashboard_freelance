@@ -29,9 +29,7 @@ export async function GET(req: Request): Promise<Response> {
     const { searchParams } = new URL(req.url);
     const inProgress = searchParams.get("inProgress") === "true";
 
-    let projects = await prisma.project.findMany({
-      orderBy: { createdAt: "desc" },
-    });
+    let projects = await prisma.project.findMany();
 
     if (inProgress) {
       projects = projects.filter((p) => p.status === "En cours")

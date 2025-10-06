@@ -14,7 +14,6 @@ model Client {
   surname   String
   email     String   @unique
   company   String?
-  createdAt DateTime @default(now())
 }
 
 model Project {
@@ -22,7 +21,6 @@ model Project {
   name        String
   status      String   @default("Not Started")
   clientId    String
-  createdAt   DateTime @default(now())
 }
 
 model Link {

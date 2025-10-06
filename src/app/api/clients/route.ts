@@ -28,9 +28,7 @@ export async function POST(req: Request): Promise<Response> {
 
 export async function GET(): Promise<Response> {
   try {
-    const clients = await prisma.client.findMany({
-      orderBy: { createdAt: "desc" },
-    });
+    const clients = await prisma.client.findMany();
     clients.sort((a, b) => a.name.localeCompare(b.name));
     return new Response(JSON.stringify(clients), { status: 200 });
   } catch (error: unknown) {
