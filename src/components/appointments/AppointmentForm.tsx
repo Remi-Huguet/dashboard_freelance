@@ -60,15 +60,18 @@ export default function AppointmentForm({ idProject }: AppointmentFormProps): JS
               className="w-full p-2 border rounded text-gray-800"
               required
             />
-            <input
-                type="datetime-local"
-                value={form.date.toISOString().slice(0, 16)}
-                onChange={(e) =>
-                  setForm({ ...form, date: new Date(e.target.value) })
-                }
-                className="w-full p-2 border rounded text-gray-800"
-                required
-            />
+            <div className="w-full flex flex-col gap-1">
+              <p className="text-gray-800">Date du rendez-vous</p>
+              <input
+                  type="datetime-local"
+                  value={form.date.toISOString().slice(0, 16)}
+                  onChange={(e) =>
+                    setForm({ ...form, date: new Date(e.target.value) })
+                  }
+                  className="w-full p-2 border rounded text-gray-800"
+                  required
+              />
+            </div>
             <div className="flex gap-2">
               <button
                 type="submit"

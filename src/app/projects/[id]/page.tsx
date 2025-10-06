@@ -15,6 +15,7 @@ import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ProjectTasksGraph from "@/components/projects/ProjectTasksGraph";
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 interface ProjectData {
   id: string;
@@ -52,6 +53,12 @@ export default function Project({ params }: ProjectProps): JSX.Element {
                   className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
                 >
                   <SettingsIcon />
+              </button>
+              <button
+                  onClick={() => window.location.href = `/projects/${id}/invoice`}
+                  className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                >
+                  <ReceiptIcon />
               </button>
             </div>
             <div className="flex flex-row gap-4">

@@ -37,7 +37,7 @@ export default function LoadingData({
         <>
             {loading && (showSkeletonLoader ? skeletonLoader() : circularLoader())}
             {!loading && isError && <p className="text-gray-800">{errorMessage}</p>}
-            {!loading && isSuccess && isDataEmpty && 
+            {!loading && isSuccess && isDataEmpty && noDataMessage !== "" &&
                 <p className="text-gray-800">{noDataMessage}</p>
             }
         </>

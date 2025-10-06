@@ -106,7 +106,7 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                                 )}
                             </select>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 ml-auto">
                             <button type="submit" className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">
                                 Modifier
                             </button>

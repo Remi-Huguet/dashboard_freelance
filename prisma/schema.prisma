@@ -23,6 +23,15 @@ model Project {
   clientId    String
 }
 
+model Invoice {
+  id            String   @id @default(cuid())
+  dateStart     DateTime
+  dateEnd       DateTime?
+  pricingValue  Float
+  pricingType   String
+  projectId     String
+}
+
 model Link {
   id        String   @id @default(cuid())
   name      String

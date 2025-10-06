@@ -28,7 +28,7 @@ export default function Config({ params }: ConfigProps): JSX.Element {
     useEffect(() => {
         getProject(`/api/projects/${id}`, "GET");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [id]);
+    }, [id]);
 
     return (
         <div className="h-full bg-gray-100 p-8">

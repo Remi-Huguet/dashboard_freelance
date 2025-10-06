@@ -57,7 +57,7 @@ export default function LinkItemEditable({ link }: LinkItemEditableProps): JSX.E
                                 required
                             />
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 ml-auto">
                             <button
                                 type="submit"
                                 className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"

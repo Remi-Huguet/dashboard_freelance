@@ -10,3 +10,10 @@ export const taskTypes = [
     "Deploiement",
     "Documentation"
 ]
+
+export const pricingTypes = [
+    "Par heure",
+    "Par jour",
+    "Par mois",
+    "Pour la mission"
+]
