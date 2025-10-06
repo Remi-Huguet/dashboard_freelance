@@ -33,7 +33,7 @@ export default function InvoiceItemEditable({ invoice }: InvoiceItemEditableProp
 
     return (
         <div className="bg-white p-4 rounded shadow-md flex flex-col gap-4">
-            <h3 className="text-xl font-bold text-gray-800">Facture</h3>
+            <h3 className="text-xl font-bold text-gray-800">Données de facturation</h3>
             <div className="flex flex-row">
               <p className="text-gray-800 w-1/5 font-bold">Date de début</p>
               <p className="text-gray-800 w-1/5 font-bold">Date de fin</p>
