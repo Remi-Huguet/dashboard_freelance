@@ -59,7 +59,9 @@ export default function Project({ params }: ProjectProps): JSX.Element {
             </div>
             <ClientCard clientId={data.clientId} />
             <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2 mt-2 mb-2"><AccountTreeIcon />Liens utiles</h2>
-            <ProjectLinks idProject={id} />
+            <div className="max-h-42 overflow-y-auto pr-2">
+              <ProjectLinks idProject={id} />
+            </div>
           </>
         )}  
       </div>
@@ -74,7 +76,9 @@ export default function Project({ params }: ProjectProps): JSX.Element {
           </button>
         </div>
         <Badge title="Période" content={getWeekBoundsFromDate(new Date())} />
-        <OngoingAppointmentList idProject={id} />
+        <div className="max-h-93 overflow-y-auto pr-2">
+          <OngoingAppointmentList idProject={id} />
+        </div>
       </div>
       <div className="mt-8 p-6 flex flex-col gap-4 w-1/3 justify-start">
         <div className="flex flex-row gap-4 items-center">
