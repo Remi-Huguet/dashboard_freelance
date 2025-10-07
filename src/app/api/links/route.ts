@@ -10,6 +10,17 @@ export async function POST(req: Request): Promise<Response> {
   try {
     const body: LinkBody = await req.json();
 
+    const project = await prisma.project.findUnique({
+      where: { id: body.projectId },
+    });
+
+    if (!project) {
+      return new Response(
+        JSON.stringify({ error: "Projet introuvable" }),
+        { status: 404 }
+      );
+    }
+
     const link = await prisma.link.create({
         data: {
             name: body.name,
@@ -24,7 +35,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 }
 
-export async function GET(): Promise<Response> {
+export async function GET(req: Request): Promise<Response> {
   try {
     const links = await prisma.link.findMany();
     return new Response(JSON.stringify(links), { status: 200 });

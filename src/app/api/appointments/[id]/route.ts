@@ -28,6 +28,17 @@ export async function PUT(req: Request, context: { params: Promise<{ id: string 
     const { id } = await context.params;
     const body: AppointmentBody = await req.json();
 
+    const project = await prisma.project.findUnique({
+      where: { id: body.projectId },
+    });
+
+    if (!project) {
+      return new Response(
+        JSON.stringify({ error: "Projet introuvable" }),
+        { status: 404 }
+      );
+    }
+
     const appointment = await prisma.appointment.update({
       where: { id: id },
       data: {

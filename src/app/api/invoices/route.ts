@@ -12,15 +12,26 @@ export async function POST(req: Request): Promise<Response> {
   try {
     const body: InvoiceBody = await req.json();
 
+    const project = await prisma.project.findUnique({
+      where: { id: body.projectId },
+    });
+
+    if (!project) {
+      return new Response(
+        JSON.stringify({ error: "Projet introuvable" }),
+        { status: 404 }
+      );
+    }
+
     const existingInvoice = await prisma.invoice.findFirst({
-        where: { projectId: body.projectId },
+      where: { projectId: body.projectId },
     });
 
     if (existingInvoice) {
-        return new Response(
-            JSON.stringify({ error: "Une facture existe déjà pour ce projet." }),
-            { status: 400 }
-        );
+      return new Response(
+          JSON.stringify({ error: "Une facture existe déjà pour ce projet." }),
+          { status: 400 }
+      );
     }
 
     const invoice = await prisma.invoice.create({

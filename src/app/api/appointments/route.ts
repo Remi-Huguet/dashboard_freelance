@@ -10,6 +10,17 @@ export async function POST(req: Request): Promise<Response> {
   try {
     const body: AppointmentBody = await req.json();
 
+    const project = await prisma.project.findUnique({
+      where: { id: body.projectId },
+    });
+
+    if (!project) {
+      return new Response(
+        JSON.stringify({ error: "Projet introuvable" }),
+        { status: 404 }
+      );
+    }
+
     const appointment = await prisma.appointment.create({
         data: {
             title: body.title,

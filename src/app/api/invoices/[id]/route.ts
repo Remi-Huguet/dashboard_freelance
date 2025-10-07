@@ -16,7 +16,7 @@ export async function GET(req: Request, context: { params: Promise<{ id: string 
     });
 
     if (!invoice) {
-      return new Response(JSON.stringify({ error: "Pas de facture trouvé" }), { status: 404 });
+      return new Response(JSON.stringify({ error: "Pas de facture trouvée" }), { status: 404 });
     }
 
     return new Response(JSON.stringify(invoice), { status: 200 });
@@ -29,6 +29,17 @@ export async function PUT(req: Request, context: { params: Promise<{ id: string 
   try {
     const { id } = await context.params;
     const body: InvoiceBody = await req.json();
+
+    const project = await prisma.project.findUnique({
+      where: { id: body.projectId },
+    });
+
+    if (!project) {
+      return new Response(
+        JSON.stringify({ error: "Projet introuvable" }),
+        { status: 404 }
+      );
+    }
 
     const invoice = await prisma.invoice.update({
       where: { id: id },

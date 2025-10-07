@@ -45,7 +45,7 @@ export default function InvoiceItemEditable({ invoice }: InvoiceItemEditableProp
                     <form
                         onSubmit={(e: FormEvent<HTMLFormElement>) => {
                             e.preventDefault();
-                            putInvoice(`/api/invoice/${invoice.id}`, "PUT", form, () => window.location.reload(), "Facture modifié avec succès");
+                            putInvoice(`/api/invoices/${invoice.id}`, "PUT", form, () => window.location.reload(), "Facture modifié avec succès");
                         }}
                         className="w-full flex flex-row items-center"
                     >

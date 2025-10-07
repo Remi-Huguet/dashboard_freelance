@@ -2,21 +2,24 @@ import { GET, PUT, DELETE } from '@/app/api/clients/[id]/route';
 import { prismaMock } from '../__mocks__/prismaMock';
 
 describe('/api/clients/[id]', () => {
+  const idClient = '1';
+  const baseUrl = 'http://localhost/api/clients/' + idClient;
   const fakeClient = {
-    id: '1',
+    id: idClient,
     name: 'Alice',
     surname: 'Doe',
     email: 'alice@example.com',
     company: null
   };
+  const baseParams = { params: Promise.resolve({ id: idClient }) }
 
   it('GET [SUCCESS CASE] must return a client', async () => {
     prismaMock.client.findUnique.mockResolvedValue(fakeClient);
 
-    const req = new Request('http://localhost/api/clients/1', {
-      method: 'GET',
+    const req = new Request(baseUrl, {
+      method: 'GET'
     });
-    const res = await GET(req, { params: Promise.resolve({ id: '1' }) });
+    const res = await GET(req, baseParams);
     const data = await res.json();
 
     expect(res.status).toBe(200);
@@ -29,10 +32,10 @@ describe('/api/clients/[id]', () => {
   it('GET [ERROR CASE] must not return a client (client not exist)', async () => {
     prismaMock.client.findUnique.mockResolvedValue(null);
 
-    const req = new Request('http://localhost/api/clients/1', {
-      method: 'GET',
+    const req = new Request(baseUrl, {
+      method: 'GET'
     });
-    const res = await GET(req, { params: Promise.resolve({ id: '1' }) });
+    const res = await GET(req, baseParams);
     const data = await res.json();
 
     expect(res.status).toBe(404);
@@ -45,10 +48,10 @@ describe('/api/clients/[id]', () => {
   it('GET [ERROR CASE] must not return a client (db error)', async () => {
     prismaMock.client.findUnique.mockRejectedValue(new Error('Database error'));
 
-    const req = new Request('http://localhost/api/clients/1', {
-      method: 'GET',
+    const req = new Request(baseUrl, {
+      method: 'GET'
     });
-    const res = await GET(req, { params: Promise.resolve({ id: '1' }) });
+    const res = await GET(req, baseParams);
     const data = await res.json();
 
     expect(res.status).toBe(500);
@@ -60,15 +63,15 @@ describe('/api/clients/[id]', () => {
 
   it('PUT [SUCCESS CASE] must update a client', async () => {
     const updatedData = { name: 'Alice Updated', company: 'company' };
-    const updated = { ...fakeClient, ...updatedData };
-    prismaMock.client.update.mockResolvedValue(updated);
+    const updatedClient = { ...fakeClient, ...updatedData };
 
-    const req = new Request('http://localhost/api/clients/1', {
+    prismaMock.client.update.mockResolvedValue(updatedClient);
+
+    const req = new Request(baseUrl, {
       method: 'PUT',
       body: JSON.stringify(updatedData),
     });
-
-    const res = await PUT(req, { params: Promise.resolve({ id: '1' }) });
+    const res = await PUT(req, baseParams);
     const data = await res.json();
 
     expect(res.status).toBe(200);
@@ -81,14 +84,14 @@ describe('/api/clients/[id]', () => {
 
   it('PUT [ERROR CASE] must not update a client (bad data in body)', async () => {
     const updatedData = { name: null, company: 'company' };
+
     prismaMock.client.update.mockRejectedValue(new Error('Invalid data'));
 
-    const req = new Request('http://localhost/api/clients/1', {
+    const req = new Request(baseUrl, {
       method: 'PUT',
       body: JSON.stringify(updatedData),
     });
-
-    const res = await PUT(req, { params: Promise.resolve({ id: '1' }) });
+    const res = await PUT(req, baseParams);
     const data = await res.json();
 
     expect(res.status).toBe(500);
@@ -101,14 +104,14 @@ describe('/api/clients/[id]', () => {
 
   it('PUT [ERROR CASE] must not update a client (db error)', async () => {
     const updatedData = { name: 'Alice Updated', company: 'company' };
+
     prismaMock.client.update.mockRejectedValue(new Error('Database error'));
 
-    const req = new Request('http://localhost/api/clients/1', {
+    const req = new Request(baseUrl, {
       method: 'PUT',
       body: JSON.stringify(updatedData),
     });
-
-    const res = await PUT(req, { params: Promise.resolve({ id: '1' }) });
+    const res = await PUT(req, baseParams);
     const data = await res.json();
 
     expect(res.status).toBe(500);
@@ -123,10 +126,10 @@ describe('/api/clients/[id]', () => {
     prismaMock.project.findMany.mockResolvedValue([]);
     prismaMock.client.delete.mockResolvedValue(fakeClient);
 
-    const req = new Request('http://localhost/api/clients/1', {
+    const req = new Request(baseUrl, {
       method: 'DELETE'
     });
-    const res = await DELETE(req, { params: Promise.resolve({ id: '1' }) });
+    const res = await DELETE(req, baseParams);
     const data = await res.json();
 
     expect(res.status).toBe(200);
@@ -137,12 +140,12 @@ describe('/api/clients/[id]', () => {
   });
 
   it('DELETE [ERROR CASE] must not delete a client (if he is linked to a project)', async () => {
-    prismaMock.project.findMany.mockResolvedValue([{ id: 'p1', clientId: '1', name: 'Project 1', status: 'En cours' }]);
+    prismaMock.project.findMany.mockResolvedValue([{ id: '1', clientId: '1', name: 'Project 1', status: 'En cours' }]);
 
-    const req = new Request('http://localhost/api/clients/1', { method: 'DELETE' });
-    const context = { params: Promise.resolve({ id: '1' }) };
-
-    const res = await DELETE(req, context);
+    const req = new Request(baseUrl, {
+      method: 'DELETE'
+    });
+    const res = await DELETE(req, baseParams);
     const data = await res.json();
 
     expect(res.status).toBe(400);
@@ -154,10 +157,10 @@ describe('/api/clients/[id]', () => {
     prismaMock.project.findMany.mockResolvedValue([]);
     prismaMock.client.delete.mockRejectedValue(new Error('Database error'));
 
-    const req = new Request('http://localhost/api/clients/1', {
+    const req = new Request(baseUrl, {
       method: 'DELETE'
     });
-    const res = await DELETE(req, { params: Promise.resolve({ id: '1' }) });
+    const res = await DELETE(req, baseParams);
     const data = await res.json();
 
     expect(res.status).toBe(500);

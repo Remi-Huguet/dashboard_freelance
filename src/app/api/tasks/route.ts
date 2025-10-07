@@ -12,6 +12,17 @@ export async function POST(req: Request): Promise<Response> {
   try {
     const body: TaskBody = await req.json();
 
+    const project = await prisma.project.findUnique({
+      where: { id: body.projectId },
+    });
+
+    if (!project) {
+      return new Response(
+        JSON.stringify({ error: "Projet introuvable" }),
+        { status: 404 }
+      );
+    }
+
     const task = await prisma.task.create({
         data: {
             title: body.title,

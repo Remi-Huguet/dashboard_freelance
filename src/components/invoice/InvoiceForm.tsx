@@ -32,7 +32,7 @@ export default function InvoiceForm({ idProject }: InvoiceFormProps): JSX.Elemen
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    postInvoice("/api/invoice", "POST", form, () => window.location.reload(), "Facture créé avec succès");
+    postInvoice("/api/invoices", "POST", form, () => window.location.reload(), "Facture créé avec succès");
   };
 
   return (

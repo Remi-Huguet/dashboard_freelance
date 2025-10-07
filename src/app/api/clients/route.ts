@@ -26,7 +26,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 }
 
-export async function GET(): Promise<Response> {
+export async function GET(req: Request): Promise<Response> {
   try {
     const clients = await prisma.client.findMany();
     clients.sort((a, b) => a.name.localeCompare(b.name));
