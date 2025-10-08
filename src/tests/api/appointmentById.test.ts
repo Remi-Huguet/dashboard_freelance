@@ -1,40 +1,38 @@
-import { GET, PUT, DELETE } from '@/app/api/invoices/[id]/route';
+import { GET, PUT, DELETE } from '@/app/api/appointments/[id]/route';
 import { prismaMock } from '../__mocks__/prismaMock';
-import { invoiceWithDatesToIso } from '../utils';
+import { appointmentWIthDateToIso } from '../utils';
 
-describe('/api/invoices/[id]', () => {
-  const idInvoice = "1";
-  const baseUrl = "http://localhost/api/invoices/" + idInvoice;
-  const fakeInvoice = { 
-    id: idInvoice, 
-    dateStart: new Date(), 
-    dateEnd: new Date(), 
-    pricingValue: 350, 
-    pricingType: "Par jour", 
+describe('/api/appointments/[id]', () => {
+  const idAppointment = "1";
+  const baseUrl = "http://localhost/api/appointments/" + idAppointment;
+  const fakeAppointment = { 
+    id: idAppointment, 
+    title: "titre",
+    date: new Date(),
     projectId: "1" 
   };
-  const baseParams = { params: Promise.resolve({ id: idInvoice }) };
+  const baseParams = { params: Promise.resolve({ id: idAppointment }) };
   const fakeProject = { id: '1', clientId: '1', name: 'Project 1', status: 'En cours' }
 
-  it('GET [SUCCESS CASE] must return a invoice', async () => {
-    prismaMock.invoice.findUnique.mockResolvedValue(fakeInvoice);
+  it('GET [SUCCESS CASE] must return an appointment', async () => {
+    prismaMock.appointment.findUnique.mockResolvedValue(fakeAppointment);
 
     const req = new Request(baseUrl, {
       method: 'GET'
     });
     const res = await GET(req, baseParams);
     const data = await res.json();
-    const expected = invoiceWithDatesToIso(fakeInvoice)
+    const expected = appointmentWIthDateToIso(fakeAppointment)
 
     expect(res.status).toBe(200);
     expect(data).toEqual(expected);
-    expect(prismaMock.invoice.findUnique).toHaveBeenCalledWith({
+    expect(prismaMock.appointment.findUnique).toHaveBeenCalledWith({
       where: { id: '1' },
     });
   });
 
-  it('GET [ERROR CASE] must not return a invoice (invoice not exist)', async () => {
-    prismaMock.invoice.findUnique.mockResolvedValue(null);
+  it('GET [ERROR CASE] must not return an appointment (appointment not exist)', async () => {
+    prismaMock.appointment.findUnique.mockResolvedValue(null);
 
     const req = new Request(baseUrl, {
       method: 'GET'
@@ -43,14 +41,14 @@ describe('/api/invoices/[id]', () => {
     const data = await res.json();
     
     expect(res.status).toBe(404);
-    expect(data).toEqual({ error: 'Pas de facture trouvée' });
-    expect(prismaMock.invoice.findUnique).toHaveBeenCalledWith({
+    expect(data).toEqual({ error: 'Pas de rendez-vous trouvé' });
+    expect(prismaMock.appointment.findUnique).toHaveBeenCalledWith({
       where: { id: '1' },
     });
   });
 
-  it('GET [ERROR CASE] must not return a invoice (db error)', async () => {
-    prismaMock.invoice.findUnique.mockRejectedValue(new Error('Database error'));
+  it('GET [ERROR CASE] must not return an appointment (db error)', async () => {
+    prismaMock.appointment.findUnique.mockRejectedValue(new Error('Database error'));
   
     const req = new Request(baseUrl, {
       method: 'GET'
@@ -60,18 +58,17 @@ describe('/api/invoices/[id]', () => {
   
     expect(res.status).toBe(500);
     expect(data).toEqual({ error: 'Database error' });
-    expect(prismaMock.invoice.findUnique).toHaveBeenCalledWith({
+    expect(prismaMock.appointment.findUnique).toHaveBeenCalledWith({
       where: { id: '1' },
     });
   });
 
-  it('PUT [SUCCESS CASE] must update a invoice', async () => {
-    const updatedData = { pricingType: "Par mission" };
-    const updatedInvoice = { ...fakeInvoice, ...updatedData };
+  it('PUT [SUCCESS CASE] must update an appointment', async () => {
+    const updatedData = { title: "deadline projet" };
+    const updatedAppointment = { ...fakeAppointment, ...updatedData };
   
     prismaMock.project.findUnique.mockResolvedValue(fakeProject);
-    prismaMock.invoice.findFirst.mockResolvedValue(null);
-    prismaMock.invoice.update.mockResolvedValue(updatedInvoice);
+    prismaMock.appointment.update.mockResolvedValue(updatedAppointment);
   
     const req = new Request(baseUrl, {
       method: 'PUT',
@@ -81,19 +78,18 @@ describe('/api/invoices/[id]', () => {
     const data = await res.json();
   
     expect(res.status).toBe(200);
-    expect(data.pricingType).toBe("Par mission");
-    expect(prismaMock.invoice.update).toHaveBeenCalledWith({
+    expect(data.title).toBe("deadline projet");
+    expect(prismaMock.appointment.update).toHaveBeenCalledWith({
       where: { id: '1' },
       data: updatedData,
     });
   });
 
-  it('PUT [ERROR CASE] must not update a invoice (bad data in body)', async () => {
-    const updatedBadData = { pricingType: null };
+  it('PUT [ERROR CASE] must not update an appointment (bad data in body)', async () => {
+    const updatedBadData = { title: null };
   
     prismaMock.project.findUnique.mockResolvedValue(fakeProject);
-    prismaMock.invoice.findFirst.mockResolvedValue(null);
-    prismaMock.invoice.update.mockRejectedValue(new Error('Invalid data'));
+    prismaMock.appointment.update.mockRejectedValue(new Error('Invalid data'));
   
     const req = new Request(baseUrl, {
       method: 'PUT',
@@ -104,13 +100,13 @@ describe('/api/invoices/[id]', () => {
   
     expect(res.status).toBe(500);
     expect(data).toEqual({ error: 'Invalid data' });
-    expect(prismaMock.invoice.update).toHaveBeenCalledWith({
+    expect(prismaMock.appointment.update).toHaveBeenCalledWith({
       where: { id: '1' },
       data: updatedBadData,
     });
   });
 
-  it('PUT [ERROR CASE] must not update a invoice (project do not exist)', async () => {
+  it('PUT [ERROR CASE] must not update an appointment (project do not exist)', async () => {
     const updatedBadData = { projectId: "2" };
   
     prismaMock.project.findUnique.mockResolvedValue(null);
@@ -124,15 +120,14 @@ describe('/api/invoices/[id]', () => {
   
     expect(res.status).toBe(404);
     expect(data).toEqual({ error: 'Projet introuvable' });
-    expect(prismaMock.invoice.update).not.toHaveBeenCalledWith();
+    expect(prismaMock.appointment.update).not.toHaveBeenCalledWith();
   });
 
-  it('PUT [ERROR CASE] must not update a invoice (db error)', async () => {
-    const updatedData = { pricingType: "Par mission" };
+  it('PUT [ERROR CASE] must not update an appointment (db error)', async () => {
+    const updatedData = { title: "deadline" };
   
     prismaMock.project.findUnique.mockResolvedValue(fakeProject);
-    prismaMock.invoice.findFirst.mockResolvedValue(null);
-    prismaMock.invoice.update.mockRejectedValue(new Error('Database error'));
+    prismaMock.appointment.update.mockRejectedValue(new Error('Database error'));
   
     const req = new Request(baseUrl, {
       method: 'PUT',
@@ -143,14 +138,14 @@ describe('/api/invoices/[id]', () => {
   
     expect(res.status).toBe(500);
     expect(data).toEqual({ error: 'Database error' });
-    expect(prismaMock.invoice.update).toHaveBeenCalledWith({
+    expect(prismaMock.appointment.update).toHaveBeenCalledWith({
       where: { id: '1' },
       data: updatedData,
     });
   });
 
-  it('DELETE [SUCCESS CASE] must delete a invoice', async () => {
-    prismaMock.invoice.delete.mockResolvedValue(fakeInvoice);
+  it('DELETE [SUCCESS CASE] must delete an appointment', async () => {
+    prismaMock.appointment.delete.mockResolvedValue(fakeAppointment);
   
     const req = new Request(baseUrl, {
       method: 'DELETE'
@@ -159,14 +154,14 @@ describe('/api/invoices/[id]', () => {
     const data = await res.json();
   
     expect(res.status).toBe(200);
-    expect(data).toEqual({ message: "Facture supprimé" });
-    expect(prismaMock.invoice.delete).toHaveBeenCalledWith({
+    expect(data).toEqual({ message: "Rendez-vous supprimé" });
+    expect(prismaMock.appointment.delete).toHaveBeenCalledWith({
       where: { id: '1' },
     });
   });
 
-  it('DELETE [ERROR CASE] must not delete a invoice (db error)', async () => {
-    prismaMock.invoice.delete.mockRejectedValue(new Error('Database error'));
+  it('DELETE [ERROR CASE] must not delete an appointment (db error)', async () => {
+    prismaMock.appointment.delete.mockRejectedValue(new Error('Database error'));
   
     const req = new Request(baseUrl, {
       method: 'DELETE'
@@ -176,7 +171,7 @@ describe('/api/invoices/[id]', () => {
   
     expect(res.status).toBe(500);
     expect(data).toEqual({ error: 'Database error' });
-    expect(prismaMock.invoice.delete).toHaveBeenCalledWith({
+    expect(prismaMock.appointment.delete).toHaveBeenCalledWith({
       where: { id: '1' },
     });
   });

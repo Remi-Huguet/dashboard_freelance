@@ -100,7 +100,6 @@ describe('/api/links', () => {
         const newLink  = { name: "google", url: "https://google.com", projectId: "1" };
     
         prismaMock.project.findUnique.mockResolvedValue(fakeProject);
-        prismaMock.link.findFirst.mockResolvedValue(null);
         prismaMock.link.create.mockRejectedValue(new Error('Database error'));
     
         const req = new Request(baseUrl, {

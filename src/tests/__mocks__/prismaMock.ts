@@ -1,4 +1,4 @@
-import { Client, Project, Invoice, Link  } from '@prisma/client';
+import { Client, Project, Invoice, Link, Appointment  } from '@prisma/client';
 
 type JestMockFn<ReturnType> = jest.Mock<ReturnType, unknown[]>;
 
@@ -28,9 +28,15 @@ export const prismaMock = {
   link: {
     findMany: jest.fn() as JestMockFn<Promise<Link[]>>,
     findUnique: jest.fn() as JestMockFn<Promise<Link | null>>,
-    findFirst: jest.fn() as JestMockFn<Promise<Link | null>>,
     create: jest.fn() as JestMockFn<Promise<Link>>,
     update: jest.fn() as JestMockFn<Promise<Link>>,
     delete: jest.fn() as JestMockFn<Promise<Link>>,
+  },
+  appointment: {
+    findMany: jest.fn() as JestMockFn<Promise<Appointment[]>>,
+    findUnique: jest.fn() as JestMockFn<Promise<Appointment | null>>,
+    create: jest.fn() as JestMockFn<Promise<Appointment>>,
+    update: jest.fn() as JestMockFn<Promise<Appointment>>,
+    delete: jest.fn() as JestMockFn<Promise<Appointment>>,
   }
 };

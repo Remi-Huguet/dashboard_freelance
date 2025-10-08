@@ -84,14 +84,14 @@ describe('/api/invoices/[id]', () => {
     });
 
     it('PUT [ERROR CASE] must not update a link (bad data in body)', async () => {
-        const updatedData = { name: null };
+        const updatedBadData = { name: null };
       
         prismaMock.project.findUnique.mockResolvedValue(fakeProject);
         prismaMock.link.update.mockRejectedValue(new Error('Invalid data'));
       
         const req = new Request(baseUrl, {
             method: 'PUT',
-            body: JSON.stringify(updatedData),
+            body: JSON.stringify(updatedBadData),
         });
         const res = await PUT(req, baseParams);
         const data = await res.json();
@@ -100,18 +100,18 @@ describe('/api/invoices/[id]', () => {
         expect(data).toEqual({ error: 'Invalid data' });
         expect(prismaMock.link.update).toHaveBeenCalledWith({
             where: { id: '1' },
-            data: updatedData,
+            data: updatedBadData,
         });
     });
 
     it('PUT [ERROR CASE] must not update a link (project do not exist)', async () => {
-        const updatedData = { projectId: "2" };
+        const updatedBadData = { projectId: "2" };
       
         prismaMock.project.findUnique.mockResolvedValue(null);
       
         const req = new Request(baseUrl, {
           method: 'PUT',
-          body: JSON.stringify(updatedData),
+          body: JSON.stringify(updatedBadData),
         });
         const res = await PUT(req, baseParams);
         const data = await res.json();
@@ -125,7 +125,6 @@ describe('/api/invoices/[id]', () => {
         const updatedData = { name: "jsp" };
       
         prismaMock.project.findUnique.mockResolvedValue(fakeProject);
-        prismaMock.link.findFirst.mockResolvedValue(null);
         prismaMock.link.update.mockRejectedValue(new Error('Database error'));
       
         const req = new Request(baseUrl, {

@@ -83,13 +83,13 @@ describe('/api/clients/[id]', () => {
   });
 
   it('PUT [ERROR CASE] must not update a client (bad data in body)', async () => {
-    const updatedData = { name: null, company: 'company' };
+    const updatedBadData = { name: null, company: 'company' };
 
     prismaMock.client.update.mockRejectedValue(new Error('Invalid data'));
 
     const req = new Request(baseUrl, {
       method: 'PUT',
-      body: JSON.stringify(updatedData),
+      body: JSON.stringify(updatedBadData),
     });
     const res = await PUT(req, baseParams);
     const data = await res.json();
@@ -98,7 +98,7 @@ describe('/api/clients/[id]', () => {
     expect(data).toEqual({ error: 'Invalid data' });
     expect(prismaMock.client.update).toHaveBeenCalledWith({
       where: { id: '1' },
-      data: updatedData,
+      data: updatedBadData,
     });
   });
 

@@ -13,3 +13,16 @@ export const invoiceWithDatesToIso = (invoice: Invoice) => {
         dateEnd: invoice.dateEnd?.toISOString(),
     }
 }
+
+interface Appointment {
+    title: string | null,
+    date: Date,
+    projectId: string
+}
+
+export const appointmentWIthDateToIso = (appointment: Appointment) => {
+    return {
+        ...appointment,
+        date: appointment.date.toISOString()
+    }
+}
