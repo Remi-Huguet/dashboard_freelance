@@ -71,7 +71,9 @@ describe('/api/clients', () => {
 
     expect(res.status).toBe(500);
     expect(data).toEqual({ error: 'Invalid data' });
-    expect(prismaMock.client.create).toHaveBeenCalledWith({ data: invalidClient });
+    expect(prismaMock.client.create).toHaveBeenCalledWith({ 
+      data: invalidClient 
+    });
   });
 
   it('POST [ERROR CASE] must not create a new client (db error)', async () => {

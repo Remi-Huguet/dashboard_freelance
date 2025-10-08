@@ -84,7 +84,9 @@ describe('/api/invoices', () => {
     
         expect(res.status).toBe(500);
         expect(data).toEqual({ error: 'Invalid data' });
-        expect(prismaMock.invoice.create).toHaveBeenCalledWith({ data: expected });
+        expect(prismaMock.invoice.create).toHaveBeenCalledWith({ 
+            data: expected 
+        });
     });
 
     it('POST [ERROR CASE] must not create a new invoice (project do not exist)', async () => {
@@ -142,5 +144,5 @@ describe('/api/invoices', () => {
         expect(prismaMock.invoice.create).toHaveBeenCalledWith({
             data: expected,
         });
-      });
+    });
 });

@@ -70,11 +70,11 @@ describe('/api/invoices/[id]', () => {
 
   it('PUT [SUCCESS CASE] must update a invoice', async () => {
     const updatedData = { pricingType: "Par mission" };
-    const updated = { ...fakeInvoice, ...updatedData };
+    const updatedInvoice = { ...fakeInvoice, ...updatedData };
   
     prismaMock.project.findUnique.mockResolvedValue(fakeProject);
     prismaMock.invoice.findFirst.mockResolvedValue(null);
-    prismaMock.invoice.update.mockResolvedValue(updated);
+    prismaMock.invoice.update.mockResolvedValue(updatedInvoice);
   
     const req = new Request(baseUrl, {
       method: 'PUT',
@@ -114,7 +114,7 @@ describe('/api/invoices/[id]', () => {
   });
 
   it('PUT [ERROR CASE] must not update a invoice (project do not exist)', async () => {
-    const updatedData = { pricingType: null };
+    const updatedData = { projectId: "2" };
   
     prismaMock.project.findUnique.mockResolvedValue(null);
   
@@ -131,7 +131,7 @@ describe('/api/invoices/[id]', () => {
   });
 
   it('PUT [ERROR CASE] must not update a invoice (db error)', async () => {
-    const updatedData = { pricingType: null };
+    const updatedData = { pricingType: "Par mission" };
   
     prismaMock.project.findUnique.mockResolvedValue(fakeProject);
     prismaMock.invoice.findFirst.mockResolvedValue(null);
