@@ -109,7 +109,7 @@ describe('/api/appointments', () => {
     });
 
     it('POST [ERROR CASE] must not create a new appointment (project do not exist)', async () => {
-        const invalidAppointment  = { title: null, date: new Date(), projectId: "2" };
+        const invalidAppointment  = { title: "titre", date: new Date(), projectId: "2" };
     
         prismaMock.project.findUnique.mockResolvedValue(null);
     
