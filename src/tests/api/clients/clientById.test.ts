@@ -1,5 +1,5 @@
 import { GET, PUT, DELETE } from '@/app/api/clients/[id]/route';
-import { prismaMock } from '../__mocks__/prismaMock';
+import { prismaMock } from '../../__mocks__/prismaMock';
 
 describe('/api/clients/[id]', () => {
   const idClient = '1';

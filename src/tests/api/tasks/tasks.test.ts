@@ -1,5 +1,5 @@
 import { GET, POST } from '@/app/api/tasks/route';
-import { prismaMock } from '../__mocks__/prismaMock';
+import { prismaMock } from '../../__mocks__/prismaMock';
 
 describe('/api/appointments', () => {
     const baseUrl = "http://localhost/api/tasks";

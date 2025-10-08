@@ -1,5 +1,5 @@
 import { GET, PUT, DELETE } from '@/app/api/projects/[id]/route';
-import { prismaMock } from '../__mocks__/prismaMock';
+import { prismaMock } from '../../__mocks__/prismaMock';
 
 describe('/api/projects/[id]', () => {
     const idProject = "1";

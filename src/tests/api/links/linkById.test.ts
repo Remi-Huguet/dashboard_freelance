@@ -1,22 +1,20 @@
-import { GET, PUT, DELETE } from '@/app/api/tasks/[id]/route';
-import { prismaMock } from '../__mocks__/prismaMock';
+import { GET, PUT, DELETE } from '@/app/api/links/[id]/route';
+import { prismaMock } from '../../__mocks__/prismaMock';
 
-describe('/api/tasks/[id]', () => {
-    const idTask = "1";
-    const baseUrl = "http://localhost/api/tasks/" + idTask;
-    const fakeTask = { 
-        id: idTask, 
-        title: "tests front", 
-        desc: "desc", 
-        type: "Front-end", 
-        done: true, 
+describe('/api/invoices/[id]', () => {
+    const idLink = "1";
+    const baseUrl = "http://localhost/api/links/" + idLink;
+    const fakeLink = { 
+        id: idLink, 
+        name: "google",
+        url: "https://google.com",
         projectId: "1" 
     };
-    const baseParams = { params: Promise.resolve({ id: idTask }) };
+    const baseParams = { params: Promise.resolve({ id: idLink }) };
     const fakeProject = { id: '1', clientId: '1', name: 'Project 1', status: 'En cours' }
 
-    it('GET [SUCCESS CASE] must return a task', async () => {
-        prismaMock.task.findUnique.mockResolvedValue(fakeTask);
+    it('GET [SUCCESS CASE] must return a link', async () => {
+        prismaMock.link.findUnique.mockResolvedValue(fakeLink);
 
         const req = new Request(baseUrl, {
             method: 'GET'
@@ -25,14 +23,14 @@ describe('/api/tasks/[id]', () => {
         const data = await res.json();
 
         expect(res.status).toBe(200);
-        expect(data).toEqual(fakeTask);
-        expect(prismaMock.task.findUnique).toHaveBeenCalledWith({
+        expect(data).toEqual(fakeLink);
+        expect(prismaMock.link.findUnique).toHaveBeenCalledWith({
             where: { id: '1' },
         });
     });
 
-    it('GET [ERROR CASE] must not return a task (task not exist)', async () => {
-        prismaMock.task.findUnique.mockResolvedValue(null);
+    it('GET [ERROR CASE] must not return a link (link not exist)', async () => {
+        prismaMock.link.findUnique.mockResolvedValue(null);
         
         const req = new Request(baseUrl, {
             method: 'GET'
@@ -41,14 +39,14 @@ describe('/api/tasks/[id]', () => {
         const data = await res.json();
 
         expect(res.status).toBe(404);
-        expect(data).toEqual({ error: 'Pas de tâche trouvée' });
-        expect(prismaMock.task.findUnique).toHaveBeenCalledWith({
+        expect(data).toEqual({ error: 'Pas de lien trouvé' });
+        expect(prismaMock.link.findUnique).toHaveBeenCalledWith({
             where: { id: '1' },
         });
     });
     
-    it('GET [ERROR CASE] must not return a task (db error)', async () => {
-        prismaMock.task.findUnique.mockRejectedValue(new Error('Database error'));
+    it('GET [ERROR CASE] must not return a link (db error)', async () => {
+        prismaMock.link.findUnique.mockRejectedValue(new Error('Database error'));
         
         const req = new Request(baseUrl, {
             method: 'GET'
@@ -58,17 +56,17 @@ describe('/api/tasks/[id]', () => {
       
         expect(res.status).toBe(500);
         expect(data).toEqual({ error: 'Database error' });
-        expect(prismaMock.task.findUnique).toHaveBeenCalledWith({
+        expect(prismaMock.link.findUnique).toHaveBeenCalledWith({
             where: { id: '1' },
         });
     });
 
-    it('PUT [SUCCESS CASE] must update a task', async () => {
-        const updatedData = { title: "jsp" };
-        const updatedTask = { ...fakeTask, ...updatedData };
+    it('PUT [SUCCESS CASE] must update a link', async () => {
+        const updatedData = { name: "jsp" };
+        const updatedLink = { ...fakeLink, ...updatedData };
       
         prismaMock.project.findUnique.mockResolvedValue(fakeProject);
-        prismaMock.task.update.mockResolvedValue(updatedTask);
+        prismaMock.link.update.mockResolvedValue(updatedLink);
       
         const req = new Request(baseUrl, {
             method: 'PUT',
@@ -78,18 +76,18 @@ describe('/api/tasks/[id]', () => {
         const data = await res.json();
       
         expect(res.status).toBe(200);
-        expect(data.title).toBe("jsp");
-        expect(prismaMock.task.update).toHaveBeenCalledWith({
+        expect(data.name).toBe("jsp");
+        expect(prismaMock.link.update).toHaveBeenCalledWith({
             where: { id: '1' },
             data: updatedData,
         });
     });
 
-    it('PUT [ERROR CASE] must not update a task (bad data in body)', async () => {
-        const updatedBadData = { title: null };
+    it('PUT [ERROR CASE] must not update a link (bad data in body)', async () => {
+        const updatedBadData = { name: null };
       
         prismaMock.project.findUnique.mockResolvedValue(fakeProject);
-        prismaMock.task.update.mockRejectedValue(new Error('Invalid data'));
+        prismaMock.link.update.mockRejectedValue(new Error('Invalid data'));
       
         const req = new Request(baseUrl, {
             method: 'PUT',
@@ -100,13 +98,13 @@ describe('/api/tasks/[id]', () => {
       
         expect(res.status).toBe(500);
         expect(data).toEqual({ error: 'Invalid data' });
-        expect(prismaMock.task.update).toHaveBeenCalledWith({
+        expect(prismaMock.link.update).toHaveBeenCalledWith({
             where: { id: '1' },
             data: updatedBadData,
         });
     });
 
-    it('PUT [ERROR CASE] must not update a task (project do not exist)', async () => {
+    it('PUT [ERROR CASE] must not update a link (project do not exist)', async () => {
         const updatedBadData = { projectId: "2" };
       
         prismaMock.project.findUnique.mockResolvedValue(null);
@@ -120,14 +118,14 @@ describe('/api/tasks/[id]', () => {
       
         expect(res.status).toBe(404);
         expect(data).toEqual({ error: 'Projet introuvable' });
-        expect(prismaMock.task.update).not.toHaveBeenCalledWith();
+        expect(prismaMock.link.update).not.toHaveBeenCalledWith();
     });
     
     it('PUT [ERROR CASE] must not update a link (db error)', async () => {
-        const updatedData = { title: "jsp" };
+        const updatedData = { name: "jsp" };
       
         prismaMock.project.findUnique.mockResolvedValue(fakeProject);
-        prismaMock.task.update.mockRejectedValue(new Error('Database error'));
+        prismaMock.link.update.mockRejectedValue(new Error('Database error'));
       
         const req = new Request(baseUrl, {
           method: 'PUT',
@@ -138,14 +136,14 @@ describe('/api/tasks/[id]', () => {
       
         expect(res.status).toBe(500);
         expect(data).toEqual({ error: 'Database error' });
-        expect(prismaMock.task.update).toHaveBeenCalledWith({
+        expect(prismaMock.link.update).toHaveBeenCalledWith({
           where: { id: '1' },
           data: updatedData,
         });
     });
 
-    it('DELETE [SUCCESS CASE] must delete a task', async () => {
-        prismaMock.task.delete.mockResolvedValue(fakeTask);
+    it('DELETE [SUCCESS CASE] must delete a link', async () => {
+        prismaMock.link.delete.mockResolvedValue(fakeLink);
       
         const req = new Request(baseUrl, {
           method: 'DELETE'
@@ -154,14 +152,14 @@ describe('/api/tasks/[id]', () => {
         const data = await res.json();
       
         expect(res.status).toBe(200);
-        expect(data).toEqual({ message: "Tâche supprimée" });
-        expect(prismaMock.task.delete).toHaveBeenCalledWith({
+        expect(data).toEqual({ message: "Lien supprimé" });
+        expect(prismaMock.link.delete).toHaveBeenCalledWith({
           where: { id: '1' },
         });
     });
     
-    it('DELETE [ERROR CASE] must not delete a task (db error)', async () => {
-        prismaMock.task.delete.mockRejectedValue(new Error('Database error'));
+    it('DELETE [ERROR CASE] must not delete a link (db error)', async () => {
+        prismaMock.link.delete.mockRejectedValue(new Error('Database error'));
       
         const req = new Request(baseUrl, {
           method: 'DELETE'
@@ -171,7 +169,7 @@ describe('/api/tasks/[id]', () => {
       
         expect(res.status).toBe(500);
         expect(data).toEqual({ error: 'Database error' });
-        expect(prismaMock.task.delete).toHaveBeenCalledWith({
+        expect(prismaMock.link.delete).toHaveBeenCalledWith({
           where: { id: '1' },
         });
     });

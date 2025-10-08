@@ -1,6 +1,6 @@
 import { GET, POST } from '@/app/api/appointments/route';
-import { prismaMock } from '../__mocks__/prismaMock';
-import { appointmentWIthDateToIso } from '../utils';
+import { prismaMock } from '../../__mocks__/prismaMock';
+import { appointmentWIthDateToIso } from '../../utils';
 
 describe('/api/appointments', () => {
     const baseUrl = "http://localhost/api/appointments";

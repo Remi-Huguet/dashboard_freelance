@@ -1,6 +1,6 @@
 import { GET, PUT, DELETE } from '@/app/api/appointments/[id]/route';
-import { prismaMock } from '../__mocks__/prismaMock';
-import { appointmentWIthDateToIso } from '../utils';
+import { prismaMock } from '../../__mocks__/prismaMock';
+import { appointmentWIthDateToIso } from '../../utils';
 
 describe('/api/appointments/[id]', () => {
   const idAppointment = "1";

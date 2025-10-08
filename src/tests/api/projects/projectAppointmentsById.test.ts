@@ -1,6 +1,6 @@
 import { GET } from '@/app/api/projects/[id]/appointments/route';
-import { prismaMock } from '../__mocks__/prismaMock';
-import { appointmentWIthDateToIso } from '../utils';
+import { prismaMock } from '../../__mocks__/prismaMock';
+import { appointmentWIthDateToIso } from '../../utils';
 
 describe('/api/projects/[id]/appointments', () => {
     const idProject = "1";
