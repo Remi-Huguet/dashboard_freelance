@@ -7,19 +7,19 @@ describe('/api/appointments', () => {
     const fakeProject = { id: '1', clientId: '1', name: 'Project 1', status: 'En cours' };
 
     it('GET [SUCCESS CASE] must return the appointments list', async () => {
-        const fakeAppoitments = [
+        const fakeAppointments = [
             { id: '1', title: "1er rdv", date: new Date(), projectId: "1" },
             { id: '2', title: "point moitié", date: new Date(), projectId: "1" },
         ];
 
-        prismaMock.appointment.findMany.mockResolvedValue(fakeAppoitments);
+        prismaMock.appointment.findMany.mockResolvedValue(fakeAppointments);
 
         const req = new Request(baseUrl, {
             method: 'GET'
         });
         const res = await GET(req);
         const data = await res.json();
-        const expected = fakeAppoitments.map((a) =>
+        const expected = fakeAppointments.map((a) =>
             appointmentWIthDateToIso(a)
         )
 
@@ -28,20 +28,20 @@ describe('/api/appointments', () => {
         expect(prismaMock.appointment.findMany).toHaveBeenCalled();
     });
 
-    it('GET [SUCCESS CASE] must return the appointments list (with params currentWeek', async () => {
-        const fakeAppoitments = [
+    it('GET [SUCCESS CASE] must return the appointments list (with params currentWeek)', async () => {
+        const fakeAppointments = [
             { id: '1', title: "1er rdv", date: new Date(), projectId: "1" },
             { id: '2', title: "point moitié", date: new Date(), projectId: "1" },
         ];
 
-        prismaMock.appointment.findMany.mockResolvedValue(fakeAppoitments);
+        prismaMock.appointment.findMany.mockResolvedValue(fakeAppointments);
 
         const req = new Request(`${baseUrl}?currentWeek=true`, {
             method: 'GET'
         });
         const res = await GET(req);
         const data = await res.json();
-        const expected = fakeAppoitments.map((a) =>
+        const expected = fakeAppointments.map((a) =>
             appointmentWIthDateToIso(a)
         )
 

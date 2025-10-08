@@ -68,6 +68,9 @@ export async function DELETE(req: Request, context: { params: Promise<{ id: stri
       prisma.task.deleteMany({
         where: { projectId: id },
       }),
+      prisma.invoice.deleteMany({
+        where: { projectId: id },
+      }),
       prisma.project.delete({
         where: { id },
       }),

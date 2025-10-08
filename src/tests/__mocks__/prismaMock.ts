@@ -24,6 +24,7 @@ export const prismaMock = {
     create: jest.fn() as JestMockFn<Promise<Invoice>>,
     update: jest.fn() as JestMockFn<Promise<Invoice>>,
     delete: jest.fn() as JestMockFn<Promise<Invoice>>,
+    deleteMany: jest.fn() as JestMockFn<Promise<{ count: number }>>,
   },
   link: {
     findMany: jest.fn() as JestMockFn<Promise<Link[]>>,
@@ -31,6 +32,7 @@ export const prismaMock = {
     create: jest.fn() as JestMockFn<Promise<Link>>,
     update: jest.fn() as JestMockFn<Promise<Link>>,
     delete: jest.fn() as JestMockFn<Promise<Link>>,
+    deleteMany: jest.fn() as JestMockFn<Promise<{ count: number }>>,
   },
   appointment: {
     findMany: jest.fn() as JestMockFn<Promise<Appointment[]>>,
@@ -38,6 +40,7 @@ export const prismaMock = {
     create: jest.fn() as JestMockFn<Promise<Appointment>>,
     update: jest.fn() as JestMockFn<Promise<Appointment>>,
     delete: jest.fn() as JestMockFn<Promise<Appointment>>,
+    deleteMany: jest.fn() as JestMockFn<Promise<{ count: number }>>,
   },
   task: {
     findMany: jest.fn() as JestMockFn<Promise<Task[]>>,
@@ -45,5 +48,7 @@ export const prismaMock = {
     create: jest.fn() as JestMockFn<Promise<Task>>,
     update: jest.fn() as JestMockFn<Promise<Task>>,
     delete: jest.fn() as JestMockFn<Promise<Task>>,
-  }
+    deleteMany: jest.fn() as JestMockFn<Promise<{ count: number }>>,
+  },
+  $transaction: jest.fn().mockImplementation((ops: unknown[]) => Promise.all(ops)),
 };
