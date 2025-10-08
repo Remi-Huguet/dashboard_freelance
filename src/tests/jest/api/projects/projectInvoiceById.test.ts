@@ -1,6 +1,6 @@
 import { GET } from '@/app/api/projects/[id]/invoice/route';
 import { prismaMock } from '../../__mocks__/prismaMock';
-import { invoiceWithDatesToIso } from '../../utils';
+import { invoiceWithDatesToIso } from '../../../testsUtils';
 
 describe('/api/projects/[id]/invoices', () => {
     const idProject = "1";

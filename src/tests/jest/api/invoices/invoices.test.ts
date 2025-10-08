@@ -1,6 +1,6 @@
 import { GET, POST } from '@/app/api/invoices/route';
 import { prismaMock } from '../../__mocks__/prismaMock';
-import { invoiceWithDatesToIso } from '../../utils';
+import { invoiceWithDatesToIso } from '../../../testsUtils';
 
 describe('/api/invoices', () => {
     const baseUrl = "http://localhost/api/invoices";

@@ -1,12 +1,12 @@
 /** @type {import('jest').Config} */
 module.exports = {
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
-  testMatch: ['**/tests/**/*.test.ts'],
-  setupFilesAfterEnv: ['<rootDir>/src/tests/setup.ts'],
+  testMatch: ['**/tests/jest/**/*.test.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/tests/jest/setup.ts'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },

@@ -1,6 +1,6 @@
 import { GET, PUT, DELETE } from '@/app/api/invoices/[id]/route';
 import { prismaMock } from '../../__mocks__/prismaMock';
-import { invoiceWithDatesToIso } from '../../utils';
+import { invoiceWithDatesToIso } from '../../../testsUtils';
 
 describe('/api/invoices/[id]', () => {
   const idInvoice = "1";

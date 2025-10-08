@@ -9,15 +9,17 @@
     "build turbo": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:jest": "jest",
+    "test:jest:coverage": "jest --coverage",
+    "test:playwright": "playwright test",
+    "test:playwright:ui": "playwright test --ui"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.3",
     "@mui/material": "^7.3.3",
+    "@playwright/test": "^1.56.0",
     "@prisma/client": "^6.16.2",
     "next": "15.5.3",
     "next-auth": "^4.24.11",
@@ -27,7 +29,10 @@
     "recharts": "^3.2.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-typescript": "^7.27.1",
     "@eslint/eslintrc": "^3",
+    "@jest/globals": "^30.2.0",
     "@tailwindcss/postcss": "^4",
     "@types/jest": "^30.0.0",
     "@types/next-auth": "^3.15.0",
@@ -42,5 +47,6 @@
     "tailwindcss": "^4",
     "ts-jest": "^29.4.4",
     "typescript": "^5"
-  }
+  },
+  "type": "module"
 }
