@@ -21,7 +21,7 @@ export default function OngoingAppointmentList({ idProject }: OngoingAppointment
     const [appointmentsList, setAppointmentsList] = useState<AppointmentData[]>([]);
 
     useEffect(() => {
-        getAppointments(`/api/${idProject ? `projects/${idProject}` : ""}/appointments?currentWeek=true`, "GET");
+        getAppointments(`/api/${idProject ? `projects/${idProject}/` : ""}appointments?currentWeek=true`, "GET");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idProject]);
 

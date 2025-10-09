@@ -1,8 +1,9 @@
 import { BrowserContext, Page } from "@playwright/test";
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-export const fakeAuth = async (page: Page, context: BrowserContext) => {
+export const mockAuth = async (page: Page, context: BrowserContext) => {
     const r = await page.request.post(`${process.env.PLAYWRIGHT_TEST_URL}/api/test-auth`);
     const data = await r.json();
 

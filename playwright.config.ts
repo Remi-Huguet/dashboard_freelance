@@ -10,7 +10,7 @@ export default defineConfig({
     use: {
         baseURL: process.env.PLAYWRIGHT_TEST_URL,
         trace: 'on-first-retry',
-        headless: true,
+        headless: true
     },
     projects: [
         {
@@ -21,7 +21,7 @@ export default defineConfig({
     webServer: {
         command: 'npm run dev',
         port: 3000,
-        reuseExistingServer: false,
+        reuseExistingServer: true,
         timeout: 120_000
     }
 });

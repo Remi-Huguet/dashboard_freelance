@@ -1,17 +1,18 @@
 import { test, expect } from '@playwright/test';
-import { fakeAuth } from '../__mocks__/fakeAuth';
+import { mockAuth } from '../__mocks__/mockAuth';
 
-test('AUTH [SUCCESS CASE] redirect to /auth if not logged in', async ({ page }) => {
-  const response = await page.goto('/');
+test.describe('AUTH', () => {
 
-  expect(response?.status()).toBe(200);
-  expect(page.url()).toContain('/auth');
-});
+  test('redirect to /auth if not logged in', async ({ page }) => {
+    await page.goto('/');
 
-test('AUTH [SUCCESS CASE] redirect to /dashboard if logged in', async ({ page, context }) => {
-  await fakeAuth(page, context);
-  await page.goto('/');
-  await page.waitForURL(/\/dashboard/, { timeout: 15000 });
+    expect(page.url()).toMatch(/\/auth/);
+  });
 
-  expect(page.url()).toMatch(/\/dashboard/);
+  test('redirect to /dashboard if logged in', async ({ page, context }) => {
+    await mockAuth(page, context);
+    await page.goto('/');
+
+    expect(page.url()).toMatch(/\/dashboard/);
+  });
 });

@@ -35,20 +35,21 @@ export default function ProjectItem({ project }: ProjectItemProps): JSX.Element 
 
     return (
         <div className="flex items-center justify-between bg-white shadow-sm rounded-lg p-3 border border-gray-200">
-          <div className="flex items-center gap-2">
-            <SourceIcon className="text-gray-800 w-5 h-5" />
-            <p className="font-medium text-gray-800">{project.name} - {project.status} -</p>
-            <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
-                errorMessage="Erreur lors du chargement du client."
-                noDataMessage="Pas de client." 
-                showSkeletonLoader={false} />
-            {!loading && isSuccess && data && (
-                <p className="font-medium text-gray-800">
-                    {data.name} {data.surname} ({data.company ? data.company : "Sans entreprise"})
-                </p>
-            )}
-          </div>
-          <button
+            <div className="flex items-center gap-2">
+                <SourceIcon className="text-gray-800 w-5 h-5" />
+                <p className="font-medium text-gray-800">{project.name} - {project.status} -</p>
+                <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+                    errorMessage="Erreur lors du chargement du client."
+                    noDataMessage="Pas de client." 
+                    showSkeletonLoader={false} />
+                {!loading && isSuccess && data && (
+                    <p className="font-medium text-gray-800">
+                        {data.name} {data.surname} ({data.company ? data.company : "Sans entreprise"})
+                    </p>
+                )}
+            </div>
+            <button
+                id={`project-link-button`}
                 onClick={() => window.location.href = `/projects/${project.id}`}
                 className="ml-2 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             >

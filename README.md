@@ -6,19 +6,19 @@ This project is a platform where users can:
 - Connect with google 
 - Create project, tasks and usefull tools to have a better organization
 
-## Run the project in local mode
+# Run the project in local mode
 
-### Version
+## Version
 Node.js >= 18, npm >= 9, PostgreSQL 14+
 
-### Install Dependencies
+## Install Dependencies
 ```bash
 sudo apt update
 sudo apt install nodejs npm
 npm install
 ```
 
-### Create a .env that contains
+## Create a .env that contains
 ```bash
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=aB3cD4eF5gH6iJ7kL8mN9oP0qR1sT2uV3wXyZ4aB5cD6eF7gH
@@ -29,19 +29,19 @@ PLAYWRIGHT_ENABLE_TEST_LOGIN=true
 PLAYWRIGHT_TEST_URL=http://localhost:3000
 ```
 
-### Setup the database
+## Setup the database
 Start your postgresql server
 ```bash
 npx prisma generate
 npx prisma migrate dev
 ```
 
-### Run
+## Run
 ```bash
 npm run dev
 ```
 
-### URL
+## URL
 http://localhost:3000
 
 ## Run the tests
@@ -51,3 +51,7 @@ npm run test:jest:coverage
 npm run test:playwright
 npm run test:playwright:ui
 ```
+
+# Future features
+- Upgrade the invoice system
+- Automatization system linked with github

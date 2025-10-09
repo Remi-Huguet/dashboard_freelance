@@ -39,6 +39,7 @@ export default function ConfirmationModal({
     return (
         <>
             <button
+                id={`${name}-button`}
                 onClick={() => setIsOpen(true)}
                 className={`bg-${color}-500 text-white px-2 py-1 rounded hover:bg-${color}-600`}
             >

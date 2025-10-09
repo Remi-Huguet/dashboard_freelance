@@ -22,14 +22,14 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const notify = (msg: string, type: NotificationType) => {
     setMessage(msg);
     setType(type);
-    setTimeout(() => setMessage(null), 4000);
+    setTimeout(() => setMessage(null), 7000);
   };
 
   return (
     <NotificationContext.Provider value={{ notify }}>
       {children}
       {message && (
-        <div className={`fixed top-4 right-4 p-4 rounded shadow-lg bg-${type}-500 text-white`}>
+        <div id="notification-message" className={`fixed top-4 right-4 p-4 rounded shadow-lg bg-${type}-500 text-white`}>
           {message}
         </div>
       )}

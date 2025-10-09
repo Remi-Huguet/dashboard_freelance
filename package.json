@@ -21,6 +21,7 @@
     "@mui/material": "^7.3.3",
     "@playwright/test": "^1.56.0",
     "@prisma/client": "^6.16.2",
+    "jsonwebtoken": "^9.0.2",
     "next": "15.5.3",
     "next-auth": "^4.24.11",
     "prisma": "^6.16.2",

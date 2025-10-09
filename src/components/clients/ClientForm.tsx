@@ -38,6 +38,7 @@ export default function ClientForm(): JSX.Element {
           <h3 className="text-xl font-bold text-gray-800">Ajouter un client</h3>
           {!openForm &&
             <button
+              id="open-client-form-button"
               type="button"
               onClick={() => setOpenForm(true)}
               className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
