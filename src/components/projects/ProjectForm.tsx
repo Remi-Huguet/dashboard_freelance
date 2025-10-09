@@ -51,6 +51,7 @@ export default function ProjectForm(): JSX.Element {
                     <h3 className="text-xl font-bold text-gray-800">Ajouter un Projet</h3>
                     {!openForm &&
                         <button
+                            id="open-project-form-button"
                             type="button"
                             onClick={() => setOpenForm(true)}
                             className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"

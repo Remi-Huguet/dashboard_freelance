@@ -14,7 +14,17 @@ test.describe('Clients', () => {
     test('get clients list', async ({ page }) => {
         expect(page.url()).toMatch(/\/clients/);
 
+        await expect(page.getByRole('heading', { name: 'Clients', level: 1 })).toBeVisible();
         await expect(page.getByText('Alice', { exact: true })).toBeVisible();
+        await expect(page.getByText('Bob', { exact: true })).toBeVisible();
+    });
+
+    test('filter clients list', async ({ page }) => {
+        expect(page.url()).toMatch(/\/clients/);
+
+        await page.getByPlaceholder('Filtrer par nom ou prénom', { exact: true }).fill('Bob');
+
+        await expect(page.getByText('Alice', { exact: true })).not.toBeVisible();
         await expect(page.getByText('Bob', { exact: true })).toBeVisible();
     });
 
@@ -84,14 +94,11 @@ test.describe('Clients', () => {
     test('delete a client', async ({ page }) => {
         expect(page.url()).toMatch(/\/clients/);
 
-
         await mockDeleteClient(page);
         await mockGetClients(page, clients_after_delete);
         await page.locator("#Supprimer-button").first().click();
-        await Promise.all([
-            page.waitForNavigation({ url: /\/clients/ }),
-            page.getByRole("button", { name: "Supprimer" }).click()
-        ]);
+        await page.getByRole("button", { name: "Supprimer" }).click();
+        await page.waitForLoadState('load');
 
         expect(page.url()).toMatch(/\/clients/);
         await expect(page.getByText('Alice')).not.toBeVisible();

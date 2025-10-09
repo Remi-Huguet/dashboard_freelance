@@ -16,8 +16,8 @@ test.describe('DASHBOARD', () => {
     });
 
     test('get projects list (projects in progress)', async ({ page, context }) => {
-        await mockGetProjects(page, true, projects);
         await mockAuth(page, context);
+        await mockGetProjects(page, true, projects);
         await page.goto('/dashboard');
 
         expect(page.url()).toMatch(/\/dashboard/);
@@ -28,8 +28,8 @@ test.describe('DASHBOARD', () => {
     });
 
     test('go to a project detail', async ({ page, context }) => {
-        await mockGetProjects(page, true, projects);
         await mockAuth(page, context);
+        await mockGetProjects(page, true, projects);
         await page.goto('/dashboard');
 
         expect(page.url()).toMatch(/\/dashboard/);
@@ -39,8 +39,8 @@ test.describe('DASHBOARD', () => {
     });
 
     test('get appointments list (appointments of the current week)', async ({ page, context }) => {
-        await mockGetAppointments(page, true, appointments);
         await mockAuth(page, context);
+        await mockGetAppointments(page, true, appointments);
         await page.goto('/dashboard');
 
         expect(page.url()).toMatch(/\/dashboard/);

@@ -1,12 +1,23 @@
 import { Page } from "@playwright/test";
 import { newClient, updatedClient } from "../__mocks__/datas/mockClients";
+import { newProject } from "../__mocks__/datas/mockProjects";
 
 export const mockGetProjects = async (page: Page, inProgress: boolean, projects: unknown[]) => {
-    await page.route(`**/api/projects?inProgress=${inProgress}`, async (route) => {
+    await page.route(`**/api/projects${inProgress ? "?inProgress=true" : ""}`, async (route) => {
         await route.fulfill({
             status: 200,
             contentType: 'application/json',
             body: JSON.stringify(projects),
+        });
+    });
+}
+
+export const mockPostProject = async (page: Page) => {
+    await page.route(`**/api/projects`, async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            json: newProject
         });
     });
 }
