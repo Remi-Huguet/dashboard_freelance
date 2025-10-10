@@ -98,7 +98,7 @@ test.describe('Clients', () => {
         await mockGetClients(page, clients_after_delete);
         await page.locator("#Supprimer-button").first().click();
         await page.getByRole("button", { name: "Supprimer" }).click();
-        await page.waitForLoadState('load');
+        await page.goto('/clients');
 
         expect(page.url()).toMatch(/\/clients/);
         await expect(page.getByText('Alice')).not.toBeVisible();

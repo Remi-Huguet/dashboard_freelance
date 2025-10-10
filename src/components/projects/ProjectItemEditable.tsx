@@ -64,13 +64,14 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                                 type="text"
                                 value={form.name}
                                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                                placeholder="Nom du projet"
+                                placeholder="Nom du projet *"
                                 className="p-2 border rounded text-gray-600 w-9/10"
                                 required
                             />
                         </div>
                         <div className="w-1/5">
                             <select
+                                id="select-status-project"
                                 value={form.status}
                                 onChange={(e) => setForm({ ...form, status: e.target.value })}
                                 className="p-2 border rounded text-gray-600 w-9/10"
@@ -136,6 +137,7 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                         </div>
                         <div className="flex flex-row gap-2 ml-auto">
                             <button
+                                id="update-project-button"
                                 onClick={() => setEditMode(true)}
                                 className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                             >

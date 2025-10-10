@@ -49,6 +49,7 @@ export default function Project({ params }: ProjectProps): JSX.Element {
             <div className="flex flex-row gap-4 items-center mb-2">
               <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><SourceIcon fontSize="large" />Projet : {data.name}</h1>
               <button
+                  id="project-config-button"
                   onClick={() => window.location.href = `/projects/${id}/config`}
                   className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
                 >
