@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { mockAuth, mockLogout } from '../__mocks__/mockAuth';
+import { mockAuth, mockLogout } from '../__mocks__/requests/mockAuth';
 
 test.describe('NAVIGATION', () => {
     test.beforeEach(async ({ page, context }) => {

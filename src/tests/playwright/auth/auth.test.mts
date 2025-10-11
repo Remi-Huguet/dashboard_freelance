@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { mockAuth } from '../__mocks__/mockAuth';
+import { mockAuth } from '../__mocks__/requests/mockAuth';
 
 test.describe('AUTH', () => {
 

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { mockAuth } from '../__mocks__/mockAuth';
-import { mockGetProjects, mockGetProject, mockDeleteProject, mockPutProject } from '../__mocks__/mockRequests';
+import { mockAuth } from '../__mocks__/requests/mockAuth';
+import { mockGetProjects, mockGetProject, mockDeleteProject, mockPutProject } from '../__mocks__/requests/mockProjectsRequests';
 import { project, projects, projects_after_delete, updatedProject } from "../__mocks__/datas/mockProjects";
 
 test.describe('PROJET', () => {

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { mockAuth } from '../__mocks__/mockAuth';
-import { mockGetProjects, mockPostProject, mockGetClients } from '../__mocks__/mockRequests';
+import { mockAuth } from '../__mocks__/requests/mockAuth';
+import { mockGetProjects, mockPostProject,  } from '../__mocks__/requests/mockProjectsRequests';
+import { mockGetClients } from '../__mocks__/requests/mockClientsRequests';
 import { projects, projects_after_post } from "../__mocks__/datas/mockProjects";
 import { clients } from "../__mocks__/datas/mockClients";
 

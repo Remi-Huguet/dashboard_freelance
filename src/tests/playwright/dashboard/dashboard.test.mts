@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { mockAuth } from '../__mocks__/mockAuth';
-import { mockGetProjects, mockGetAppointments } from '../__mocks__/mockRequests';
+import { mockAuth } from '../__mocks__/requests/mockAuth';
+import { mockGetProjects } from '../__mocks__/requests/mockProjectsRequests';
+import { mockGetAppointments } from '../__mocks__/requests/mockAppointmentsRequests';
 import { appointments } from '../__mocks__/datas/mockAppointments';
 import { projects } from '../__mocks__/datas/mockProjects';
 

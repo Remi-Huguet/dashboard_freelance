@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { mockAuth } from '../../__mocks__/mockAuth';
-import { mockGetProjects, mockGetProject, mockGetAppointmentsByProject, mockPostAppointment, mockPutAppointment, mockDeleteAppointment } from '../../__mocks__/mockRequests';
+import { mockAuth } from '../../__mocks__/requests/mockAuth';
+import { mockGetProjects, mockGetProject } from '../../__mocks__/requests/mockProjectsRequests';
+import { mockGetAppointmentsByProject, mockPostAppointment, mockPutAppointment, mockDeleteAppointment } from '../../__mocks__/requests/mockAppointmentsRequests';
 import { projects, project } from "../../__mocks__/datas/mockProjects";
 import { appointments, appointments_after_post, appointments_after_put, appointments_after_delete } from "../../__mocks__/datas/mockAppointments";
 
