@@ -79,6 +79,7 @@ export default function ClientItemEditable({ client }: ClientItemEditableProps):
                     </div>                        
                     <div className="flex gap-2 ml-auto">
                         <button
+                            id="update-client-submit-button"
                             type="submit"
                             className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >
@@ -101,7 +102,7 @@ export default function ClientItemEditable({ client }: ClientItemEditableProps):
                     <p className="text-gray-800 w-1/5">{client.company && client.company}</p>
                     <div className="flex flex-row gap-2 ml-auto">
                         <button
-                            id="update-client-button"
+                            id="update-client-form-button"
                             onClick={() => setEditMode(true)}
                             className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >

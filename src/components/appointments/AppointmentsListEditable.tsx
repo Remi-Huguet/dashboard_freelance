@@ -45,8 +45,10 @@ export default function AppointmentsListEditable({ idProject }: AppointmentsList
             new Date(appointment.date) <= new Date()
           ))
           return;
-        default:
+        case "Tous":
           setAppointmentsListFiltered(appointmentsList)
+          return;
+        default:
           return;
     }
   }, [appointmentsList, filterValue]);
@@ -56,11 +58,12 @@ export default function AppointmentsListEditable({ idProject }: AppointmentsList
       <h3 className="text-xl font-bold text-gray-800">Liste des rendez-vous</h3>
       <div className="flex flex-row gap-2">
         <select
+            id="filter-appointments"
             value={filterValue}
             onChange={(e) => setFilterValue(e.target.value)}
             className="p-2 border rounded text-gray-600 w-1/4"
         >
-            <option value="">Tous les rendez-vous</option>
+            <option value="Tous">Tous les rendez-vous</option>
             <option value="Passés">Rendez-vous passés</option>
             <option value="À venir">Rendez-vous à venir</option>
         </select>

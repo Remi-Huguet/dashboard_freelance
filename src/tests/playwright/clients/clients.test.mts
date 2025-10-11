@@ -9,19 +9,16 @@ test.describe('Clients', () => {
         await mockGetClients(page, clients);
 
         await page.goto('/clients');
+        expect(page.url()).toMatch(/\/clients/);
     });
 
     test('get clients list', async ({ page }) => {
-        expect(page.url()).toMatch(/\/clients/);
-
         await expect(page.getByRole('heading', { name: 'Clients', level: 1 })).toBeVisible();
         await expect(page.getByText('Alice', { exact: true })).toBeVisible();
         await expect(page.getByText('Bob', { exact: true })).toBeVisible();
     });
 
     test('filter clients list', async ({ page }) => {
-        expect(page.url()).toMatch(/\/clients/);
-
         await page.getByPlaceholder('Filtrer par nom ou prénom', { exact: true }).fill('Bob');
 
         await expect(page.getByText('Alice', { exact: true })).not.toBeVisible();
@@ -29,8 +26,6 @@ test.describe('Clients', () => {
     });
 
     test('create new client', async ({ page }) => {
-        expect(page.url()).toMatch(/\/clients/);
-
         await page.locator('#open-client-form-button').first().click();
         await page.getByPlaceholder('Nom *', { exact: true }).fill('Dupont');
         await page.getByPlaceholder('Prénom *', { exact: true }).fill('Jean');
@@ -41,7 +36,7 @@ test.describe('Clients', () => {
         await mockGetClients(page, clients_after_post);
         await Promise.all([
             page.waitForNavigation({ url: /\/clients/ }),
-            page.getByRole('button', { name: 'Créer' }).click(),
+            page.locator('#open-client-submit-button').click()
         ]);
 
         expect(page.url()).toMatch(/\/clients/);
@@ -50,8 +45,6 @@ test.describe('Clients', () => {
     });
 
     test('cant create new client (bad form)', async ({ page }) => {
-        expect(page.url()).toMatch(/\/clients/);
-
         await page.locator('#open-client-form-button').first().click();
         await page.getByPlaceholder('Nom *', { exact: true }).fill('Dupont');
         await page.getByPlaceholder('Email *', { exact: true }).fill('jean.dupont@example.com');
@@ -62,9 +55,7 @@ test.describe('Clients', () => {
     });
 
     test('update a client', async ({ page }) => {
-        expect(page.url()).toMatch(/\/clients/);
-
-        await page.locator("#update-client-button").first().click();
+        await page.locator("#update-client-form-button").first().click();
         await page.getByPlaceholder("Email").fill("alicedoe@example.com");
         await page.getByPlaceholder("Entreprise").fill("AliD Company");
 
@@ -72,7 +63,7 @@ test.describe('Clients', () => {
         await mockGetClients(page, clients_after_put);
         await Promise.all([
             page.waitForNavigation({ url: /\/clients/ }),
-            page.getByRole("button", { name: "Modifier" }).click()
+            page.locator("#update-client-submit-button").click()
         ]);
 
         expect(page.url()).toMatch(/\/clients/);
@@ -81,9 +72,7 @@ test.describe('Clients', () => {
     });
 
     test('cant update a client (bad form)', async ({ page }) => {
-        expect(page.url()).toMatch(/\/clients/);
-
-        await page.locator("#update-client-button").first().click();
+        await page.locator("#update-client-form-button").first().click();
         await page.getByPlaceholder("Email").fill("");
         await page.getByPlaceholder("Entreprise").fill("AliD Company");
 
@@ -92,8 +81,6 @@ test.describe('Clients', () => {
     });
 
     test('delete a client', async ({ page }) => {
-        expect(page.url()).toMatch(/\/clients/);
-
         await mockDeleteClient(page);
         await mockGetClients(page, clients_after_delete);
         await page.locator("#Supprimer-button").first().click();

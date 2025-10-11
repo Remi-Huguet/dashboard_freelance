@@ -1,6 +1,7 @@
 import { Page } from "@playwright/test";
 import { newClient, updatedClient } from "../__mocks__/datas/mockClients";
 import { newProject, updatedProject } from "../__mocks__/datas/mockProjects";
+import { new_appointment, updated_appointment } from "../__mocks__/datas/mockAppointments";
 
 export const mockGetProjects = async (page: Page, inProgress: boolean, projects: unknown[]) => {
     await page.route(`**/api/projects${inProgress ? "?inProgress=true" : ""}`, async (route) => {
@@ -52,11 +53,50 @@ export const mockDeleteProject = async (page: Page) => {
 }
 
 export const mockGetAppointments = async (page: Page, currentWeek: boolean, appointments: unknown[]) => {
-    await page.route(`**/api/appointments?currentWeek=${currentWeek}`, async (route) => {
+    await page.route(`**/api/appointments${currentWeek ? "?currentWeek=true" : ""}`, async (route) => {
         await route.fulfill({
             status: 200,
             contentType: 'application/json',
             body: JSON.stringify(appointments),
+        });
+    });
+}
+
+export const mockGetAppointmentsByProject = async (page: Page, currentWeek: boolean, appointments: unknown[]) => {
+    await page.route(`**/api/projects/1/appointments${currentWeek ? "?currentWeek=true" : ""}`, async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify(appointments),
+        });
+    });
+}
+
+export const mockPostAppointment = async (page: Page) => {
+    await page.route(`**/api/appointments`, async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify(new_appointment),
+        });
+    });
+}
+
+export const mockPutAppointment = async (page: Page) => {
+    await page.route(`**/api/appointments/1`, async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify(updated_appointment),
+        });
+    });
+}
+
+export const mockDeleteAppointment = async (page: Page) => {
+    await page.route(`**/api/appointments/1`, async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json'
         });
     });
 }

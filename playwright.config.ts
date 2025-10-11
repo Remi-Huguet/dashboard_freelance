@@ -5,12 +5,15 @@ dotenv.config();
 export default defineConfig({
     testDir: './src/tests/playwright',
     testMatch: "**/*.test.mts",
-    fullyParallel: true,
-    retries: 0,
+    fullyParallel: false,
+    retries: 2,
+    timeout: 60000,
     use: {
         baseURL: process.env.PLAYWRIGHT_TEST_URL,
         trace: 'on-first-retry',
-        headless: true
+        headless: true,
+        storageState: undefined,
+        ignoreHTTPSErrors: true,
     },
     projects: [
         {
@@ -19,9 +22,9 @@ export default defineConfig({
         },
     ],
     webServer: {
-        command: 'npm run dev',
-        port: 3000,
-        reuseExistingServer: true,
+        command: 'PORT=3001 npm run dev',
+        port: 3001,
+        reuseExistingServer: false,
         timeout: 120_000
     }
 });

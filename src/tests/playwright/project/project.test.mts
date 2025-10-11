@@ -1,9 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { mockAuth } from '../__mocks__/mockAuth';
-import { mockGetProjects, mockGetProject, mockDeleteProject, mockGetClients, mockPutProject } from '../__mocks__/mockRequests';
+import { mockGetProjects, mockGetProject, mockDeleteProject, mockPutProject } from '../__mocks__/mockRequests';
 import { project, projects, projects_after_delete, updatedProject } from "../__mocks__/datas/mockProjects";
-import { clients } from "../__mocks__/datas/mockClients";
-
 
 test.describe('PROJET', () => {
     test.beforeEach(async ({ page, context }) => {
@@ -13,18 +11,27 @@ test.describe('PROJET', () => {
         await page.goto('/projects');
         await mockGetProject(page, project);
         await page.locator('#project-link-button').first().click();
+
+        await expect(page).toHaveURL(/\/projects\/\d+/);
+        await expect(page.locator('#project-config-button')).toBeVisible({ timeout: 10000 });
     });
 
     test('get project', async ({ page }) => {
-        await expect(page).toHaveURL(/\/projects\/\d+/);
-
-        await expect(page.getByRole('heading', { name: 'Projet : Projet Alpha', level: 1 })).toBeVisible();
+        await expect(page.getByRole('heading', { name: 'Projet : Projet Alpha', level: 1 })).toBeVisible({ timeout: 5000 });
         await expect(page.getByText('Statut : En cours')).toBeVisible();
     });
 
-    test('back to project', async ({ page }) => {
-        await expect(page).toHaveURL(/\/projects\/\d+/);
+    test('go to project config', async ({ page }) => {
+        await mockGetProject(page, project);
+        await page.locator('#project-config-button').click();
 
+        await expect(page).toHaveURL(/\/projects\/\d+\/config/);
+        await expect(page.getByRole('heading', { name: 'Configuration', level: 1 })).toBeVisible();
+        await expect(page.getByText('Projet Alpha')).toBeVisible({ timeout: 10000 });
+        await expect(page.getByText('En cours')).toBeVisible();
+    });
+
+    test('back to project', async ({ page }) => {
         await mockGetProject(page, project);
         await page.locator('#project-config-button').click();
         await expect(page).toHaveURL(/\/projects\/\d+\/config/);
@@ -34,21 +41,21 @@ test.describe('PROJET', () => {
     });
 
     test('update a project', async ({ page }) => {
-        await expect(page).toHaveURL(/\/projects\/\d+/);
-        
         await mockGetProject(page, project);
         await page.locator('#project-config-button').click();
 
         await expect(page).toHaveURL(/\/projects\/\d+\/config/);
-        await expect(page.locator("#update-project-button")).toBeVisible({ timeout: 10000 });
-        await page.locator("#update-project-button").click();
+
+        await expect(page).toHaveURL(/\/projects\/\d+\/config/);
+        await expect(page.locator("#update-project-form-button")).toBeVisible({ timeout: 5000 });
+        await page.locator("#update-project-form-button").click();
         await page.locator("#select-status-project").selectOption({ label: 'Terminé' });
 
         await mockPutProject(page);
         await mockGetProject(page, updatedProject);
         await Promise.all([
             page.waitForNavigation({ url: /\/projects\/\d+/ }),
-            page.getByRole("button", { name: "Modifier" }).click()
+            page.locator("#update-project-submit-button").click()
         ]);
 
         await expect(page).toHaveURL(/\/projects\/\d+/);
@@ -57,13 +64,13 @@ test.describe('PROJET', () => {
     });
 
     test('cant update a project (bad form)', async ({ page }) => {
-        await expect(page).toHaveURL(/\/projects\/\d+/);
-        
         await mockGetProject(page, project);
         await page.locator('#project-config-button').click();
 
-        await expect(page.locator("#update-project-button")).toBeVisible({ timeout: 10000 });
-        await page.locator("#update-project-button").click();
+        await expect(page).toHaveURL(/\/projects\/\d+\/config/);
+
+        await expect(page.locator("#update-project-form-button")).toBeVisible({ timeout: 5000 });
+        await page.locator("#update-project-form-button").click();
         await expect(page).toHaveURL(/\/projects\/\d+\/config/);
         await page.getByPlaceholder('Nom du projet *').fill('');
 
@@ -72,15 +79,12 @@ test.describe('PROJET', () => {
     });
 
     test('delete a project', async ({ page }) => {
-        await expect(page).toHaveURL(/\/projects\/\d+/);
-        
         await mockGetProject(page, project);
         await page.locator('#project-config-button').click();
 
-        await expect(page.getByRole('heading', { name: 'Configuration', level: 1 })).toBeVisible();
         await expect(page).toHaveURL(/\/projects\/\d+\/config/);
-        await expect(page.getByText('Projet Alpha')).toBeVisible();
 
+        await expect(page.locator("#Supprimer-button")).toBeVisible({ timeout: 5000 });
         await mockDeleteProject(page);
         await mockGetProjects(page, false, projects_after_delete);
         await page.locator("#Supprimer-button").click();

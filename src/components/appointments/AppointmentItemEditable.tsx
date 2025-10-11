@@ -43,7 +43,7 @@ export default function AppointmentItemEditable({ appointment }: AppointmentItem
                             value={form.title}
                             onChange={(e) => setForm({ ...form, title: e.target.value })}
                             className="p-2 border rounded text-gray-600 w-9/10"
-                            placeholder="Titre"
+                            placeholder="Titre *"
                             required
                         />
                     </div>
@@ -60,6 +60,7 @@ export default function AppointmentItemEditable({ appointment }: AppointmentItem
                     </div>
                     <div className="flex gap-2 ml-auto">
                         <button
+                            id="edit-appointment-submit-button"
                             type="submit"
                             className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >
@@ -80,6 +81,7 @@ export default function AppointmentItemEditable({ appointment }: AppointmentItem
                     <p className="text-gray-800 w-1/5">{beautifulDateTime(new Date(appointment.date))}</p>
                     <div className="flex flex-row gap-2 ml-auto">
                         <button
+                            id="edit-appointment-form-button"
                             onClick={() => setEditMode(true)}
                             className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >

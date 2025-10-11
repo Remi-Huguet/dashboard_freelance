@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { mockAuth } from '../__mocks__/mockAuth';
+import { mockAuth, mockLogout } from '../__mocks__/mockAuth';
 
 test.describe('NAVIGATION', () => {
     test.beforeEach(async ({ page, context }) => {
@@ -49,6 +49,7 @@ test.describe('NAVIGATION', () => {
 
     test('go to /auth via logout button', async ({ page }) => {
         await page.locator("#Déconnexion-button").click();
+        await mockLogout(page);
         await Promise.all([
           page.waitForURL(/\/auth$/),
           page.getByRole('button', { name: 'Déconnexion' }).click(),

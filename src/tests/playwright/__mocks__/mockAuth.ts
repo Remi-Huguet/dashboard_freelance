@@ -18,3 +18,9 @@ export const mockAuth = async (page: Page, context: BrowserContext) => {
         sameSite: 'Lax',
     }]);
 }
+
+export const mockLogout = async (page: Page) => {
+    await page.route('**/api/auth/signout', (route) => {
+        route.fulfill({ status: 200, body: '{}' });
+    });
+}

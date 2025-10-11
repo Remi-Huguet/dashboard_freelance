@@ -40,8 +40,9 @@ export default function AppointmentForm({ idProject }: AppointmentFormProps): JS
           <h3 className="text-xl font-bold text-gray-800">Ajouter un rendez-vous</h3>
           {!openForm &&
             <button
+              id="create-appointment-form-button"
               type="button"
-              onClick={() => setOpenForm(true)}
+              onClick={() => {setOpenForm(true); console.log("CLICKED");}}
               className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             >
               <AddIcon />
@@ -74,6 +75,7 @@ export default function AppointmentForm({ idProject }: AppointmentFormProps): JS
             </div>
             <div className="flex gap-2">
               <button
+                id="create-appointment-submit-button"
                 type="submit"
                 className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
               >

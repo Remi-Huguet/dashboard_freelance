@@ -115,8 +115,9 @@ export default function ProjectForm(): JSX.Element {
                         </select>
                         <div className="flex gap-2">
                             <button
-                              type="submit"
-                              className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                                id="create-project-submit-button"
+                                type="submit"
+                                className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
                             >
                               Créer
                             </button>

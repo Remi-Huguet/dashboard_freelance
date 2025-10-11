@@ -91,6 +91,7 @@ export default function ClientForm(): JSX.Element {
             />
             <div className="flex gap-2">
               <button
+                id="open-client-submit-button"
                 type="submit"
                 className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
               >

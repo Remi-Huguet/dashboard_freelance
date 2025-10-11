@@ -53,6 +53,7 @@ export default function ProjectsList({ inProgress }: ProjectsListProps): JSX.Ele
             placeholder="Filtrer par nom"
           />
           <select
+              id="filter-project-by-status"
               value={filterStatusValue}
               onChange={(e) =>
                   setFilterStatusValue(e.target.value)
