@@ -43,6 +43,7 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                 >
                     <div className="w-1/5">
                         <input
+                            id="edit-task-title-input"
                             type="text"
                             value={form.title}
                             onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -53,6 +54,7 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                     </div>
                     <div className="w-1/5">
                         <input
+                            id="edit-task-description-input"
                             type="text"
                             value={form.desc}
                             onChange={(e) => setForm({ ...form, desc: e.target.value })}
@@ -62,6 +64,7 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                     </div>
                     <div className="w-1/5">
                         <select
+                            id="edit-task-type-select"
                             value={form.type}
                             onChange={(e) =>
                                 setForm({ ...form, type: e.target.value })
@@ -69,11 +72,11 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                             className="p-2 border rounded text-gray-600 w-9/10"
                             required
                         >
-                            <option value="" disabled>
+                            <option id={`create-task-type-null-option`} value="" disabled>
                                 Sélectionner un type *
                             </option>
                             {taskTypes.map((type) => 
-                                <option key={type} value={type}>{type}</option>)
+                                <option id={`create-task-type-${type}-option`} key={type} value={type}>{type}</option>)
                             }
                         </select>
                     </div>
@@ -81,6 +84,7 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                         <label className="p-2 border rounded text-gray-600 w-9/10 flex flex-row gap-2 items-center">
                             <span className="text-gray-800">Terminé</span>
                             <input
+                                id="edit-task-done-input"
                                 type="checkbox"
                                 checked={form.done}
                                 onChange={(e) => setForm({ ...form, done: e.target.checked })}
@@ -90,12 +94,14 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                     </div>
                     <div className="flex gap-2">
                         <button
+                            id="edit-task-submit-button"
                             type="submit"
                             className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >
                             Modifier
                         </button>
                         <button
+                            id="edit-task-cancel-button"
                             type="button"
                             onClick={() => setEditMode(false)}
                             className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
@@ -112,6 +118,7 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                     <p className="text-gray-800 w-1/5">{task.done ? "Terminé" : "En cours"}</p>
                     <div className="flex flex-row gap-2 ml-auto">
                         <button
+                            id="edit-task-button"
                             onClick={() => setEditMode(true)}
                             className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >

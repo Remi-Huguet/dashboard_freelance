@@ -58,14 +58,14 @@ export default function AppointmentsListEditable({ idProject }: AppointmentsList
       <h3 className="text-xl font-bold text-gray-800">Liste des rendez-vous</h3>
       <div className="flex flex-row gap-2">
         <select
-            id="filter-appointments"
+            id="filter-appointments-by-date-select"
             value={filterValue}
             onChange={(e) => setFilterValue(e.target.value)}
             className="p-2 border rounded text-gray-600 w-1/4"
         >
-            <option value="Tous">Tous les rendez-vous</option>
-            <option value="Passés">Rendez-vous passés</option>
-            <option value="À venir">Rendez-vous à venir</option>
+            <option id="filter-appointments-date-tous-option" value="Tous">Tous les rendez-vous</option>
+            <option id="filter-appointments-date-passes-option" value="Passés">Rendez-vous passés</option>
+            <option id="filter-appointments-date-a-venir-option" value="À venir">Rendez-vous à venir</option>
         </select>
       </div>
       <div className="flex flex-row">

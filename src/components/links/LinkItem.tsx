@@ -20,6 +20,7 @@ export default function LinkItem({ link }: LinkItemProps): JSX.Element {
         <p className="font-medium text-gray-800">{link.name}</p>
       </div>
       <a
+        id={`link-to-${link.url}`}
         href={link.url}
         target="_blank"
         rel="noopener noreferrer"

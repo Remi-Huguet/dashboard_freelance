@@ -45,6 +45,7 @@ export default function InvoiceForm({ idProject }: InvoiceFormProps): JSX.Elemen
           <h3 className="text-xl font-bold text-gray-800">Ajouter une facture</h3>
           {!openForm &&
             <button
+              id="create-invoice-button"
               type="button"
               onClick={() => setOpenForm(true)}
               className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
@@ -56,32 +57,35 @@ export default function InvoiceForm({ idProject }: InvoiceFormProps): JSX.Elemen
         {openForm && (
           <>
             <div className="w-full flex flex-col gap-1">
-                <p className="text-gray-800">Date de début *</p>
-                <input
-                    type="datetime-local"
-                    value={form.dateStart.toISOString().slice(0, 16)}
-                    onChange={(e) =>
-                      setForm({ ...form, dateStart: new Date(e.target.value) })
-                    }
-                    className="w-full p-2 border rounded text-gray-800"
-                    required
-                />
+              <p className="text-gray-800">Date de début *</p>
+              <input
+                id="create-invoice-date-start-input"
+                type="datetime-local"
+                value={form.dateStart.toISOString().slice(0, 16)}
+                onChange={(e) =>
+                  setForm({ ...form, dateStart: new Date(e.target.value) })
+                }
+                className="w-full p-2 border rounded text-gray-800"
+                required
+              />
             </div>
             <div className="w-full flex flex-col gap-1">
-                <p className="text-gray-800">Date de fin</p>
-                <input
-                    type="datetime-local"
-                    value={form.dateEnd ? form.dateEnd.toISOString().slice(0, 16) : "Non défini"}
-                    onChange={(e) =>
-                      setForm({ ...form, dateEnd: new Date(e.target.value) })
-                    }
-                    className="w-full p-2 border rounded text-gray-800"
-                />
+              <p className="text-gray-800">Date de fin</p>
+              <input
+                id="create-invoice-date-end-input"
+                type="datetime-local"
+                value={form.dateEnd ? form.dateEnd.toISOString().slice(0, 16) : "Non défini"}
+                onChange={(e) =>
+                  setForm({ ...form, dateEnd: new Date(e.target.value) })
+                }
+                className="w-full p-2 border rounded text-gray-800"
+              />
             </div>
             <div className="w-full flex flex-col gap-1">
                 <p className="text-gray-800">Tarif</p>
                 <div className="w-full flex flex-row gap-2">
                     <input
+                        id="create-invoice-princing-value-input"
                         type="number"
                         placeholder="Tarif"
                         value={form.pricingValue}
@@ -92,6 +96,7 @@ export default function InvoiceForm({ idProject }: InvoiceFormProps): JSX.Elemen
                         required
                     />
                     <select
+                        id="create-invoice-princing-type-select"
                         value={form.pricingType}
                         onChange={(e) =>
                             setForm({ ...form, pricingType: e.target.value })
@@ -99,23 +104,25 @@ export default function InvoiceForm({ idProject }: InvoiceFormProps): JSX.Elemen
                         className="w-full p-2 border rounded text-gray-800"
                         required
                     >
-                        <option value="" disabled>
+                        <option id={`create-invoice-null-option`} value="" disabled>
                             Sélectionner un type de tarif *
                         </option>
                         {pricingTypes.map((princingType) => 
-                            <option key={princingType} value={princingType}>{princingType}</option>)
+                            <option id={`create-invoice-${princingType}-option`} key={princingType} value={princingType}>{princingType}</option>)
                         }
                     </select>
                 </div>
             </div>
             <div className="flex gap-2">
               <button
+                id="create-invoice-submit-button"
                 type="submit"
                 className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
               >
                 Créer
               </button>
               <button
+                id="create-invoice-cancel-button"
                 type="button"
                 onClick={() => {
                   setForm({ dateStart: new Date(), dateEnd: new Date(), pricingValue: 0, pricingType: "", projectId: idProject });

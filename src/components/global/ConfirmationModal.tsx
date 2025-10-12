@@ -51,12 +51,14 @@ export default function ConfirmationModal({
                         <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
                         <div className="flex justify-center gap-4 mt-4">
                             <button
+                                id={`${name}-cancel-button`}
                                 onClick={() => {onCancel(); setIsOpen(false);}}
                                 className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
                             >
                                 {cancelText}
                             </button>
                             <button
+                                id={`${name}-confirm-button`}
                                 onClick={() => {onConfirm(); setIsOpen(false);}}
                                 className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
                             >

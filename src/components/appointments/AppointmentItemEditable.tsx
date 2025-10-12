@@ -39,6 +39,7 @@ export default function AppointmentItemEditable({ appointment }: AppointmentItem
                 >
                     <div className="w-1/5">
                         <input
+                            id="edit-appointment-title-input"
                             type="text"
                             value={form.title}
                             onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -49,11 +50,10 @@ export default function AppointmentItemEditable({ appointment }: AppointmentItem
                     </div>
                     <div className="w-1/5">
                         <input
+                            id="edit-appointment-date-input"
                             type="datetime-local"
                             value={form.date.toISOString().slice(0, 16)}
-                            onChange={(e) =>
-                              setForm({ ...form, date: new Date(e.target.value) })
-                            }
+                            onChange={(e) => setForm({ ...form, date: new Date(e.target.value) })}
                             className="p-2 border rounded text-gray-600 w-9/10"
                             required
                         />
@@ -67,6 +67,7 @@ export default function AppointmentItemEditable({ appointment }: AppointmentItem
                             Modifier
                         </button>
                         <button
+                            id="edit-appointment-cancel-button"
                             type="button"
                             onClick={() => setEditMode(false)}
                             className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"

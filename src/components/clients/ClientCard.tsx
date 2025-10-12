@@ -51,6 +51,7 @@ export default function ClientCard({ clientId }: ClientItemProps): JSX.Element {
                     <div className="flex flex-row gap-2 items-center">
                         <p className="text-gray-600">Email : {data.email}</p>
                         <button
+                            id="copy-email-client-button"
                             onClick={handleCopy}
                             className="text-gray-600 hover:text-gray-500">
                             <ContentCopyIcon />

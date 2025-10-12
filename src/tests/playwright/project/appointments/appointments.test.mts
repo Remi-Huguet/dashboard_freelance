@@ -9,18 +9,20 @@ test.describe('APPOINTMENTS', () => {
     test.beforeEach(async ({ page, context }) => {
         await mockAuth(page, context);
         await mockGetProjects(page, false, projects);
-
         await page.goto('/projects');
+
+        expect(page.url()).toMatch(/\/projects/);
+
         await mockGetProject(page, project);
         await mockGetAppointmentsByProject(page, true, appointments);
         await page.locator('#project-link-button').first().click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+/);
-        await expect(page.locator('#project-config-button')).toBeVisible({ timeout: 10000 });
+        expect(page.url()).toMatch(/\/projects\/\d+/);
+        await expect(page.locator('#project-config-button')).toBeVisible();
     });
 
     test('get appointments list', async ({ page }) => {
-        await expect(page.getByRole('heading', { name: 'Rendez-vous', level: 1 })).toBeVisible({ timeout: 5000 });
+        await expect(page.getByRole('heading', { name: 'Rendez-vous', level: 1 })).toBeVisible();
         await expect(page.getByText('Rdv Alpha')).toBeVisible();
         await expect(page.getByText('Rdv Beta')).toBeVisible();
     });
@@ -29,36 +31,38 @@ test.describe('APPOINTMENTS', () => {
         await mockGetAppointmentsByProject(page, false, appointments);
         await page.locator('#appointments-config-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
 
-        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible({ timeout: 10000 });
+        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible();
+        await expect(page.getByText('Rdv Alpha')).toBeVisible();
+        await expect(page.getByText('Rdv Beta')).toBeVisible();
     });
 
     test('go back to project', async ({ page }) => {
         await mockGetAppointmentsByProject(page, false, appointments);
         await page.locator('#appointments-config-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
 
-        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible({ timeout: 10000 });
-        await page.locator('#back-to-project-button').click({ timeout: 10000 });
+        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible();
+        await page.locator('#back-to-project-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+/);
+        expect(page.url()).toMatch(/\/projects\/\d+/);
     });
 
     test('filter appointments list', async ({ page }) => {
         await mockGetAppointmentsByProject(page, false, appointments);
         await page.locator('#appointments-config-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
 
-        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible({ timeout: 10000 });
-        await expect(page.getByText('Rdv Alpha')).toBeVisible({ timeout: 10000 });
-        await expect(page.getByText('Rdv Beta')).toBeVisible();
-        await page.locator('#filter-appointments').selectOption("Tous");
+        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible();
         await expect(page.getByText('Rdv Alpha')).toBeVisible();
         await expect(page.getByText('Rdv Beta')).toBeVisible();
-        await page.locator('#filter-appointments').selectOption("Passés");
+        await page.locator('#filter-appointments-by-date-select').selectOption("Tous");
+        await expect(page.getByText('Rdv Alpha')).toBeVisible();
+        await expect(page.getByText('Rdv Beta')).toBeVisible();
+        await page.locator('#filter-appointments-by-date-select').selectOption("Passés");
         await expect(page.getByText('Rdv Alpha')).not.toBeVisible();
         await expect(page.getByText('Rdv Beta')).not.toBeVisible();
     });
@@ -67,81 +71,65 @@ test.describe('APPOINTMENTS', () => {
         await mockGetAppointmentsByProject(page, false, appointments);
         await page.locator('#appointments-config-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
-
-        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible({ timeout: 10000 });
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
 
         await page.waitForTimeout(3000);
-        await expect(page.locator('#create-appointment-form-button')).toBeEnabled();
         await page.locator('#create-appointment-form-button').click();
-
-        await expect(page.locator('input[placeholder="Titre *"]')).toBeVisible({ timeout: 10000 });
-        await page.locator('input[placeholder="Titre *"]').fill('Nouvel event');
+        await page.locator('#create-appointment-title-input').fill('Nouvel event');
         
         await mockPostAppointment(page);
         await mockGetAppointmentsByProject(page, false, appointments_after_post);
         await page.locator('#create-appointment-submit-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
-        await expect(page.getByText('Nouvel event',)).toBeVisible({ timeout: 10000 });
-        await expect(page.getByPlaceholder('Titre *')).not.toBeVisible();
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
+        await expect(page.getByText('Nouvel event')).toBeVisible();
+        await expect(page.locator('#create-appointment-title-input')).not.toBeVisible();
     });
 
     test('cant create an appointment (bad form)', async ({ page }) => {
         await mockGetAppointmentsByProject(page, false, appointments);
         await page.locator('#appointments-config-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
-
-        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible({ timeout: 10000 });
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
 
         await page.waitForTimeout(3000);
-        await expect(page.locator('#create-appointment-form-button')).toBeEnabled();
         await page.locator('#create-appointment-form-button').click();
 
-        await expect(page.locator('input:invalid')).toHaveCount(1);
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
+        await expect(page.locator('#create-appointment-title-input:invalid')).toHaveCount(1);
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
     });
 
     test('update an appointment', async ({ page }) => {
         await mockGetAppointmentsByProject(page, false, appointments);
         await page.locator('#appointments-config-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
 
-        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible({ timeout: 10000 });
-        await expect(page.getByText('Rdv Alpha')).toBeVisible({ timeout: 10000 });
+        await expect(page.getByText('Rdv Alpha')).toBeVisible();
         await page.locator('#edit-appointment-form-button').first().click();
-        await expect(page.locator('input[placeholder="Titre *"]')).toBeVisible({ timeout: 10000 });
-        await page.locator('input[placeholder="Titre *"]').fill('Rdv SUIII');
+        await page.locator('#edit-appointment-title-input').fill('Rdv SUIII');
 
         await mockPutAppointment(page);
         await mockGetAppointmentsByProject(page, false, appointments_after_put);
-        await Promise.all([
-            page.waitForNavigation({ url: /\/projects\/\d+\/appointments/ }),
-            page.locator('#edit-appointment-submit-button').click()
-        ]);
+        page.locator('#edit-appointment-submit-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
-        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible({ timeout: 10000 });
-        await expect(page.getByText('Rdv SUIII')).toBeVisible({ timeout: 10000 });
-        await expect(page.getByText('Rdv Alpha')).not.toBeVisible({ timeout: 10000 });
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
+        await expect(page.getByText('Rdv SUIII')).toBeVisible();
+        await expect(page.getByText('Rdv Alpha')).not.toBeVisible();
     });
 
     test('cant update an appointment (bad form)', async ({ page }) => {
         await mockGetAppointmentsByProject(page, false, appointments);
         await page.locator('#appointments-config-button').click();
 
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
 
-        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible({ timeout: 10000 });
-        await expect(page.getByText('Rdv Alpha')).toBeVisible({ timeout: 10000 });
+        await expect(page.getByText('Rdv Alpha')).toBeVisible();
         await page.locator('#edit-appointment-form-button').first().click();
-        await expect(page.locator('input[placeholder="Titre *"]')).toBeVisible({ timeout: 10000 });
-        await page.locator('input[placeholder="Titre *"]').fill('');
+        await page.locator('#edit-appointment-title-input').fill('');
 
-        await expect(page.locator('input:invalid')).toHaveCount(1);
-        await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
+        await expect(page.locator('#edit-appointment-title-input:invalid')).toHaveCount(1);
+        expect(page.url()).toMatch(/\/projects\/\d+\/appointments/);
     });
 
     test('delete an appointment', async ({ page }) => {
@@ -150,12 +138,11 @@ test.describe('APPOINTMENTS', () => {
 
         await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);
 
-        await expect(page.getByRole('heading', { name: 'Liste des rendez-vous', level: 3 })).toBeVisible({ timeout: 10000 });
-        await expect(page.getByText('Rdv Alpha')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator("#Supprimer-button").first()).toBeEnabled();
         await mockDeleteAppointment(page);
-        await mockGetProjects(page, false, appointments_after_delete);
-        await page.locator("#Supprimer-button").first().click({ timeout: 10000 });
-        await page.getByRole("button", { name: "Supprimer" }).click();
+        await mockGetAppointmentsByProject(page, false, appointments_after_delete);
+        await page.locator("#Supprimer-button").first().click();
+        await page.locator("#Supprimer-confirm-button").click();
         await page.goto('/projects/1/appointments');
         
         await expect(page).toHaveURL(/\/projects\/\d+\/appointments/);

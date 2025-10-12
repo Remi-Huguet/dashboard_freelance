@@ -51,6 +51,7 @@ export default function ClientForm(): JSX.Element {
         {openForm && (
           <>
             <input
+              id="create-client-nom-input"
               type="text"
               placeholder="Nom *"
               value={form.name}
@@ -61,6 +62,7 @@ export default function ClientForm(): JSX.Element {
               required
             />
             <input
+              id="create-client-prenom-input"
               type="text"
               placeholder="Prénom *"
               value={form.surname}
@@ -71,6 +73,7 @@ export default function ClientForm(): JSX.Element {
               required
             />
             <input
+              id="create-client-email-input"
               type="email"
               placeholder="Email *"
               value={form.email}
@@ -81,6 +84,7 @@ export default function ClientForm(): JSX.Element {
               required
             />
             <input
+              id="create-client-company-input"
               type="text"
               placeholder="Entreprise"
               value={form.company}
@@ -98,6 +102,7 @@ export default function ClientForm(): JSX.Element {
                 Créer
               </button>
               <button
+                id="open-client-cancel-button"
                 type="button"
                 onClick={() => {
                   setForm({ name: "", surname: "", email: "", company: "" });

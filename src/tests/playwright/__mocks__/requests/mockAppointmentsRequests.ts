@@ -26,7 +26,7 @@ export const mockPostAppointment = async (page: Page) => {
         await route.fulfill({
             status: 200,
             contentType: 'application/json',
-            body: JSON.stringify(new_appointment),
+            json: JSON.stringify(new_appointment),
         });
     });
 }
@@ -36,7 +36,7 @@ export const mockPutAppointment = async (page: Page) => {
         await route.fulfill({
             status: 200,
             contentType: 'application/json',
-            body: JSON.stringify(updated_appointment),
+            json: JSON.stringify(updated_appointment),
         });
     });
 }

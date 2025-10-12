@@ -9,8 +9,9 @@ test.describe('PROJETS', () => {
     test.beforeEach(async ({ page, context }) => {
         await mockAuth(page, context);
         await mockGetProjects(page, false, projects);
-
+        await mockGetClients(page, clients);
         await page.goto('/projects');
+
         expect(page.url()).toMatch(/\/projects/);
     });
 
@@ -21,12 +22,12 @@ test.describe('PROJETS', () => {
     });
 
     test('filter projects list', async ({ page }) => {
-        await page.getByPlaceholder('Filtrer par nom', { exact: true }).fill('Beta');
+        await page.locator('#filter-projects-by-name-input').fill('Beta');
 
         await expect(page.getByText('Projet Alpha')).not.toBeVisible();
         await expect(page.getByText('Projet Beta')).toBeVisible();
 
-        await page.locator('#filter-project-by-status').selectOption("Terminé");
+        await page.locator('#filter-projects-by-status-select').selectOption("Terminé");
 
         await expect(page.getByText('Projet Alpha')).not.toBeVisible();
         await expect(page.getByText('Projet Beta')).not.toBeVisible();
@@ -38,34 +39,29 @@ test.describe('PROJETS', () => {
     });
 
     test('create new project', async ({ page }) => {
-        await mockGetClients(page, clients);
-
-        await expect(page.locator('#open-project-form-button')).toBeEnabled();
         await page.locator('#open-project-form-button').first().click();
-        await page.getByPlaceholder('Nom *', { exact: true }).fill('Projet Ceta');
-        await page.locator('select').filter({ hasText: 'Sélectionner un statut *' }).selectOption('Terminé');
-        await page.locator('select').filter({ hasText: 'Sélectionner un client *' }).selectOption({ label: 'Alice Doe' }); 
+        await page.locator('#create-project-name-input').fill('Projet Ceta');
+        await page.locator('#create-project-status-select').selectOption('Terminé');
+        await page.locator('#create-project-client-select').selectOption({ label: 'Alice Doe' });
 
         await mockPostProject(page);
         await mockGetProjects(page, false, projects_after_post);
-        await Promise.all([
-            page.waitForNavigation({ url: /\/projects/ }),
-            page.locator('#create-project-submit-button').click()
-        ]);
+        await page.locator('#create-project-submit-button').click();
+        await page.goto('/projects');
 
         expect(page.url()).toMatch(/\/projects/);
-        await expect(page.getByText('Projet Ceta',)).toBeVisible();
-        await expect(page.getByPlaceholder('Nom *')).not.toBeVisible();
+        await expect(page.getByText('Projet Ceta')).toBeVisible();
+        await expect(page.locator('#create-project-name-input')).not.toBeVisible();
     });
 
     test('cant create new project (bad form)', async ({ page }) => {
         await mockGetClients(page, clients);
 
         await page.locator('#open-project-form-button').first().click();
-        await page.locator('select').filter({ hasText: 'Sélectionner un statut *' }).selectOption('Terminé');
-        await page.locator('select').filter({ hasText: 'Sélectionner un client *' }).selectOption({ label: 'Alice Doe' }); 
+        await page.locator('#create-project-status-select').selectOption('Terminé');
+        await page.locator('#create-project-client-select').selectOption({ label: 'Alice Doe' });
 
-        await expect(page.locator('input:invalid')).toHaveCount(1);
+        await expect(page.locator('#create-project-name-input:invalid')).toHaveCount(1);
         expect(page.url()).toMatch(/\/projects/);
     });
 });

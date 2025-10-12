@@ -49,25 +49,27 @@ export default function TasksListEditable({ idProject }: TasksListEditableProps)
       <h3 className="text-xl font-bold text-gray-800">Liste des tâches</h3>
       <div className="flex flex-row gap-2">
         <input
-            type="text"
-            value={filterValue}
-            onChange={(e) => setFilterValue(e.target.value)}
-            className="p-2 border rounded text-gray-600 w-1/4"
-            placeholder="Filtrer par titre ou description"
+          id="filter-tasks-name-input"
+          type="text"
+          value={filterValue}
+          onChange={(e) => setFilterValue(e.target.value)}
+          className="p-2 border rounded text-gray-600 w-1/4"
+          placeholder="Filtrer par titre ou description"
         />
         <select
-            value={filterTypeValue}
-            onChange={(e) =>
-                setFilterTypeValue(e.target.value)
-            }
-            className="p-2 border rounded text-gray-600 w-1/4"
+          id="filter-tasks-status-select"
+          value={filterTypeValue}
+          onChange={(e) =>
+              setFilterTypeValue(e.target.value)
+          }
+          className="p-2 border rounded text-gray-600 w-1/4"
         >
-            <option value="">
-                Tous les types
-            </option>
-            {taskTypes.map((type) => 
-                <option key={type} value={type}>{type}</option>)
-            }
+          <option id={`fikter-tasks-type-null-option`} value="">
+              Tous les types
+          </option>
+          {taskTypes.map((type) => 
+              <option id={`fikter-tasks-type-${type}-option`} key={type} value={type}>{type}</option>)
+          }
         </select>
       </div>
       <div className="flex flex-row">

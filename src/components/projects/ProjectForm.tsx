@@ -63,6 +63,7 @@ export default function ProjectForm(): JSX.Element {
                 {openForm && (
                     <>
                         <input
+                            id="create-project-name-input"
                             type="text"
                             placeholder="Nom *"
                             value={formData.name}
@@ -73,6 +74,7 @@ export default function ProjectForm(): JSX.Element {
                             required
                         />
                         <select
+                            id="create-project-status-select"
                             value={formData.status}
                             onChange={(e) =>
                                 setFormData({ ...formData, status: e.target.value })
@@ -80,14 +82,15 @@ export default function ProjectForm(): JSX.Element {
                             className="w-full p-2 border rounded text-gray-800"
                             required
                         >
-                            <option value="" disabled>
+                            <option id={`create-project-status-null-option`} value="" disabled>
                                 Sélectionner un statut *
                             </option>
                             {projectStatus.map((status) => 
-                                <option key={status} value={status}>{status}</option>)
+                                <option id={`create-project-status-${status}-option`} key={status} value={status}>{status}</option>)
                             }
                         </select>
                         <select
+                            id="create-project-client-select"
                             value={formData.clientId}
                             onChange={(e) =>
                                 setFormData({ ...formData, clientId: e.target.value })
@@ -95,18 +98,18 @@ export default function ProjectForm(): JSX.Element {
                             className="w-full p-2 border rounded text-gray-800"
                             required
                         >
-                            <option value="" disabled>
+                            <option id={`create-project-clients-null-option`} value="" disabled>
                                 Sélectionner un client *
                             </option>
-                            {loading && <option>Loading...</option>}
-                            {!loading && isError && <option>Error loading clients</option>}
+                            {loading && <option disabled>Loading...</option>}
+                            {!loading && isError && <option disabled>Error loading clients</option>}
                             {!loading && isSuccess && data && data.length === 0 && (
-                                <option>No clients available</option>
+                                <option disabled>No clients available</option>
                             )}
                             {!loading && isSuccess && data && data.length > 0 && (
                                 <>
                                     {data.map((client: ClientData) => (
-                                        <option key={client.id} value={client.id}>
+                                        <option id={`create-project-clients-${client.id}-option`} key={client.id} value={client.id}>
                                             {client.name} {client.surname}
                                         </option>
                                     ))}
@@ -122,12 +125,13 @@ export default function ProjectForm(): JSX.Element {
                               Créer
                             </button>
                             <button
-                              type="button"
-                              onClick={() => {
-                                setFormData({ name: "", status: "", clientId: "" });
-                                setOpenForm(false);
-                              }}
-                              className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
+                                id="create-project-cancel-button"
+                                type="button"
+                                onClick={() => {
+                                    setFormData({ name: "", status: "", clientId: "" });
+                                    setOpenForm(false);
+                                }}
+                                className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
                             >
                               Annuler
                             </button>

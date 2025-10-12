@@ -61,6 +61,7 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                     >
                         <div className="w-1/5">
                             <input
+                                id="edit-project-name-input"
                                 type="text"
                                 value={form.name}
                                 onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -71,19 +72,20 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                         </div>
                         <div className="w-1/5">
                             <select
-                                id="select-status-project"
+                                id="edit-project-status-select"
                                 value={form.status}
                                 onChange={(e) => setForm({ ...form, status: e.target.value })}
                                 className="p-2 border rounded text-gray-600 w-9/10"
                                 required
                             >
                                 {projectStatus.map((status) => 
-                                    <option key={status} value={status}>{status}</option>)
+                                    <option id={`edit-project-status-${status}-option`} key={status} value={status}>{status}</option>)
                                 }
                             </select>
                         </div>
                         <div className="w-1/5">
                             <select
+                                id="edit-project-client-select"
                                 value={form.clientId}
                                 onChange={(e) =>
                                     setForm({ ...form, clientId: e.target.value })
@@ -91,15 +93,15 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                                 className="p-2 border rounded text-gray-600 w-9/10"
                                 required
                             >
-                                {loading && <option>Loading...</option>}
-                                {!loading && isError && <option>Error loading clients</option>}
+                                {loading && <option disabled>Loading...</option>}
+                                {!loading && isError && <option disabled>Error loading clients</option>}
                                 {!loading && isSuccess && data && data.length === 0 && (
-                                    <option>No clients available</option>
+                                    <option disabled>No clients available</option>
                                 )}
                                 {!loading && isSuccess && data && data.length > 0 && (
                                     <>
                                         {data.map((client: ClientData) => (
-                                            <option key={client.id} value={client.id}>
+                                            <option id={`create-project-clients-${client.id}-option`} key={client.id} value={client.id}>
                                                 {client.name} {client.surname}
                                             </option>
                                         ))}
@@ -116,6 +118,7 @@ export default function ProjectItemEditable({ project }: ProjectItemEditableProp
                                 Modifier
                             </button>
                             <button
+                                id="update-project-cancel-button"                                
                                 type="button"
                                 onClick={() => setEditMode(false)}
                                 className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"

@@ -42,7 +42,7 @@ export default function AppointmentForm({ idProject }: AppointmentFormProps): JS
             <button
               id="create-appointment-form-button"
               type="button"
-              onClick={() => {setOpenForm(true); console.log("CLICKED");}}
+              onClick={() => setOpenForm(true)}
               className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             >
               <AddIcon />
@@ -52,6 +52,7 @@ export default function AppointmentForm({ idProject }: AppointmentFormProps): JS
         {openForm && (
           <>
             <input
+              id="create-appointment-title-input"
               type="text"
               placeholder="Titre *"
               value={form.title}
@@ -64,13 +65,12 @@ export default function AppointmentForm({ idProject }: AppointmentFormProps): JS
             <div className="w-full flex flex-col gap-1">
               <p className="text-gray-800">Date du rendez-vous</p>
               <input
-                  type="datetime-local"
-                  value={form.date.toISOString().slice(0, 16)}
-                  onChange={(e) =>
-                    setForm({ ...form, date: new Date(e.target.value) })
-                  }
-                  className="w-full p-2 border rounded text-gray-800"
-                  required
+                id="create-appointment-date-input"
+                type="datetime-local"
+                value={form.date.toISOString().slice(0, 16)}
+                onChange={(e) => setForm({ ...form, date: new Date(e.target.value) })                  }
+                className="w-full p-2 border rounded text-gray-800"
+                required
               />
             </div>
             <div className="flex gap-2">
@@ -82,6 +82,7 @@ export default function AppointmentForm({ idProject }: AppointmentFormProps): JS
                 Créer
               </button>
               <button
+                id="create-appointment-cancel-button"
                 type="button"
                 onClick={() => {
                   setForm({ title: "", date: new Date(), projectId: idProject });

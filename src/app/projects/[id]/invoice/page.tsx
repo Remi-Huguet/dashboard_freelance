@@ -32,25 +32,26 @@ export default function Invoice({ params }: InvoiceProps): JSX.Element {
 
   return (
     <div className="h-full bg-gray-100 p-8">
-        <div className="mt-8 p-6 flex flex-col gap-4">
-            <button
-                onClick={() => window.location.href = `/projects/${id}`}
-                className="self-start bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition align-center flex items-center gap-2"
-            >
-                <NavigateBeforeIcon /> Retour au projet
-            </button>
-            <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mt-2 mb-2"><ReceiptIcon fontSize="large" />Facturation</h1>
-            <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
-              errorMessage="Erreur lors du chargement de la facture."
-              noDataMessage="" 
-              showSkeletonLoader={true} />
-            {!loading && isSuccess && data && 
-              <InvoiceItemEditable invoice={data} />
-            }
-            {!loading && isSuccess && !data && 
-              <InvoiceForm idProject={id} />
-            }
-        </div>
+      <div className="mt-8 p-6 flex flex-col gap-4">
+        <button
+          id="back-to-project-button"
+          onClick={() => window.location.href = `/projects/${id}`}
+          className="self-start bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition align-center flex items-center gap-2"
+        >
+          <NavigateBeforeIcon /> Retour au projet
+        </button>
+        <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2 mt-2 mb-2"><ReceiptIcon fontSize="large" />Facturation</h1>
+        <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
+          errorMessage="Erreur lors du chargement de la facture."
+          noDataMessage="" 
+          showSkeletonLoader={true} />
+        {!loading && isSuccess && data && 
+          <InvoiceItemEditable invoice={data} />
+        }
+        {!loading && isSuccess && !data && 
+          <InvoiceForm idProject={id} />
+        }
+      </div>
     </div>
   );
 }

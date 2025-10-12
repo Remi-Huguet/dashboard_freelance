@@ -46,6 +46,7 @@ export default function ProjectsList({ inProgress }: ProjectsListProps): JSX.Ele
       {!inProgress && 
         <div className="flex flex-row gap-2">
           <input
+            id="filter-projects-by-name-input"
             type="text"
             value={filterValue}
             onChange={(e) => setFilterValue(e.target.value)}
@@ -53,16 +54,16 @@ export default function ProjectsList({ inProgress }: ProjectsListProps): JSX.Ele
             placeholder="Filtrer par nom"
           />
           <select
-              id="filter-project-by-status"
+              id="filter-projects-by-status-select"
               value={filterStatusValue}
               onChange={(e) =>
                   setFilterStatusValue(e.target.value)
               }
               className="p-2 border rounded text-gray-600 w-1/4"
           >
-              <option value="">Tous les status</option>
+              <option id={`filter-projects-status-null-option`} value="">Tous les status</option>
               {projectStatus.map((statut) =>
-                <option key={statut} value={statut}>{statut}</option>
+                <option id={`filter-projects-status-${statut}-option`} key={statut} value={statut}>{statut}</option>
               )}
           </select>
         </div>

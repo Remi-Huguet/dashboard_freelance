@@ -45,6 +45,7 @@ export default function TaskForm({ idProject }: TaskFormProps): JSX.Element {
           <h3 className="text-xl font-bold text-gray-800">Ajouter une tâche</h3>
           {!openForm &&
             <button
+              id="create-task-button"
               type="button"
               onClick={() => setOpenForm(true)}
               className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
@@ -56,6 +57,7 @@ export default function TaskForm({ idProject }: TaskFormProps): JSX.Element {
         {openForm && (
           <>
             <input
+              id="create-task-title-input"
               type="text"
               placeholder="Titre *"
               value={form.title}
@@ -66,6 +68,7 @@ export default function TaskForm({ idProject }: TaskFormProps): JSX.Element {
               required
             />
             <input
+              id="create-task-description-input"
               type="text"
               placeholder="Description"
               value={form.desc}
@@ -75,28 +78,31 @@ export default function TaskForm({ idProject }: TaskFormProps): JSX.Element {
               className="w-full p-2 border rounded text-gray-800"
             />
             <select
-                value={form.type}
-                onChange={(e) =>
-                    setForm({ ...form, type: e.target.value })
-                }
-                className="w-full p-2 border rounded text-gray-800"
-                required
+              id="create-task-type-select"
+              value={form.type}
+              onChange={(e) =>
+                  setForm({ ...form, type: e.target.value })
+              }
+              className="w-full p-2 border rounded text-gray-800"
+              required
             >
-                <option value="" disabled>
-                    Sélectionner un type *
-                </option>
-                {taskTypes.map((type) => 
-                    <option key={type} value={type}>{type}</option>)
-                }
+              <option id={`create-task-type-null-option`} value="" disabled>
+                  Sélectionner un type *
+              </option>
+              {taskTypes.map((type) => 
+                  <option id={`create-task-type-${type}-option`} key={type} value={type}>{type}</option>)
+              }
             </select>
             <div className="flex gap-2">
               <button
+                id="create-task-submit-button"
                 type="submit"
                 className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
               >
                 Créer
               </button>
               <button
+                id="create-task-cancel-button"
                 type="button"
                 onClick={() => {
                   setForm({ title: "", desc: "", type: "", done: false, projectId: idProject });

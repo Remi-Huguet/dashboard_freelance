@@ -51,6 +51,7 @@ export default function InvoiceItemEditable({ invoice }: InvoiceItemEditableProp
                     >
                         <div className="w-1/5">
                             <input
+                                id="edit-invoice-date-start-input"
                                 type="datetime-local"
                                 value={new Date(form.dateStart).toISOString().slice(0, 16)}
                                 onChange={(e) =>
@@ -62,6 +63,7 @@ export default function InvoiceItemEditable({ invoice }: InvoiceItemEditableProp
                         </div>
                         <div className="w-1/5">
                             <input
+                                id="edit-invoice-date-end-input"
                                 type="datetime-local"
                                 value={form.dateEnd ? new Date(form.dateEnd).toISOString().slice(0, 16) : "Non défini"}
                                 onChange={(e) =>
@@ -72,6 +74,7 @@ export default function InvoiceItemEditable({ invoice }: InvoiceItemEditableProp
                         </div>
                         <div className="w-1/5">
                             <input
+                                id="edit-invoice-princing-value-input"
                                 type="number"
                                 placeholder="Tarif"
                                 value={form.pricingValue}
@@ -84,6 +87,7 @@ export default function InvoiceItemEditable({ invoice }: InvoiceItemEditableProp
                         </div>
                         <div className="w-1/5">
                         <select
+                            id="edit-invoice-princing-type-select"
                             value={form.pricingType}
                             onChange={(e) =>
                                 setForm({ ...form, pricingType: e.target.value })
@@ -91,19 +95,24 @@ export default function InvoiceItemEditable({ invoice }: InvoiceItemEditableProp
                             className="p-2 border rounded text-gray-800 w-9/10"
                             required
                         >
-                            <option value="" disabled>
+                            <option id={`edit-invoice-princing-type-null-option`} value="" disabled>
                                 Sélectionner un type de tarif *
                             </option>
                             {pricingTypes.map((princingType) => 
-                                <option key={princingType} value={princingType}>{princingType}</option>)
+                                <option id={`edit-invoice-princing-type-${princingType}-option`} key={princingType} value={princingType}>{princingType}</option>)
                             }
                         </select>
                         </div>
                         <div className="flex gap-2 ml-auto">
-                            <button type="submit" className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">
+                            <button
+                                id="edit-invoice-submit-button"
+                                type="submit" 
+                                className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+                            >
                                 Modifier
                             </button>
                             <button
+                                id="edit-invoice-cancel-button"
                                 type="button"
                                 onClick={() => setEditMode(false)}
                                 className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
@@ -120,6 +129,7 @@ export default function InvoiceItemEditable({ invoice }: InvoiceItemEditableProp
                         <p className="text-gray-800 w-1/5">{invoice.pricingType}</p>
                         <div className="flex flex-row gap-2 ml-auto">
                             <button
+                                id="edit-invoice-form-button"
                                 onClick={() => setEditMode(true)}
                                 className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                             >

@@ -5,6 +5,8 @@ test.describe('NAVIGATION', () => {
     test.beforeEach(async ({ page, context }) => {
         await mockAuth(page, context);
         await page.goto('/dashboard');
+
+        expect(page.url()).toMatch(/\/dashboard/);
     });
 
     test('go to dashboard via logo link', async ({ page }) => {
@@ -50,10 +52,7 @@ test.describe('NAVIGATION', () => {
     test('go to /auth via logout button', async ({ page }) => {
         await page.locator("#Déconnexion-button").click();
         await mockLogout(page);
-        await Promise.all([
-          page.waitForURL(/\/auth$/),
-          page.getByRole('button', { name: 'Déconnexion' }).click(),
-        ]);
+        await page.locator("#Déconnexion-confirm-button").click();
 
         await expect(page).toHaveURL(/\/auth$/);
     });

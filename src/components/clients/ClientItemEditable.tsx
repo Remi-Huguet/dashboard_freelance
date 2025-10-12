@@ -40,6 +40,7 @@ export default function ClientItemEditable({ client }: ClientItemEditableProps):
                 >
                     <div className="w-1/5">
                         <input
+                            id="edit-client-nom-input"
                             type="text"
                             value={form.name}
                             onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -50,6 +51,7 @@ export default function ClientItemEditable({ client }: ClientItemEditableProps):
                     </div>
                     <div className="w-1/5">
                         <input
+                            id="edit-client-prenom-input"
                             type="text"
                             value={form.surname}
                             onChange={(e) => setForm({ ...form, surname: e.target.value })}
@@ -60,6 +62,7 @@ export default function ClientItemEditable({ client }: ClientItemEditableProps):
                     </div>
                     <div className="w-1/5">
                         <input
+                            id="edit-client-email-input"
                             type="email"
                             value={form.email}
                             onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -70,6 +73,7 @@ export default function ClientItemEditable({ client }: ClientItemEditableProps):
                     </div>
                     <div className="w-1/5">
                         <input
+                            id="edit-client-company-input"
                             type="text"
                             value={form.company}
                             onChange={(e) => setForm({ ...form, company: e.target.value })}
@@ -86,6 +90,7 @@ export default function ClientItemEditable({ client }: ClientItemEditableProps):
                             Modifier
                         </button>
                         <button
+                            id="update-client-cancel-button"
                             type="button"
                             onClick={() => setEditMode(false)}
                             className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"

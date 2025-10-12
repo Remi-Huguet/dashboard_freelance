@@ -41,25 +41,26 @@ export default function Project({ params }: ProjectProps): JSX.Element {
     <div className="h-full bg-gray-100 p-8 w-full flex flex-row justify-center">
       <div className="mt-8 p-6 flex flex-col gap-4 w-1/3 justify-start border-r border-black">
         <LoadingData loading={loading} isSuccess={isSuccess} isError={isError} data={data} 
-            errorMessage="Erreur lors du chargement du projet."
-            noDataMessage="Pas de projet." 
-            showSkeletonLoader={true} skeletonLoaderHeight="70%" />
+          errorMessage="Erreur lors du chargement du projet."
+          noDataMessage="Pas de projet." 
+          showSkeletonLoader={true} skeletonLoaderHeight="70%" />
         {!loading && isSuccess && data && (
           <>
             <div className="flex flex-row gap-4 items-center mb-2">
               <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><SourceIcon fontSize="large" />Projet : {data.name}</h1>
               <button
-                  id="project-config-button"
-                  onClick={() => window.location.href = `/projects/${id}/config`}
-                  className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                id="project-config-button"
+                onClick={() => window.location.href = `/projects/${id}/config`}
+                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
                 >
-                  <SettingsIcon />
+                <SettingsIcon />
               </button>
               <button
-                  onClick={() => window.location.href = `/projects/${id}/invoice`}
-                  className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                id="invoice-config-button"
+                onClick={() => window.location.href = `/projects/${id}/invoice`}
+                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
                 >
-                  <ReceiptIcon />
+                <ReceiptIcon />
               </button>
             </div>
             <div className="flex flex-row gap-4">
@@ -77,11 +78,11 @@ export default function Project({ params }: ProjectProps): JSX.Element {
         <div className="flex flex-row gap-4 items-center mb-2">
           <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><CalendarMonthIcon fontSize="large" /> Rendez-vous</h1>
           <button
-              id="appointments-config-button"
-              onClick={() => window.location.href = `/projects/${id}/appointments`}
-              className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            id="appointments-config-button"
+            onClick={() => window.location.href = `/projects/${id}/appointments`}
+            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             >
-              <SettingsIcon />
+            <SettingsIcon />
           </button>
         </div>
         <Badge title="Période" content={getWeekBoundsFromDate(new Date())} />
@@ -93,10 +94,11 @@ export default function Project({ params }: ProjectProps): JSX.Element {
         <div className="flex flex-row gap-4 items-center mb-2">
           <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2"><ListAltIcon fontSize="large" /> Tâches du projet</h1>
           <button
-              onClick={() => window.location.href = `/projects/${id}/tasks`}
-              className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            id="tasks-config-button"
+            onClick={() => window.location.href = `/projects/${id}/tasks`}
+            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
             >
-              <SettingsIcon />
+            <SettingsIcon />
           </button>
         </div>
         <div className="flex flex-row flex-wrap gap-4">

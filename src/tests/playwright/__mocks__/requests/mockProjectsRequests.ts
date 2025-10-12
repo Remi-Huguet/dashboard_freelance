@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Page, Route } from "@playwright/test";
 import { newProject, updatedProject } from "../datas/mockProjects";
 
 export const mockGetProjects = async (page: Page, inProgress: boolean, projects: unknown[]) => {
@@ -22,12 +22,12 @@ export const mockPostProject = async (page: Page) => {
 }
 
 export const mockGetProject = async (page: Page, project: unknown) => {
-    await page.route(`**/api/projects/1`, async (route) => {
+    await page.route('**/api/projects/1', async (route) => {
         await route.fulfill({
             status: 200,
             contentType: 'application/json',
             body: JSON.stringify(project),
-        });
+        });   
     });
 }
 
@@ -36,7 +36,7 @@ export const mockPutProject = async (page: Page) => {
         await route.fulfill({
             status: 200,
             contentType: 'application/json',
-            body: JSON.stringify(updatedProject),
+            json: JSON.stringify(updatedProject),
         });
     });
 }

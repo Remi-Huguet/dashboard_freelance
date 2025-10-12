@@ -41,6 +41,7 @@ export default function ClientsListEditable(): JSX.Element {
       <h3 className="text-xl font-bold text-gray-800 ">Liste des clients</h3>
       <div className="flex flex-row gap-2">
         <input
+            id="filter-clients-by-name-input"
             type="text"
             value={filterValue}
             onChange={(e) => setFilterValue(e.target.value)}

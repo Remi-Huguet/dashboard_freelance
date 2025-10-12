@@ -44,11 +44,12 @@ export default function LinksListEditable({ idProject }: LinksListEditableProps)
       <h3 className="text-xl font-bold text-gray-800">Liste des liens</h3>
       <div className="flex flex-row gap-2">
         <input
-            type="text"
-            value={filterValue}
-            onChange={(e) => setFilterValue(e.target.value)}
-            className="p-2 border rounded text-gray-600 w-1/4"
-            placeholder="Filtrer par nom"
+          id="filter-links-by-name-input"
+          type="text"
+          value={filterValue}
+          onChange={(e) => setFilterValue(e.target.value)}
+          className="p-2 border rounded text-gray-600 w-1/4"
+          placeholder="Filtrer par nom"
         />
       </div>
       <div className="flex flex-row">

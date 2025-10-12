@@ -39,6 +39,7 @@ export default function LinkItemEditable({ link }: LinkItemEditableProps): JSX.E
                     >
                         <div className="w-1/5">
                             <input
+                                id="edit-link-name-input"
                                 type="text"
                                 value={form.name}
                                 onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -49,6 +50,7 @@ export default function LinkItemEditable({ link }: LinkItemEditableProps): JSX.E
                         </div>                 
                         <div className="w-1/5">
                             <input
+                                id="edit-link-url-input"
                                 type="text"
                                 value={form.url}
                                 onChange={(e) => setForm({ ...form, url: e.target.value })}
@@ -59,12 +61,14 @@ export default function LinkItemEditable({ link }: LinkItemEditableProps): JSX.E
                         </div>
                         <div className="flex gap-2 ml-auto">
                             <button
+                                id="edit-link-submit-button"
                                 type="submit"
                                 className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                             >
                                 Modifier
                             </button>
                             <button
+                                id="edit-link-cancel-button"
                                 type="button"
                                 onClick={() => setEditMode(false)}
                                 className="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600"
@@ -79,6 +83,7 @@ export default function LinkItemEditable({ link }: LinkItemEditableProps): JSX.E
                         <p className="text-gray-800 w-1/5">{link.url}</p>
                         <div className="flex flex-row gap-2 ml-auto">
                             <button
+                                id="edit-link-form-button"
                                 onClick={() => setEditMode(true)}
                                 className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                             >
