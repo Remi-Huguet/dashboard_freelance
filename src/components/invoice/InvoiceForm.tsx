@@ -45,7 +45,7 @@ export default function InvoiceForm({ idProject }: InvoiceFormProps): JSX.Elemen
           <h3 className="text-xl font-bold text-gray-800">Ajouter une facture</h3>
           {!openForm &&
             <button
-              id="create-invoice-button"
+              id="create-invoice-form-button"
               type="button"
               onClick={() => setOpenForm(true)}
               className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"

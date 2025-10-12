@@ -1,4 +1,4 @@
-import { Page, Route } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { newProject, updatedProject } from "../datas/mockProjects";
 
 export const mockGetProjects = async (page: Page, inProgress: boolean, projects: unknown[]) => {
