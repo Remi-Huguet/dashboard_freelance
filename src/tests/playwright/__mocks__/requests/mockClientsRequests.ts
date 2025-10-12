@@ -1,5 +1,15 @@
 import { Page } from "@playwright/test";
-import { newClient, updatedClient } from "../datas/mockClients";
+import { client, newClient, updatedClient } from "../datas/mockClients";
+
+export const mockGetClientById = async (page: Page) => {
+    await page.route(`**/api/clients/1`, async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            json: client,
+        });
+    });
+}
 
 export const mockGetClients = async (page: Page, clients: unknown[]) => {
     await page.route(`**/api/clients`, async (route) => {

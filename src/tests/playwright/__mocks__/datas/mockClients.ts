@@ -1,3 +1,11 @@
+export const client = {
+  "id": "1",
+  "name": "Alice",
+  "surname": "Doe",
+  "email": "alice@example.com",
+  "company": null
+}
+
 export const clients = [
   {
     "id": "1",

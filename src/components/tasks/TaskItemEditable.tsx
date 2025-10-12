@@ -118,7 +118,7 @@ export default function TaskItemEditable({ task }: TaskItemEditableProps): JSX.E
                     <p className="text-gray-800 w-1/5">{task.done ? "Terminé" : "En cours"}</p>
                     <div className="flex flex-row gap-2 ml-auto">
                         <button
-                            id="edit-task-button"
+                            id="edit-task-form-button"
                             onClick={() => setEditMode(true)}
                             className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                         >
