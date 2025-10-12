@@ -56,3 +56,4 @@ npm run test:playwright:ui
 - Improve the invoice management
 - Automatization system linked with github
 - Better interface for the tasks management
+- Use the OAuth Google connexion for something
