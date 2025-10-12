@@ -1,8 +1,8 @@
 # 1.0.0
 
-## Date : to_define
+## Date : 13/10/2025
 
-### Features added :
+## Features added :
 - Setup the dependencies needed (tailwind, prisma, etc)
 - Google OAuth authentification (api + interface)
 - Project management (api + interface)

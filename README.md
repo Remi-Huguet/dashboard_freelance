@@ -52,6 +52,7 @@ npm run test:playwright
 npm run test:playwright:ui
 ```
 
-# Future features
-- Upgrade the invoice system
+# Future features / improvements
+- Improve the invoice management
 - Automatization system linked with github
+- Better interface for the tasks management
