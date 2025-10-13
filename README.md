@@ -69,5 +69,5 @@ There are 3 branches
 
 # Commit convention
 I used a basic commit convention to write them :
-- Commits start with [ADD] [FIX] [RM] to indicate what it contains
+- Commits start with [ADD] [FIX] [RM] [REALEASE] to indicate what it contains
 - Then it describes in general what changes where made
