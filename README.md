@@ -1,5 +1,5 @@
 # Dashboard Freelance 
-A web app to manage my freelance projects, in Next.Js using TypeScript and Prisma.
+A web app to manage my freelance projects, in Next.Js using TypeScript, TailwindCss and Prisma.
 
 # Description  
 This project is a platform where users can:  
@@ -64,10 +64,10 @@ Maybe I won't continue working on this project, but here are some ideas to impro
 # Branches
 There are 3 branches
 - dev : Where I develop the app
-- prod : Got changes when a version or a hotfix is maked, evrything here is stable and completely tested
+- prod : Got changes when a version or a hotfix is maked, everything here is stable and completly tested
 - main : contain the same code of the prod
 
 # Commit convention
 I used a basic commit convention to write them :
-- Commits start with [ADD] [FIX] [RM] [REALEASE] to indicate what it contains
+- Commits start with [ADD] [FIX] [RM] [RELEASE] to indicate what it contains
 - Then it describes in general what changes where made
