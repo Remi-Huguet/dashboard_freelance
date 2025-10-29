@@ -1,5 +1,11 @@
 import prisma from "@/lib/prisma";
 
+interface AppointmentBody {
+  title: string;
+  date: Date;
+  projectId: string;
+}
+
 export async function GET(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
     const { searchParams } = new URL(req.url);
@@ -21,7 +27,7 @@ export async function GET(req: Request, context: { params: Promise<{ id: string 
       endOfWeek.setDate(startOfWeek.getDate() + 6);
       endOfWeek.setHours(23, 59, 59, 999);
 
-      appointments = appointments.filter((a) => {
+      appointments = appointments.filter((a: AppointmentBody) => {
         const date = new Date(a.date);
         return date >= startOfWeek && date <= endOfWeek;
       });

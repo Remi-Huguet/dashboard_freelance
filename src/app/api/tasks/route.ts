@@ -47,7 +47,7 @@ export async function GET(req: Request): Promise<Response> {
     let tasks = await prisma.task.findMany();
 
     if (taskType) {
-        tasks = tasks.filter((task) => task.type === taskType)
+        tasks = tasks.filter((task: TaskBody) => task.type === taskType)
     }
 
     return new Response(JSON.stringify(tasks), { status: 200 });

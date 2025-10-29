@@ -43,10 +43,10 @@ export async function GET(req: Request): Promise<Response> {
     let projects = await prisma.project.findMany();
 
     if (inProgress) {
-      projects = projects.filter((p) => p.status === "En cours")
+      projects = projects.filter((p: ProjectBody) => p.status === "En cours")
     }
 
-    projects.sort((a, b) => a.name.localeCompare(b.name));
+    projects.sort((a: ProjectBody, b: ProjectBody) => a.name.localeCompare(b.name));
     return new Response(JSON.stringify(projects), { status: 200 });
   } catch (error: unknown) {
     return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });

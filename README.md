@@ -31,16 +31,30 @@ PLAYWRIGHT_ENABLE_TEST_LOGIN=true
 PLAYWRIGHT_TEST_URL=http://localhost:3001
 ```
 
-## Setup the database
+## Setup and run locally
+
+### Setup the database
 !! Start your postgresql server !!
 ```bash
 npx prisma generate
 npx prisma migrate dev
 ```
 
-## Run
+### Run
 ```bash
 npm run dev
+```
+
+## Setup and run with Docker
+
+### Build and Run
+```bash
+docker compose run web npx prisma migrate deploy
+```
+
+### Run
+```bash
+docker compose up
 ```
 
 ## URL

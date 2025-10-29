@@ -1,5 +1,13 @@
 import prisma from "@/lib/prisma";
 
+interface TaskBody {
+  title: string,
+  desc: string,
+  type: string,
+  done: boolean,
+  projectId: string
+}
+
 export async function GET(req: Request, context: { params: Promise<{ id: string }> }): Promise<Response> {
   try {
     const { searchParams } = new URL(req.url);
@@ -12,7 +20,7 @@ export async function GET(req: Request, context: { params: Promise<{ id: string 
     });
 
     if (taskType) {
-        tasks = tasks.filter((task) => task.type === taskType)
+        tasks = tasks.filter((task: TaskBody) => task.type === taskType)
     }
 
     return new Response(JSON.stringify(tasks), { status: 200 });

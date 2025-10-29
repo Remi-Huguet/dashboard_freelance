@@ -29,7 +29,7 @@ export async function POST(req: Request): Promise<Response> {
 export async function GET(req: Request): Promise<Response> {
   try {
     const clients = await prisma.client.findMany();
-    clients.sort((a, b) => a.name.localeCompare(b.name));
+    clients.sort((a: ClientBody, b: ClientBody) => a.name.localeCompare(b.name));
     return new Response(JSON.stringify(clients), { status: 200 });
   } catch (error: unknown) {
     return new Response(JSON.stringify({ error: (error instanceof Error) ? error.message : "Une erreur est survenue" }), { status: 500 });

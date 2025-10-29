@@ -1,3 +1,11 @@
+# 1.1.0
+
+## Date : 29/10/2025
+
+## Features added :
+- Projects can be start with Docker
+- Lint fixes for the backend and frontend
+
 # 1.0.0
 
 ## Date : 13/10/2025

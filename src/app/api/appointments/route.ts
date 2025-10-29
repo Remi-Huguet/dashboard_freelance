@@ -53,7 +53,7 @@ export async function GET(req: Request): Promise<Response> {
       endOfWeek.setDate(startOfWeek.getDate() + 6);
       endOfWeek.setHours(23, 59, 59, 999);
 
-      appointments = appointments.filter((a) => {
+      appointments = appointments.filter((a: AppointmentBody) => {
         const date = new Date(a.date);
         return date >= startOfWeek && date <= endOfWeek;
       });
